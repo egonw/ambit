@@ -1,0 +1,99 @@
+ -----
+ AMBIT libraries
+ -----
+ Nina Jeliazkova
+ -----
+ 2014/09/15
+ -----
+
+AMBIT source code 
+
+	There are two top level Maven projects, AMBIT {{modules}} and AMBIT {{applications}}, consisting of several sub-modules.
+	 
+	The first (AMBIT modules) is used to organize and build libraries, while the second (AMBIT applications) uses these modules as dependencies to build the end user applications and web services.
+
+	AMBIT is implemented in Java, uses a MySQL database as backend, and relies on {{{http://cdk.sf.net}The Chemistry Development Kit}} for cheminformatics functionality. 
+	
+	The source code is available in a Subversion repository at the {{{https://ambit.svn.sourceforge.net/svnroot/ambit/trunk/ambit2-all}SourceForge site}}. 
+	
+	
+AMBIT Modules {modules} 
+	
+	{{{https://ambit.svn.sourceforge.net/svnroot/ambit/trunk/ambit2-all}/ambit2-all }} (source code at Sourceforge.net SVN)
+
+	{{{https://sourceforge.net/projects/ambit/files/Ambit2/AMBIT_modules/}Downloads at Sourceforge.net}}
+	
+    {{{http://ambit.uni-plovdiv.bg:8083/nexus/#nexus-search;gav~ambit~~~jar~}Maven artifacts search}}
+	
+	More details about ({{{./AMBIT2-LIBS/apidocs}javadoc}}, code examples) at {{{https://github.com/ideaconsult/examples-ambit}GitHub}}. 
+
+AMBIT Applications {applications} 
+
+	{{{https://ambit.svn.sourceforge.net/svnroot/ambit/trunk/ambit2-all/ambit2-apps}/ambit2-all/ambit2-apps}} (source code at Sourceforge.net SVN)
+	
+	{{{https://sourceforge.net/projects/ambit/files/Ambit2/AMBIT%20REST%20web%20services/services/}Downloads at Sourceforge.net}}
+	
+	{{{http://ambit.uni-plovdiv.bg:8083/nexus/#nexus-search;gav~ambit~~~war~}Maven artifacts search}}
+	
+
+Toxtree dependencies
+ 	
+	The {{{http://toxtree.sf.net}Toxtree}} source code uses some of the {{{https://ambit.svn.sourceforge.net/svnroot/ambit/trunk/ambit2-all}  AMBIT modules (ambit2-all)}} as dependencies.
+	
+	Toxtree code itself is a dependency of the AMBIT {{applications}}, such as  {{{./install_ambitrest.html}AMBIT REST web services}}.
+	
+
+AMBIT modules license
+
+	[LGPL] {{{http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt}http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt}}
+
+	
+{{{http://maven.apache.org/}Maven}} artifacts 
+   		
+   		Release 
+   		
++---------------------------------    
+<dependency>
+  <groupId>ambit</groupId>
+  <artifactId>ambit2-*</artifactId>
+  <version>2.7.2</version>
+</dependency>
++---------------------------------
+
+		{{{http://ambit.uni-plovdiv.bg:8083/nexus/content/repositories/releases/ambit/}Release repository}} 
+		
++---------------------------------
+   <repository>
+        <id>ambit-plovdiv-releases</id>
+        <url>http://ambit.uni-plovdiv.bg:8083/nexus/content/repositories/releases</url>
+    </repository>
++--------------------------------- 	
+
+   		Snapshots
+   		
++---------------------------------    
+<dependency>
+  <groupId>ambit</groupId>
+  <artifactId>ambit2-*</artifactId>
+  <version>2.7.3-SNAPSHOT</version>
+</dependency>
++---------------------------------   
+
+		{{{http://ambit.uni-plovdiv.bg:8083/nexus/content/repositories/releases/ambit/}Snapshots Repository}}
+		
++---------------------------------
+   <repository>
+        <id>ambit-plovdiv-releases</id>
+        <url>http://ambit.uni-plovdiv.bg:8083/nexus/content/repositories/snapshots</url>
+    </repository>
++--------------------------------- 	
+
+
+How to use:
+
+ [Example: tautomers] {{{https://github.com/ideaconsult/examples-ambit/tree/master/tautomers-example}Examples how to use ambit2-tautomer package}}
+ 
+ [Example: SMIRKS] {{{https://github.com/ideaconsult/examples-ambit/tree/master/smirks-example}Examples how to use AMBIT SMIRKS implementation}}
+  
+ [Example: applicability domain] {{{https://github.com/ideaconsult/examples-ambit/tree/master/appdomain-example}Examples how to use applicability domain methods in AMBIT}}
+	

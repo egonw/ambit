@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+  <ausers user_name="guest" email="guest" title="&quot;&quot;" firstname="&quot;&quot;" lastname="Default guest user" address="&quot;&quot;" country="&quot;&quot;" homepage="http://ambit.acad.bg" institute="&quot;&quot;" keywords="guest" reviewer="0"/>
+  <catalog_references idreference="1" title="CAS Registry Number" url="http://www.cas.org"/>
+  <catalog_references idreference="2" title="IUPAC name" url="http://www.iupac.org"/>
+
+	
+  <chemicals/>
+  <bundle_substance/>
+  <bundle_chemicals/>
+  <bundle_endpoints/>
+  <bundle_substance_protocolapplication/>
+  <bundle_substance_experiment/>
+  <bundle idbundle="1" name="test" user_name="guest" idreference="2" created="2014-11-12 07:45:56.0" licenseURI="http://creativecommons.org/publicdomain/zero/1.0/" rightsHolder="xyz" maintainer="ABC" stars="8"/>
+  <structure/>
+  <properties/>
+  <template/>
+  <template_def/>
+  <tuples/>
+  <property_string/>
+  <property_values/>
+  <property_tuples/>
+  <src_dataset/>
+  <struc_dataset/>
+  <fp1024/>
+</dataset>

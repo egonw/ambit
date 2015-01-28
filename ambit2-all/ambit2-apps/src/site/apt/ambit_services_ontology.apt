@@ -1,0 +1,33 @@
+ -----
+ Ontology service
+ -----
+ jeliazkova.nina@gmail.com
+ -----
+ Sep 2014
+
+Ontology service
+
+ {{GET}} {{POST}} {{PUT}} {{DELETE}}
+
+*{GET}
+~~~~~~~
+ * Get the representation of chemical compound
+   
+------
+curl https://apps.ideaconsult.net/ambit2/compound/100
+------   
+   
+*{POST}
+~~~~~~~~~~
+
+ * Create a new chemical compound
+	
+*{PUT}
+~~~~~~~~~~
+
+ * Update the representation of chemical compound
+   
+*{DELETE}
+~~~~~~~~~~
+
+ * Remove chemical compound

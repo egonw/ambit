@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+  <ausers user_name="guest" email="guest" title="&quot;&quot;" firstname="&quot;&quot;" lastname="Default guest user" address="&quot;&quot;" country="&quot;&quot;" homepage="http://ambit.acad.bg" institute="&quot;&quot;" keywords="guest" reviewer="0"/>
+  <catalog_references idreference="1" title="CAS Registry Number" url="http://www.cas.org"/>
+  <catalog_references idreference="2" title="IUPAC name" url="http://www.iupac.org"/>
+
+  <chemicals idchemical="4891"/>
+  <chemicals idchemical="9083"/>
+  <structure idstructure="105095" idchemical="4891" structure="ZgYAAHicjVRdb9owFH33r/DDHkDFxtcfiS3WSChkBakN28K2h6pCEc1WpBa2Qjf13+86FC8tZY2V
+KOfce+7xje1ks75ePtzRbbW9L6+rxeMt3Tzcfi+3FaG0WCxn1Y/lQmhpRCyciOSIECoFBUupaFz/
+hnOOfpVCCKynUnHpnPVx4CCN9khwzAqal3WlIruYjES0Q2CEauhSupuE7FyUj9XZ2OzRoU7ySDzL
+HtEp7lr5GS5b+UXctPKLeewX6k0/x0XQ/ccPBFdt/AB41MpPctfKT/v9beFnuGnlF3Hbys9yOOY3
+beoc10/n78CvaOik4EY59er5O+IH3Jmj8+78xNOJNUIe6gzqMIwzwa4IkQ4EkQkEURQIojgQRDYQ
+RC4Qh2diTxABBAK4u4FICqEDRBA6QAShA0QQOkAEoQNE/lcgA3ENIvcdXFCajs/qjA/42+cY+EyW
+j0hC309GCdHWAfEkHRYJAeWYtczWkby8qxKyOfqz8posTYgUhikrmKojFx8SkoIeKzHVBc/LOjhZ
+/a5W2/X9stokZFSc92ZFOqwzZ1mefR7OstG8uJicZ9jDZV6eXPH02ZgWndNp19+XU3b1auH800N5
+u9w+JuR8/eeFYt+TdHmJXb3MfkuIws9AK6lpR+J3aJ08kU5xjaHuC/Xky8dhOs/yt1amUbFKbyYJ
+qR+n0G8uTn8BTDLFNDMsYjGzzDEQDICBZKAYaAaWgeuA6UHUhXjQv8EEvkkPxqrXGffqRA/i7qD/
+a3AC/Z+4w+QdDvIXnuA4fQ==" format="SDF" updated="2009-01-09 15:51:05.0" user_name="guest" type_structure="NA"/>
+  <structure idstructure="109287" idchemical="9083" structure="OQMAAHicjVHdSsMwFL7PU+TCC4Wd7iRp2gW0MNpqC66om/NCZIxa1sLWSZ3C3t40HbUOOxZC8/0l
+J6fhAwHvxSbb5fs1sAg+9lW1XWeE0mlazLJVkaLNJbqo0OEB0bprJnbm71BK0TlHRFIzZtlSCg2A
+W4iC1RpqhEh92mwmjeZKrM8BZqHgoi/HLM6EbFyh7N7cQWt2uA725ODEeUk3d+b94Lx+tczNtyYa
+iZZoZBupJhrJ1tHIaYljMrwl7sGZUBomAfHodRx4ROFIkJr446lHHETgI+BGSZabzCO85+XrROhr
+HxUoxcAxyuTWI74TqcSwuPzOyt22KrJPj1hGuguT8Gk8C4PFdBLfh7qmn7I0fS2jt5T5/0YWj1/L
+dbHbe2SeVfuoWOVHsb9FO/qL7k9azOb2kRM/P4z9RZicbq+TL/089ohZbtjQFBumDCQIsMEF51Je
+8WGuycCNBgx4pH/qhR7kB9EWqvs=" format="SDF" updated="2009-01-09 15:51:10.0" user_name="guest" type_structure="NA"/>
+  <properties/>
+  <template/>
+  <template_def/>
+  <tuples/>
+  <property_string/>
+  <property_values/>
+  <property_tuples/>
+  <src_dataset/>
+  <struc_dataset/>
+  <fp1024/>
+</dataset>

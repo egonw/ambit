@@ -1,0 +1,15 @@
+ -----
+ OWL Web Ontology Language
+ -----
+ Background
+ -----
+ Oct 2010
+
+OWL Web Ontology Language
+
+   {{{http://www.w3.org/TR/owl-features/}OWL}} is built on top of RDF, and while it imposes restrictions on what is allowed to represent, compared to RDF, this is for a good reason. OWL, and especially its subsets OWL-Lite and OWL-DL allows automatic machine reasoning.  
+	
+   In OWL, there are <<Object properties>> and <<Data properties>> (<<owl:Property>>, which is a subclass of  <<rdf:Property>>). An Object property specifies a relation between Instances, while a Data property specifies a relation between an Instance and a simple data value (string, integer, etc.).  Properties can not be used as Classes and vice versa.
+   
+   {{{http://wonderweb.semanticweb.org/owl/rdf.shtml}Rules of Thumb for OWL DL Ontologies}}
+     

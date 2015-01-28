@@ -1,0 +1,23 @@
+ -----
+ (Q)MRF Editor and XML schema
+ -----
+ Nina Jeliazkova
+ -----
+ 2013/02/26
+ -----
+
+{(Q)MRF Editor 2.0}
+
+	The QSAR Model Reporting Format Editor is moved to its own site {{{http://qmrf.sf.net}http://qmrf.sf.net}}
+	
+	QMRF DTD schema {{{http://qmrf.sf.net/qmrf.dtd}download}}.
+
+{(Q)MRF Editor 0.05} 
+
+[./images/thumb_qmrfeditor.png] (Q)MRF Editor screenshot
+
+	{{{http://ambit.sourceforge.net/qmrf/jws/qmrfeditor.jnlp}Launch (Q)MRF Editor}}
+ 
+{(Q)MRF XML schema} 
+
+    QMRF DTD schema {{{http://ambit.sourceforge.net/qmrf/qmrf.dtd}download}}.

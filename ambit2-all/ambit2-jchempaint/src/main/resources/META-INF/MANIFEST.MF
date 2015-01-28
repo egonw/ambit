@@ -1,0 +1,13 @@
+Manifest-version: 1.0
+Package: ambit2.jchempaint
+
+Name: ambit2/jchempaint/
+Specification-Title: JChemPaint wrapper
+Specification-Version: ${project.version}
+Specification-Vendor: Ideaconsult LTD
+Implementation-Title: ambit2.jchempaint
+Implementation-Version: ${project.version}-${buildNumber}-${timestamp}
+Implementation-Vendor: Ideaconsult Ltd.
+Package-Title: ambit2.jchempaint
+Package-Version: ${project.version}
+Package-Vendor: Ideaconsult Ltd.

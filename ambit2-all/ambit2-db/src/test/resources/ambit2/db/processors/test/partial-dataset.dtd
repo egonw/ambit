@@ -1,0 +1,240 @@
+<!ELEMENT dataset (
+    users*,
+    substance_experiment*,
+    substance_protocolapplication*,
+    catalog_references*,
+    chemicals*,
+    structure*,
+    substance*,
+    properties*,
+    template*,
+    template_def*,
+    dictionary*,
+    bundle*,
+    src_dataset*,
+    tuples*,
+    struc_dataset*,
+    fp1024*,
+    sk1024*)>
+
+<!ELEMENT users EMPTY>
+<!ATTLIST users
+    user_name CDATA #REQUIRED
+    email CDATA #REQUIRED
+    title CDATA #REQUIRED
+    firstname CDATA #REQUIRED
+    lastname CDATA #REQUIRED
+    address CDATA #REQUIRED
+    country CDATA #REQUIRED
+    homepage CDATA #REQUIRED
+    institute CDATA #REQUIRED
+    keywords CDATA #IMPLIED
+    reviewer CDATA #REQUIRED
+>
+
+<!ELEMENT substance_experiment EMPTY>
+<!ATTLIST substance_experiment
+    idresult CDATA #REQUIRED
+    document_prefix CDATA #REQUIRED
+    document_uuid CDATA #REQUIRED
+    topcategory CDATA #IMPLIED
+    endpointcategory CDATA #IMPLIED
+    endpointhash CDATA #IMPLIED
+    endpoint CDATA #IMPLIED
+    conditions CDATA #IMPLIED
+    unit CDATA #IMPLIED
+    loQualifier CDATA #IMPLIED
+    loValue CDATA #IMPLIED
+    upQualifier CDATA #IMPLIED
+    upValue CDATA #IMPLIED
+    textValue CDATA #IMPLIED
+    errQualifier CDATA #IMPLIED
+    err CDATA #IMPLIED
+    substance_prefix CDATA #IMPLIED
+    substance_uuid CDATA #IMPLIED
+>
+
+<!ELEMENT substance_protocolapplication EMPTY>
+<!ATTLIST substance_protocolapplication
+    document_prefix CDATA #REQUIRED
+    document_uuid CDATA #REQUIRED
+    topcategory CDATA #IMPLIED
+    endpointcategory CDATA #IMPLIED
+    endpoint CDATA #IMPLIED
+    guidance CDATA #IMPLIED
+    substance_prefix CDATA #IMPLIED
+    substance_uuid CDATA #IMPLIED
+    params CDATA #REQUIRED
+    interpretation_result CDATA #IMPLIED
+    interpretation_criteria CDATA #IMPLIED
+    reference CDATA #IMPLIED
+    reference_year CDATA #IMPLIED
+    reference_owner CDATA #IMPLIED
+    updated CDATA #REQUIRED
+    reliability CDATA #IMPLIED
+    isRobustStudy CDATA #IMPLIED
+    isUsedforClassification CDATA #IMPLIED
+    isUsedforMSDS CDATA #IMPLIED
+    purposeFlag CDATA #IMPLIED
+    studyResultType CDATA #IMPLIED
+>
+
+<!ELEMENT catalog_references EMPTY>
+<!ATTLIST catalog_references
+    idreference CDATA #REQUIRED
+    title CDATA #REQUIRED
+    url CDATA #REQUIRED
+    type CDATA #REQUIRED
+>
+
+<!ELEMENT chemicals EMPTY>
+<!ATTLIST chemicals
+    idchemical CDATA #REQUIRED
+    inchi CDATA #IMPLIED
+    smiles CDATA #IMPLIED
+    formula CDATA #IMPLIED
+    inchikey CDATA #IMPLIED
+    label CDATA #REQUIRED
+    lastmodified CDATA #REQUIRED
+>
+
+<!ELEMENT structure EMPTY>
+<!ATTLIST structure
+    idstructure CDATA #REQUIRED
+    idchemical CDATA #REQUIRED
+    structure CDATA #REQUIRED
+    format CDATA #REQUIRED
+    user_name CDATA #IMPLIED
+    type_structure CDATA #REQUIRED
+    atomproperties CDATA #IMPLIED
+>
+
+<!ELEMENT substance EMPTY>
+<!ATTLIST substance
+    idsubstance CDATA #REQUIRED
+    prefix CDATA #IMPLIED
+    uuid CDATA #IMPLIED
+    documentType CDATA #IMPLIED
+    format CDATA #IMPLIED
+    name CDATA #IMPLIED
+    publicname CDATA #IMPLIED
+    content CDATA #IMPLIED
+    substanceType CDATA #IMPLIED
+    rs_prefix CDATA #IMPLIED
+    rs_uuid CDATA #IMPLIED
+    owner_prefix CDATA #IMPLIED
+    owner_uuid CDATA #IMPLIED
+    owner_name CDATA #IMPLIED
+>
+
+<!ELEMENT properties EMPTY>
+<!ATTLIST properties
+    idproperty CDATA #REQUIRED
+    idreference CDATA #REQUIRED
+    name CDATA #REQUIRED
+    units CDATA #REQUIRED
+    comments CDATA #REQUIRED
+    islocal CDATA #REQUIRED
+    ptype CDATA #IMPLIED
+>
+
+<!ELEMENT template EMPTY>
+<!ATTLIST template
+    idtemplate CDATA #REQUIRED
+    name CDATA #IMPLIED
+>
+
+<!ELEMENT template_def EMPTY>
+<!ATTLIST template_def
+    idtemplate CDATA #REQUIRED
+    idproperty CDATA #REQUIRED
+>
+
+<!ELEMENT dictionary EMPTY>
+<!ATTLIST dictionary
+    idsubject CDATA #REQUIRED
+    relationship CDATA #REQUIRED
+    idobject CDATA #REQUIRED
+>
+
+<!ELEMENT bundle EMPTY>
+<!ATTLIST bundle
+    idbundle CDATA #REQUIRED
+    name CDATA #REQUIRED
+    user_name CDATA #IMPLIED
+    idreference CDATA #REQUIRED
+    created CDATA #REQUIRED
+    licenseURI CDATA #REQUIRED
+    rightsHolder CDATA #REQUIRED
+    maintainer CDATA #REQUIRED
+    stars CDATA #REQUIRED
+>
+
+<!ELEMENT src_dataset EMPTY>
+<!ATTLIST src_dataset
+    id_srcdataset CDATA #REQUIRED
+    name CDATA #REQUIRED
+    user_name CDATA #IMPLIED
+    idreference CDATA #REQUIRED
+>
+
+<!ELEMENT tuples EMPTY>
+<!ATTLIST tuples
+    idtuple CDATA #REQUIRED
+    id_srcdataset CDATA #REQUIRED
+>
+
+<!ELEMENT struc_dataset EMPTY>
+<!ATTLIST struc_dataset
+    idstructure CDATA #REQUIRED
+    id_srcdataset CDATA #REQUIRED
+>
+
+<!ELEMENT fp1024 EMPTY>
+<!ATTLIST fp1024
+    idchemical CDATA #REQUIRED
+    fp1 CDATA #REQUIRED
+    fp2 CDATA #REQUIRED
+    fp3 CDATA #REQUIRED
+    fp4 CDATA #REQUIRED
+    fp5 CDATA #REQUIRED
+    fp6 CDATA #REQUIRED
+    fp7 CDATA #REQUIRED
+    fp8 CDATA #REQUIRED
+    fp9 CDATA #REQUIRED
+    fp10 CDATA #REQUIRED
+    fp11 CDATA #REQUIRED
+    fp12 CDATA #REQUIRED
+    fp13 CDATA #REQUIRED
+    fp14 CDATA #REQUIRED
+    fp15 CDATA #REQUIRED
+    fp16 CDATA #REQUIRED
+    time CDATA #IMPLIED
+    bc CDATA #REQUIRED
+    status CDATA #REQUIRED
+>
+
+<!ELEMENT sk1024 EMPTY>
+<!ATTLIST sk1024
+    idchemical CDATA #REQUIRED
+    fp1 CDATA #REQUIRED
+    fp2 CDATA #REQUIRED
+    fp3 CDATA #REQUIRED
+    fp4 CDATA #REQUIRED
+    fp5 CDATA #REQUIRED
+    fp6 CDATA #REQUIRED
+    fp7 CDATA #REQUIRED
+    fp8 CDATA #REQUIRED
+    fp9 CDATA #REQUIRED
+    fp10 CDATA #REQUIRED
+    fp11 CDATA #REQUIRED
+    fp12 CDATA #REQUIRED
+    fp13 CDATA #REQUIRED
+    fp14 CDATA #REQUIRED
+    fp15 CDATA #REQUIRED
+    fp16 CDATA #REQUIRED
+    time CDATA #IMPLIED
+    bc CDATA #REQUIRED
+    status CDATA #REQUIRED
+>
+

@@ -1,0 +1,13 @@
+Manifest-version: 1.0
+Package: ambit2.mopac
+
+Name: ambit2/mopac/
+Specification-Title: MOPAC wrapper
+Specification-Version: ${project.version}
+Specification-Vendor: Ideaconsult LTD
+Implementation-Title: ambit2.mopac
+Implementation-Version: ${project.version}-${buildNumber}-${timestamp}
+Implementation-Vendor: Ideaconsult Ltd.
+Package-Title: ambit2.mopac
+Package-Version: ${project.version}
+Package-Vendor: Ideaconsult Ltd.

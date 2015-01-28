@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<DRAGON version="6.0.9" script_version="1" generation_date="%s">
+  <OPTIONS>
+    <SaveLayout value="true"/>
+    <ShowWorksheet value="false"/>
+    <Decimal_Separator value="."/>
+    <Missing_String value="NaN"/>
+    <DefaultMolFormat value="1"/>
+    <RejectUnusualValence value="true"/>
+    <Add2DHydrogens value="true"/>
+    <LogPathWalk value="true"/>
+    <LogEdge value="true"/>
+    <Weights>
+      <weight name="Mass"/>
+      <weight name="VdWVolume"/>
+      <weight name="Electronegativity"/>
+      <weight name="Polarizability"/>
+      <weight name="Ionization"/>
+      <weight name="I-State"/>
+    </Weights>
+    <SaveOnlyData value="false"/>
+    <SaveLabelsOnSeparateFile value="false"/>
+    <SaveFormatBlock value="%b - %n.txt"/>
+    <SaveFormatSubBlock value="%b-%s - %n - %m.txt"/>
+    <SaveExcludeMisVal value="false"/>
+    <SaveExcludeAllMisVal value="false"/>
+    <SaveExcludeConst value="false"/>
+    <SaveExcludeNearConst value="false"/>
+    <SaveExcludeStdDev value="false"/>
+    <SaveStdDevThreshold value="0.0001"/>
+    <SaveExcludeCorrelated value="false"/>
+    <SaveCorrThreshold value="0.95"/>
+    <SaveExclusionOptionsToVariables value="false"/>
+    <SaveExcludeMisMolecules value="false"/>
+    <SaveExcludeRejectedMolecules value="false"/>
+  </OPTIONS>
+  <DESCRIPTORS>%s</DESCRIPTORS>
+  <MOLFILES>
+    <molInput value="file"/>
+    <molFile value="%s"/>
+  </MOLFILES>
+  <OUTPUT>
+    <SaveStdOut value="false"/>
+    <SaveProject value="false"/>
+    <SaveFile value="true"/>
+    <SaveType value="singlefile"/>
+    <SaveFilePath value="%s"/>
+   <logMode value="stderr"/>
+  </OUTPUT>
+</DRAGON>

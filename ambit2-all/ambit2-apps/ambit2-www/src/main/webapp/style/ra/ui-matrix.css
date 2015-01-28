@@ -1,0 +1,230 @@
+/* toxtmatrix.css - jToxMatrix tool styles
+*/
+html, body, #jtox-bundle {
+  width: 100%;
+  height: 100%;
+}
+
+#jtox-bundle {
+  overflow: hidden;
+  position: relative;
+}
+
+#jtox-bundle textarea,
+.popup-box textarea {
+  width: 100%;
+  box-sizing: border-box;
+  resize: none;
+}
+
+#jtox-identifiers form div.actions {
+	margin-top: 15px;
+	font-size: 80%;
+}
+
+#jtox-identifiers form textarea,
+#jtox-identifiers form input {
+	width: 100%;
+	border: 0px;
+}
+
+#jtox-structures .jtox-foldable {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+#jtox-structures td textarea {
+  min-width: 150px;
+  height: 150px;
+  overflow-x: none;
+  margin: 0px;
+  border: 0px;
+}
+
+body.structlist #jtox-query .jtox-foldable {
+  display: none;
+}
+
+body.structlist #browser {
+  margin-top: 5px;  
+}
+
+#jtox-matrix td .breakable {
+  width: 100px;
+}
+
+#jtox-matrix .jtox-toolkit {
+  margin-top: 10px;
+}
+
+#jtox-matrix .jtox-ds-tables .jtox-ds-fixed {
+	overflow-x: scroll;
+}
+
+#jtox-bundle>div.ui-tabs-panel {
+  position: relative;
+  overflow-x: hidden !important;
+  overflow-y: scroll !important;
+}
+
+.jtox-slidable {
+  overflow: hidden;
+  position: relative;
+  top: 0px;
+  width: 202%;
+  padding: 0px;
+  -moz-transition: left ease 800ms;
+  -ms-transition: left ease 800ms;
+  -o-transition: left ease 800ms;
+  -webkit-transition: left ease 800ms;
+  transition: left ease 800ms;
+}
+
+.jtox-slidable>div {
+  width: 50%;
+  position: relative;
+  margin: 0px;
+  vertical-align: top;
+  box-sizing: border-box;
+}
+
+.jtox-slidable>div>div {
+  position: relative;
+}
+
+#jtox-endpoints .tab-substance  {
+  padding-right: 25px;
+}
+
+#jtox-endpoints .tab-points  {
+  padding-left: 15px;
+}
+
+#jtox-endpoints .tab-points>div.check-all {
+  margin-bottom: -16px;
+  z-index: 100;
+}
+
+#jtox-matrix div.jtox-toolkit {
+  font-size: 80%;
+}
+
+#jtox-matrix div.jtox-ds-variable table.dataTable td  {
+  white-space: nowrap;
+}
+
+#jtox-matrix div.jtox-ds-variable table.dataTable th  {
+  white-space: inherit;
+  max-width: 160px;
+}
+
+#jtox-matrix th.word-break {
+  word-break: normal;
+}
+
+#jtox-matrix td.jtox-multi table td  {
+  height: 65px;
+}
+
+#jtox-matrix td.jtox-multi table td  img.jtox-smalldiagram {
+  height: 63px;
+  width: 63px;
+}
+
+#jtox-matrix table.dataTable td span.ui-icon {
+  display: inline-block;
+  vertical-align: bottom;
+}
+
+#jtox-matrix button.save-button {
+	position: absolute;
+	top: 5px;
+	right: 20px;
+	font-size: 80%;
+}
+
+#jtox-matrix button.save-button.jt-disabled {
+	background: none;
+	border: none;
+	color: #999;
+}
+
+#jtox-matrix a.unsaved-study {
+  background: #ffcccc;  
+  border-radius: 3px;
+}
+
+/* Now come info and edit box declarations
+*/
+.popup-box .box-reference {
+  width: 100%;
+}
+
+.popup-box .box-reference input {
+  font-size: 110%;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.popup-box .delete-box td {
+	border: 0px;	
+}
+
+.popup-box table.delete-box {
+	width: 100%;
+}
+
+.popup-box .delete-box button {
+	margin-bottom: 10px;
+}
+
+.popup-box .delete-box td:last-child {
+	width: 80px;
+	vertical-align: middle;
+}
+
+.popup-box th,
+.popup-box td {
+  padding: 2px 5px 2px 5px;
+  border-left: 1px solid #666;
+  border-right: 1px solid #666;
+  text-align: center;
+}
+
+.popup-box td:first-child,
+.popup-box th:first-child{
+  border-left: 0px;
+}
+
+.popup-box td:last-child,
+.popup-box th:last-child {
+  border-right: 0px;
+}
+
+.popup-box thead tr:first-child {
+  border-bottom: 1px solid #666;
+}
+
+.popup-box tbody {
+  border-top: 1px solid #666;
+}
+
+.popup-box th {
+  font-size: 80%;
+  font-weight: bold;
+  word-wrap: normal;
+  white-space: nowrap;  
+}
+
+.popup-box .the-value {
+  font-style: italic;
+  font-weight: bold;
+}
+
+.popup-box .the-endpoint {
+  font-weight: bold;
+}
+
+.popup-box .the-send input {
+  float: right;
+}

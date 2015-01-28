@@ -1,0 +1,61 @@
+{
+    "commands": {
+  		"dataset": {
+        	"name" : "dataset",
+        	"description" : "Dataset import",
+        	"connection" : "config/ambit.properties",
+        	"post"  : {
+        		"params" : {
+        		}
+        	}        	
+        },            
+  		"split": {
+        	"name" : "split",
+        	"description" : "Splits an SDF into records of predefined size",
+        	"connection" : "config/ambit.properties",
+        	"post"  : {
+        		"params" : {
+        			":chunk" : { "mandatory" : false,  "type" : "Integer", "value" : 1000}
+        		}
+        	}
+        },    
+        "import": {
+        	"name" : "import",
+        	"description" : "Quick import file",
+        	"connection" : "config/ambit.properties",
+        	"post"  : {
+        		"params" : {
+        		}
+        	}
+        },
+        "preprocessing": {
+        	"name" : "preprocessing",
+        	"description" : "Preprocessing (depends on options, default inchi)",
+        	"connection" : "config/ambit.properties",
+        	"post"  : {
+        		"params" : {
+        			":inchi" : { "mandatory" : false,  "type" : "Boolean", "value" : false, "comment": "Generates InChIs in chemicals table"},
+        			":atomprops" : { "mandatory" : false,  "type" : "Boolean", "value" : false,"comment" : "Stores precalculated aromaticity/ring information in the structure table"},        			
+        			":fp1024" : { "mandatory" : false,  "type" : "Boolean", "value" : false, "comment" : "Hashed 1024 bit fingerprints, used for similarity searching anf substructure search prescreening"},
+        			":sk1024" : { "mandatory" : false,  "type" : "Boolean", "value" : false,"comment": "Structure fingerprints, used for substructure search prescreening"},
+        			":smarts" : { "mandatory" : false,  "type" : "Boolean", "value" : false, "comment" : "Everything needed for substructure search prescreening - atomprops,fp1024,sk1024"},
+        			":similarity" : { "mandatory" : false,  "type" : "Boolean", "value" : false, "comment" : "Everything needed for similarity search - atomprops,fp1024"}, 
+        			":pagesize" : { "mandatory" : false,  "type" : "Integer", "value" : 5000000, "comment" : "query size"}
+        		}
+        	}
+        },          
+        "help" : {
+        	"name" : "API help",
+        	"description" : "Show API commands",
+        	"help" : {
+        		"description" : "Displays all available commands"
+        	},
+        	"json" : {
+        		"description" : "Displays JSON configuration of API commands"
+        	},
+        	"html" : {
+        		"description" : "Generates HTML documentation for all API commands and runs examples"
+        	}
+        }                        
+    }
+}

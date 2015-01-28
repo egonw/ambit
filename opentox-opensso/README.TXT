@@ -1,0 +1,1 @@
+The code was moved to http://vedina.github.com/opentox-aa-cli/

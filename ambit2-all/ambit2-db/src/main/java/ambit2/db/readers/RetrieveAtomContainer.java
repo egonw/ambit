@@ -1,0 +1,93 @@
+/* RetrieveAtomContainer.java
+ * Author: Nina Jeliazkova
+ * Date: Aug 10, 2008 
+ * Revision: 0.1 
+ * 
+ * Copyright (C) 2005-2008  Nina Jeliazkova
+ * 
+ * Contact: nina@acad.bg
+ * 
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public License
+ * as published by the Free Software Foundation; either version 2.1
+ * of the License, or (at your option) any later version.
+ * All we ask is that proper credit is given for our work, which includes
+ * - but is not limited to - adding the above copyright notice to the beginning
+ * of your source code files, and to any copyright notice that you may distribute
+ * with programs based on this work.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ * 
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ * 
+ */
+
+package ambit2.db.readers;
+
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.sql.ResultSet;
+
+import net.idea.modbcum.i.exceptions.AmbitException;
+
+import org.openscience.cdk.interfaces.IAtomContainer;
+import org.openscience.cdk.interfaces.IMolecule;
+
+import ambit2.base.interfaces.IStructureRecord;
+import ambit2.core.data.MoleculeTools;
+import ambit2.core.processors.structure.MoleculeReader;
+
+public class RetrieveAtomContainer extends AbstractStructureRetrieval<IAtomContainer> {
+    protected MoleculeReader transform;
+    protected RetrieveStructure reader;
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 6145574959713490136L;
+    public RetrieveAtomContainer() {
+        super();
+        transform = new MoleculeReader();
+        reader = new RetrieveStructure();
+    }
+    @Override
+    public void setValue(IStructureRecord value) {
+    	super.setValue(value);
+    	reader.setValue(value);
+    }
+    public IAtomContainer getObject(ResultSet rs) throws AmbitException {
+        try {
+            IStructureRecord r = reader.getObject(rs);
+            
+            /**
+             * Structure
+             */
+            int type = rs.getMetaData().getColumnType(_sqlids.ustructure.getIndex());
+            if (type == java.sql.Types.VARBINARY) {
+	              InputStream s = rs.getBinaryStream(_sqlids.ustructure.getIndex());
+	              IMolecule m = null;
+	              if ("SDF".equals(r.getFormat()))
+	                	m = MoleculeTools.readMolfile(new InputStreamReader(s));
+	              else if ("CML".equals(r.getFormat()))
+	            	    m = MoleculeTools.readCMLMolecule(s);
+	              else if ("MOL".equals(r.getFormat()))
+	            	  m = MoleculeTools.readMolfile(new InputStreamReader(s));
+	              
+	                s = null;
+	                return m;
+            } else {
+            		return MoleculeTools.readMolfile(rs.getString(_sqlids.ustructure.getIndex()));
+            }        	
+            
+
+            //return transform.process(r);
+        } catch (Exception x){
+            throw new AmbitException(x);
+        }
+    }
+
+}

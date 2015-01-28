@@ -1,0 +1,106 @@
+############################################################
+#This is AMBIT ${project.version} web services configuration.
+ambit.version=${ambit.version}
+toxtree.version=${toxtree.version}
+ambit.build=${buildNumber}
+ambit.build.timestamp=${timestamp}
+############################################################
+#For Authentication and authorization configuration please see config.prop file
+#For fine tuning logging please see logging.prop file 
+#MySQL Database configuration
+Host=${ambit.db.host}
+Scheme=jdbc\:mysql
+Port=3306
+Database=${ambit.db}
+User=${ambit.db.user.test}
+Password=${ambit.db.user.test.password}
+############################################################
+#Only for running JUnit tests on compile, the web application does not use it
+#MySQL test db, user and pass
+database.test=ambit-test
+database.test.port=3306
+database.user.test=${ambit.db.user.test}
+database.user.root.password=${ambit.db.user.root.password}
+database.user.test.password=${ambit.db.user.test.password}
+############################################################
+#AMBIT REST services config
+#Allow to create the database via curl -X POST /admin/database -d "user=root" -d "pass=thepass" -d "dbname=thedbname"
+#The database will be created only if it does not exist. 
+#The database name should be the same as set by the Database property in this file
+database.create=${ambit.db.create.allow}
+############################################################
+#How to serialize RDF/XML - by Jena (standard, prettier, slower) or StAX (faster)
+rdf.writer=${rdf.writer}
+############################################################
+#When serializing to SDF, change line separators to \r\n 
+#(for DEREK compatibility)
+changeLineSeparators=${changeLineSeparators}
+############################################################
+#Enable JSONP support true|false
+jsonp=${jsonp}
+############################################################
+#URI of the ontology service , e.g. http://localhost:8080/ontology
+service.ontology=${service.ontology}
+#Add dataset prefix for compound URI, e.g.  /dataset/1/compound/1 , instead of /compound/1
+#Experimental true|false. Should be used if AA is on, see config.prop file
+dataset.members.prefix=${dataset.members.prefix}
+#Path to OpenBabel executable http://openbabel.org
+OBABEL_HOME=${OBABEL_HOME}
+#Path to Dragon6 executable http://www.talete.mi.it/products/dragon_description.htm 
+DRAGON_HOME=${DRAGON_HOME}
+#Path to balloon executable http://users.abo.fi/mivainio/balloon/ 
+BALLOON_HOME=${BALLOON_HOME}
+#Add a column with the license in CSV and TXT files
+license.intextfiles=${license.intextfiles}
+#Protect /admin resources via OpenTox AA.  true | false 
+#If true, you have to define an OpenSSO policy for http://host:port/ambit2/admin to be able to use it! 
+aa.admin=${aa.admin}
+#aa.compound true| false defines if the /compound/{id} URIs are protected by OpenSSO
+aa.compound=${aa.compound}
+aa.feature=${aa.feature}
+#aa.model is ignored
+#aa.model=${aa.model}
+#Error report level : production or debug . If debug, the status will show the stack trace 
+ambit.report.level=${ambit.report.level}
+############################################################
+showAromaticity=true
+FASTSMARTS=true
+generate2D=true
+smi2sdf.smiles.generate=true
+smilesParser=false
+defaultDir=
+atomtypes.stop=false
+############################################################
+MAXRECORDS=${ambit.query.maxrecords}
+############################################################
+#ambit profile
+#Specifies which version of the menu will be used: default | lri | toxmatch | qmrf
+ambit.profile=${ambit.profile}
+############################################################
+#attach resources
+attach.depict=${attach.depict}
+attach.toxmatch=${attach.toxmatch}
+attach.substance=${attach.substance}
+############################################################
+#OpenPhacts client config
+ops.server_root=${ops.server_root}
+app_id=${ops.app_id}
+app_key=${ops.app_key}
+############################################################
+# IUCLID5 client config
+#username for iuclid5 SessionEngine service 
+i5.user=${i5.user}
+#password for iuclid5 SessionEngine service 
+i5.pass=${i5.pass}
+#target url for iuclid5 services 
+i5.server=${i5.server}
+############################################################
+#google.analytics code (UA-XXXX-Y) if not set GA will be disabled
+google.analytics=${google.analytics}
+############################################################
+#AJAX query timeout, msec
+#specifies the timeout for the queries, executed by the browser. 
+#If you experience timeout errors, consider increasing the default value of 10 sec
+ajax.timeout=${ajax.timeout}
+#Order by similarity
+similarity.order=${similarity.order}
