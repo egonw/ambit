@@ -40,7 +40,6 @@ import org.openscience.cdk.annotations.TestMethod;
 import org.openscience.cdk.exception.CDKException;
 import org.openscience.cdk.interfaces.IAtomContainer;
 import org.openscience.cdk.interfaces.IChemObjectBuilder;
-import org.openscience.cdk.interfaces.IAtomContainer;
 import org.openscience.cdk.io.ISimpleChemObjectReader;
 import org.openscience.cdk.io.ReaderFactory;
 import org.openscience.cdk.io.formats.IChemFormat;
@@ -52,6 +51,7 @@ import org.openscience.cdk.io.iterator.DefaultIteratingChemObjectReader;
 import org.openscience.cdk.io.listener.IChemObjectIOListener;
 import org.openscience.cdk.io.setting.BooleanIOSetting;
 import org.openscience.cdk.io.setting.IOSetting;
+import org.openscience.cdk.io.setting.IOSetting.Importance;
 import org.openscience.cdk.tools.ILoggingTool;
 import org.openscience.cdk.tools.LoggingToolFactory;
 
@@ -418,7 +418,7 @@ implements IChemObjectIOListener {
     }
 
     private void initIOSettings() {
-        forceReadAs3DCoords = new BooleanIOSetting("ForceReadAs3DCoordinates", IOSetting.LOW,
+        forceReadAs3DCoords = new BooleanIOSetting("ForceReadAs3DCoordinates", Importance.LOW,
           "Should coordinates always be read as 3D?", 
           "false");
     }

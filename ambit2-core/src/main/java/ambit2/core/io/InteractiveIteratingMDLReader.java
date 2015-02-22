@@ -12,7 +12,7 @@ import java.util.Map;
 import org.openscience.cdk.interfaces.IAtomContainer;
 import org.openscience.cdk.interfaces.IChemObject;
 import org.openscience.cdk.interfaces.IChemObjectBuilder;
-import org.openscience.cdk.io.setting.IOSetting;
+import org.openscience.cdk.io.setting.IOSetting.Importance;
 import org.openscience.cdk.io.setting.StringIOSetting;
 
 import ambit2.base.data.Property;
@@ -54,13 +54,13 @@ public class InteractiveIteratingMDLReader extends MyIteratingMDLReader {
             
             Map properties = ((IChemObject)o).getProperties();
             if (properties.size()>0) {
-            	fireIOSettingQuestion(new StringIOSetting("",IOSetting.MEDIUM,Property.IO_QUESTION.IO_START.toString(),""));
+            	fireIOSettingQuestion(new StringIOSetting("",Importance.MEDIUM,Property.IO_QUESTION.IO_START.toString(),""));
 	            Iterator i = properties.keySet().iterator();
 	            while (i.hasNext()) { 
 	            	String name = i.next().toString();
-		            fireIOSettingQuestion(new StringIOSetting(name,IOSetting.MEDIUM,Property.IO_QUESTION.IO_TRANSLATE_NAME.toString(),name));
+		            fireIOSettingQuestion(new StringIOSetting(name,Importance.MEDIUM,Property.IO_QUESTION.IO_TRANSLATE_NAME.toString(),name));
 		        }
-            	fireIOSettingQuestion(new StringIOSetting("",IOSetting.MEDIUM,Property.IO_QUESTION.IO_STOP.toString(),""));	            
+            	fireIOSettingQuestion(new StringIOSetting("",Importance.MEDIUM,Property.IO_QUESTION.IO_STOP.toString(),""));	            
             }
             return (IAtomContainer)o;
         }

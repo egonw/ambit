@@ -58,6 +58,7 @@ import org.openscience.cdk.io.formats.IResourceFormat;
 import org.openscience.cdk.io.formats.MDLFormat;
 import org.openscience.cdk.io.setting.BooleanIOSetting;
 import org.openscience.cdk.io.setting.IOSetting;
+import org.openscience.cdk.io.setting.IOSetting.Importance;
 import org.openscience.cdk.tools.ILoggingTool;
 import org.openscience.cdk.tools.LoggingToolFactory;
 
@@ -640,7 +641,7 @@ public class MDLReader extends DefaultChemObjectReader {
 
 	private void initIOSettings() {
 		forceReadAs3DCoords = new BooleanIOSetting("ForceReadAs3DCoordinates",
-				IOSetting.LOW, "Should coordinates always be read as 3D?",
+				Importance.LOW, "Should coordinates always be read as 3D?",
 				"true");
 	}
 

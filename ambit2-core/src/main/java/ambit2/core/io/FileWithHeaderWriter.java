@@ -151,7 +151,7 @@ public abstract class FileWithHeaderWriter extends DefaultChemObjectWriter {
 class Header extends IOSetting {
 	protected ArrayList list;
 	public Header() {
-		super("Header",IOSetting.HIGH,"Header",null);
+		super("Header",Importance.HIGH,"Header",null);
 		list = new ArrayList();
 	}
 	
@@ -180,8 +180,7 @@ class Header extends IOSetting {
 	}
 
 	@Override
-	public int getLevel() {
-		// TODO Auto-generated method stub
+	public Importance getLevel() {
 		return super.getLevel();
 	}
 

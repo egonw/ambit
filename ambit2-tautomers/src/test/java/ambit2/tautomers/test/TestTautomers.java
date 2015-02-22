@@ -800,7 +800,7 @@ public class TestTautomers
 		IAtomContainer newStr = cof.condenseStructures(smi1, str1At0, str1At1, smi2, str2At0, str2At1);
 		v.add(newStr);
 		
-		System.out.println("\nResult = " + SmartsHelper.moleculeToSMILES(new Molecule(newStr), true));
+		System.out.println("\nResult = " + SmartsHelper.moleculeToSMILES(new AtomContainer(newStr), true));
 		
 		TestStrVisualizer tsv = new TestStrVisualizer(v);
 	}

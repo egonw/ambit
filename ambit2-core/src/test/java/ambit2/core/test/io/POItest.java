@@ -50,7 +50,7 @@ import org.junit.Test;
 import org.openscience.cdk.interfaces.IAtomContainer;
 import org.openscience.cdk.io.iterator.IIteratingChemObjectReader;
 import org.openscience.cdk.io.listener.IReaderListener;
-import org.openscience.cdk.io.setting.IOSetting;
+import org.openscience.cdk.io.setting.IOSetting.Importance;
 
 import ambit2.core.io.FileInputState;
 import ambit2.core.io.SimpleIOListener;
@@ -131,7 +131,7 @@ public class POItest {
 			String filepath = getClass().getClassLoader().getResource(file).getFile();
 			IIteratingChemObjectReader reader = FileInputState.getReader(
 					new FileInputStream(filepath), filepath);
-			IReaderListener listener = new SimpleIOListener(IOSetting.HIGH);
+			IReaderListener listener = new SimpleIOListener(Importance.HIGH);
 			reader.addChemObjectIOListener(listener);
 			int r = 0;
 			while (reader.hasNext()) {

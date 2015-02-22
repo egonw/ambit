@@ -65,6 +65,7 @@ import org.openscience.cdk.io.formats.IResourceFormat;
 import org.openscience.cdk.io.formats.MDLV2000Format;
 import org.openscience.cdk.io.setting.BooleanIOSetting;
 import org.openscience.cdk.io.setting.IOSetting;
+import org.openscience.cdk.io.setting.IOSetting.Importance;
 import org.openscience.cdk.tools.ILoggingTool;
 import org.openscience.cdk.tools.LoggingToolFactory;
 import org.openscience.cdk.tools.manipulator.AtomContainerManipulator;
@@ -1063,10 +1064,10 @@ public class MDLV2000ReaderExtended extends DefaultChemObjectReader {
 
 	private void initIOSettings() {
 		forceReadAs3DCoords = new BooleanIOSetting("ForceReadAs3DCoordinates",
-				IOSetting.LOW, "Should coordinates always be read as 3D?",
+				Importance.LOW, "Should coordinates always be read as 3D?",
 				"false");
 		interpretHydrogenIsotopes = new BooleanIOSetting(
-				"InterpretHydrogenIsotopes", IOSetting.LOW,
+				"InterpretHydrogenIsotopes", Importance.LOW,
 				"Should D and T be interpreted as hydrogen isotopes?", "true");
 	}
 

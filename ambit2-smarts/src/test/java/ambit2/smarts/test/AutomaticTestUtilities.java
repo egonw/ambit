@@ -1016,7 +1016,7 @@ public class AutomaticTestUtilities {
 		// CDK parser
 		QueryAtomContainer query_CDK = null;
 		try {
-			query_CDK = SMARTSParser.parse(line);
+			query_CDK = SMARTSParser.parse(line,SilentChemObjectBuilder.getInstance());
 		} catch (Exception e) {
 			System.out.println("CDK parsing error: " + e.toString());
 			return -1;
@@ -1168,7 +1168,7 @@ public class AutomaticTestUtilities {
 		// CDK parser
 		try {
 			startTime = System.nanoTime();
-			QueryAtomContainer query_CDK = SMARTSParser.parse(line);
+			QueryAtomContainer query_CDK = SMARTSParser.parse(line,SilentChemObjectBuilder.getInstance());
 			endTime = System.nanoTime();
 			timeCDK = endTime - startTime;
 		} catch (Exception e) {

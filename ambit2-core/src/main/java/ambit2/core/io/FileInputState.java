@@ -178,7 +178,7 @@ public class FileInputState extends FileState implements IInputState {
 		if (ext.endsWith(extensions[SDF_INDEX])) {
 			return new InteractiveIteratingMDLReader(stream,SilentChemObjectBuilder.getInstance(),true);
 		} else if (ext.endsWith(extensions[SMI_INDEX])) { 
-			return new IteratingSMILESReader(stream);
+			return new IteratingSMILESReader(stream,SilentChemObjectBuilder.getInstance());
 		} else if (ext.endsWith(extensions[CSV_INDEX])) {
 			try {
 				if ((format != null) && (format instanceof DelimitedFileFormat))

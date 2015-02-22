@@ -20,6 +20,7 @@ import org.openscience.cdk.interfaces.IAtomContainer;
 import org.openscience.cdk.io.formats.IResourceFormat;
 import org.openscience.cdk.io.setting.IOSetting;
 import org.openscience.cdk.io.setting.StringIOSetting;
+import org.openscience.cdk.io.setting.IOSetting.Importance;
 import org.openscience.cdk.silent.SilentChemObjectBuilder;
 
 import ambit2.base.data.LiteratureEntry;
@@ -110,9 +111,9 @@ public abstract class IteratingDelimitedFileReaderComplexHeader<COLUMN> extends 
 		 */
 		public boolean hasNext() {
 			if (isHeaderEmpty()) {
-		    	fireIOSettingQuestion(new StringIOSetting("",IOSetting.MEDIUM,Property.IO_QUESTION.IO_START.toString(),""));
+		    	fireIOSettingQuestion(new StringIOSetting("",Importance.MEDIUM,Property.IO_QUESTION.IO_START.toString(),""));
 				processHeader(input);
-		    	fireIOSettingQuestion(new StringIOSetting("",IOSetting.MEDIUM,Property.IO_QUESTION.IO_STOP.toString(),""));
+		    	fireIOSettingQuestion(new StringIOSetting("",Importance.MEDIUM,Property.IO_QUESTION.IO_STOP.toString(),""));
 			}
 			
 			if (!nextAvailableIsKnown) {

@@ -20,7 +20,7 @@ GNU Lesser General Public License for more details.
 You should have received a copy of the GNU Lesser General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA
-*/
+ */
 
 package ambit2.core.io;
 
@@ -43,9 +43,8 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openscience.cdk.exception.CDKException;
 import org.openscience.cdk.exception.InvalidSmilesException;
 import org.openscience.cdk.interfaces.IAtomContainer;
-import org.openscience.cdk.interfaces.IAtomContainer;
 import org.openscience.cdk.io.formats.IResourceFormat;
-import org.openscience.cdk.io.setting.IOSetting;
+import org.openscience.cdk.io.setting.IOSetting.Importance;
 import org.openscience.cdk.io.setting.StringIOSetting;
 import org.openscience.cdk.silent.SilentChemObjectBuilder;
 
@@ -54,25 +53,30 @@ import ambit2.base.data.Property;
 import ambit2.core.config.AmbitCONSTANTS;
 
 /**
- * Reads XLS files. This implementation loads the workbook in memory which is inefficient for big files.
+ * Reads XLS files. This implementation loads the workbook in memory which is
+ * inefficient for big files.
  * 
  * TODO find how to read it without loading into memory.
- * @author Nina Jeliazkova nina@acad.bg
- * <b>Modified</b> Aug 31, 2006
+ * 
+ * @author Nina Jeliazkova nina@acad.bg <b>Modified</b> Aug 31, 2006
  */
-public class IteratingXLSReader extends IteratingFilesWithHeaderReader<Property> {
+public class IteratingXLSReader extends
+		IteratingFilesWithHeaderReader<Property> {
 	protected Workbook workbook;
 	protected Sheet sheet;
 	protected Iterator iterator;
-	protected  InputStream input;
+	protected InputStream input;
 	protected int sheetIndex = 0;
-	//protected HSSFFormulaEvaluator evaluator;
+	// protected HSSFFormulaEvaluator evaluator;
 	protected boolean hssf = true;
-	
-	public IteratingXLSReader(InputStream input, int sheetIndex)  throws CDKException {
-		this(input,sheetIndex,true);
+
+	public IteratingXLSReader(InputStream input, int sheetIndex)
+			throws CDKException {
+		this(input, sheetIndex, true);
 	}
-	public IteratingXLSReader(InputStream input, int sheetIndex,boolean hssf)  throws CDKException {
+
+	public IteratingXLSReader(InputStream input, int sheetIndex, boolean hssf)
+			throws CDKException {
 		super();
 		this.hssf = hssf;
 		this.sheetIndex = sheetIndex;
@@ -83,35 +87,42 @@ public class IteratingXLSReader extends IteratingFilesWithHeaderReader<Property>
 	protected ArrayList<Property> createHeader() {
 		return new ArrayList<Property>();
 	}
+
 	@Override
 	protected Property createPropertyByColumnName(String name) {
-		return Property.getInstance(name,getReference());
+		return Property.getInstance(name, getReference());
 	}
+
 	public void setReader(InputStream input) throws CDKException {
 		try {
 			this.input = input;
-			workbook = hssf?new HSSFWorkbook(input):new XSSFWorkbook(input);
+			workbook = hssf ? new HSSFWorkbook(input) : new XSSFWorkbook(input);
 			sheet = workbook.getSheetAt(sheetIndex);
-			//evaluator = new HSSFFormulaEvaluator(sheet, workbook);
+			// evaluator = new HSSFFormulaEvaluator(sheet, workbook);
 		} catch (Exception x) {
-			throw new CDKException(x.getMessage(),x);
+			throw new CDKException(x.getMessage(), x);
 		}
-		
+
 	}
+
 	public void setReader(Reader reader) throws CDKException {
 		throw new CDKException("Not implemented");
 	}
+
 	@Override
 	protected LiteratureEntry getReference() {
-		return LiteratureEntry.getInstance(workbook.getSheetName(workbook.getSheetIndex(sheet)),getClass().getName());
+		return LiteratureEntry.getInstance(
+				workbook.getSheetName(workbook.getSheetIndex(sheet)),
+				getClass().getName());
 	}
+
 	public void processHeader() {
 		iterator = sheet.rowIterator();
-		//process first header line
-		processHeader((Row)iterator.next());
-		//skip rest of header lines
-		for (int i=1; i < getNumberOfHeaderLines();i++)
-			processHeader((Row)iterator.next());
+		// process first header line
+		processHeader((Row) iterator.next());
+		// skip rest of header lines
+		for (int i = 1; i < getNumberOfHeaderLines(); i++)
+			processHeader((Row) iterator.next());
 	}
 
 	public void close() throws IOException {
@@ -125,116 +136,123 @@ public class IteratingXLSReader extends IteratingFilesWithHeaderReader<Property>
 
 	public boolean hasNext() {
 		if (isHeaderEmpty()) {
-	    	fireIOSettingQuestion(new StringIOSetting("",IOSetting.MEDIUM,Property.IO_QUESTION.IO_START.toString(),""));
+			fireIOSettingQuestion(new StringIOSetting("", Importance.MEDIUM,
+					Property.IO_QUESTION.IO_START.toString(), ""));
 			processHeader();
-	    	fireIOSettingQuestion(new StringIOSetting("",IOSetting.MEDIUM,Property.IO_QUESTION.IO_STOP.toString(),""));
+			fireIOSettingQuestion(new StringIOSetting("", Importance.MEDIUM,
+					Property.IO_QUESTION.IO_STOP.toString(), ""));
 		}
 		try {
 			return iterator.hasNext();
 		} catch (Exception x) {
-			logger.log(Level.SEVERE,x.getMessage(),x);
+			logger.log(Level.SEVERE, x.getMessage(), x);
 			return false;
 		}
 	}
+
 	protected void processRow(IAtomContainer mol) {
-		
+
 	}
+
 	public Object next() {
 		IAtomContainer mol = null;
 		Map properties = new Hashtable();
 		try {
 			Row row = (Row) iterator.next();
-			
-			for (int col = 0; col < getNumberOfColumns(); col++ ) {
+
+			for (int col = 0; col < getNumberOfColumns(); col++) {
 				Cell cell = row.getCell(col);
 				Object value = null;
-				if (cell != null)				
-				switch (cell.getCellType()) {
+				if (cell != null)
+					switch (cell.getCellType()) {
 					case Cell.CELL_TYPE_BOOLEAN:
-				    	value = cell.getBooleanCellValue();
-				    	break;
+						value = cell.getBooleanCellValue();
+						break;
 					case Cell.CELL_TYPE_NUMERIC:
-				    	value = cell.getNumericCellValue();
-				    	break;
+						value = cell.getNumericCellValue();
+						break;
 					case Cell.CELL_TYPE_STRING:
-				    	value = cell.getStringCellValue();
-				    	break;
+						value = cell.getStringCellValue();
+						break;
 					case Cell.CELL_TYPE_BLANK:
 						value = "";
-				    	break;
+						break;
 					case Cell.CELL_TYPE_ERROR:
 						value = "";
-				    	break;
-					case Cell.CELL_TYPE_FORMULA: 
+						break;
+					case Cell.CELL_TYPE_FORMULA:
 						try {
 							value = cell.getStringCellValue();
-					    	break;
+							break;
 						} catch (Exception x) {
 							try {
 								value = cell.getNumericCellValue();
-							} catch (Exception z) {	
-								logger.log(Level.WARNING,x.getMessage(),x); 
+							} catch (Exception z) {
+								logger.log(Level.WARNING, x.getMessage(), x);
 							}
 						}
 					}
-				else 
+				else
 					value = "";
 				try {
 					if (smilesIndex == col) {
 						try {
 							mol = sp.parseSmiles(value.toString());
-							properties.put(AmbitCONSTANTS.SMILES, value.toString());
+							properties.put(AmbitCONSTANTS.SMILES,
+									value.toString());
 						} catch (InvalidSmilesException x) {
-							logger.warning("Invalid SMILES!\t"+value);
-							properties.put(AmbitCONSTANTS.SMILES, "Invalid SMILES");
-						}						
-					} 
-					else 
-						if (col< getNumberOfColumns())
-							properties.put(getHeaderColumn(col), value);
+							logger.warning("Invalid SMILES!\t" + value);
+							properties.put(AmbitCONSTANTS.SMILES,
+									"Invalid SMILES");
+						}
+					} else if (col < getNumberOfColumns())
+						properties.put(getHeaderColumn(col), value);
 				} catch (Exception x) {
-					logger.log(Level.WARNING,x.getMessage(),x);
+					logger.log(Level.WARNING, x.getMessage(), x);
 				}
-	
+
 			}
-			if (mol == null) mol = SilentChemObjectBuilder.getInstance().newInstance(IAtomContainer.class);
+			if (mol == null)
+				mol = SilentChemObjectBuilder.getInstance().newInstance(
+						IAtomContainer.class);
 			mol.setProperties(properties);
 			processRow(mol);
 		} catch (Exception x) {
-			logger.log(Level.SEVERE,x.getMessage(),x);
+			logger.log(Level.SEVERE, x.getMessage(), x);
 		}
 		return mol;
-		
-	}
-	
-	protected void processHeader(Row row) {
-			
-			Iterator cols = row.cellIterator();
-			TreeMap columns = new TreeMap();
-			while (cols.hasNext()) {
-				Cell cell = (Cell) cols.next();
-				String value = cell.getStringCellValue();
 
-				if (value.equals(defaultSMILESHeader))
-					smilesIndex = cell.getColumnIndex();
-				columns.put(new Integer(cell.getColumnIndex()), value);
-			}
-			Iterator i = columns.keySet().iterator();
-			while (i.hasNext()) {
-				Integer key = (Integer)i.next();
-				setHeaderColumn(key.intValue(), columns.get(key).toString());
-			}
+	}
+
+	protected void processHeader(Row row) {
+
+		Iterator cols = row.cellIterator();
+		TreeMap columns = new TreeMap();
+		while (cols.hasNext()) {
+			Cell cell = (Cell) cols.next();
+			String value = cell.getStringCellValue();
+
+			if (value.equals(defaultSMILESHeader))
+				smilesIndex = cell.getColumnIndex();
+			columns.put(new Integer(cell.getColumnIndex()), value);
+		}
+		Iterator i = columns.keySet().iterator();
+		while (i.hasNext()) {
+			Integer key = (Integer) i.next();
+			setHeaderColumn(key.intValue(), columns.get(key).toString());
+		}
 	}
 
 	public String toString() {
-		return "Reads Microsoft Office Excel file (*.xls) " ;
+		return "Reads Microsoft Office Excel file (*.xls) ";
 	}
-	/* (non-Javadoc)
-     * @see org.openscience.cdk.io.IChemObjectIO#getFormat()
-     */
-    public IResourceFormat getFormat() {
-        return new XLSFileFormat();
-    }
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.openscience.cdk.io.IChemObjectIO#getFormat()
+	 */
+	public IResourceFormat getFormat() {
+		return new XLSFileFormat();
+	}
 }
-
-
