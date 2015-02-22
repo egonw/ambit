@@ -47,7 +47,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.junit.Assert;
 import org.junit.Test;
-import org.openscience.cdk.interfaces.IMolecule;
+import org.openscience.cdk.interfaces.IAtomContainer;
 import org.openscience.cdk.io.iterator.IIteratingChemObjectReader;
 import org.openscience.cdk.io.listener.IReaderListener;
 import org.openscience.cdk.io.setting.IOSetting;
@@ -136,9 +136,9 @@ public class POItest {
 			int r = 0;
 			while (reader.hasNext()) {
 				Object mol = reader.next();
-				Assert.assertTrue(mol instanceof IMolecule);
+				Assert.assertTrue(mol instanceof IAtomContainer);
 				//assertTrue(((Molecule) mol).getAtomCount() > 0);
-				//System.out.println(((IMolecule)mol).getProperties());
+				//System.out.println(((IAtomContainer)mol).getProperties());
 				r++;
 				//System.out.println(r);
 			}

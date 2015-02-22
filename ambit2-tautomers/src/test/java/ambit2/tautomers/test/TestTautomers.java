@@ -7,8 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.openscience.cdk.CDKConstants;
-import org.openscience.cdk.Molecule;
-import org.openscience.cdk.aromaticity.CDKHueckelAromaticityDetector;
 import org.openscience.cdk.exception.CDKException;
 import org.openscience.cdk.inchi.InChIGenerator;
 import org.openscience.cdk.inchi.InChIGeneratorFactory;
@@ -16,9 +14,9 @@ import org.openscience.cdk.interfaces.IAtom;
 import org.openscience.cdk.interfaces.IAtomContainer;
 import org.openscience.cdk.interfaces.IBond;
 import org.openscience.cdk.interfaces.IChemObjectBuilder;
-import org.openscience.cdk.interfaces.IMolecule;
 import org.openscience.cdk.io.iterator.IIteratingChemObjectReader;
 import org.openscience.cdk.isomorphism.matchers.IQueryAtomContainer;
+import org.openscience.cdk.silent.AtomContainer;
 import org.openscience.cdk.silent.SilentChemObjectBuilder;
 import org.openscience.cdk.tautomers.InChITautomerGenerator;
 import org.openscience.cdk.tools.CDKHydrogenAdder;
@@ -230,7 +228,7 @@ public class TestTautomers
 	public void test0(String smi) throws Exception
 	{	
 		System.out.println("Testing0(combinatorial aproach)0: " + smi);
-		IMolecule mol = SmartsHelper.getMoleculeFromSmiles(smi);
+		IAtomContainer mol = SmartsHelper.getMoleculeFromSmiles(smi);
 		tman.setStructure(mol);
 		List<IAtomContainer> resultTautomers = tman.generateTautomers();			
 	}
@@ -239,7 +237,7 @@ public class TestTautomers
 	public void test(String smi) throws Exception
 	{	
 		System.out.println("Testing: " + smi);
-		IMolecule mol = SmartsHelper.getMoleculeFromSmiles(smi);
+		IAtomContainer mol = SmartsHelper.getMoleculeFromSmiles(smi);
 		tman.setStructure(mol);
 		//List<IAtomContainer> resultTautomers = tman.generateTautomers();
 		
@@ -253,7 +251,7 @@ public class TestTautomers
 	public void test(String smi, int algorithmType) throws Exception
 	{
 		System.out.println("Algorithm type " + algorithmType	+ "   Testing: " + smi);
-		IMolecule mol = SmartsHelper.getMoleculeFromSmiles(smi,FlagExplicitHydrogens);
+		IAtomContainer mol = SmartsHelper.getMoleculeFromSmiles(smi,FlagExplicitHydrogens);
 						
 		tman.setStructure(mol);
 		List<IAtomContainer> resultTautomers;
@@ -354,7 +352,7 @@ public class TestTautomers
 	public void visualTest(String smi, int algorithmType) throws Exception
 	{
 		System.out.println("Algorithm type " + algorithmType	+ "   Visual Testing: " + smi);
-		IMolecule mol = SmartsHelper.getMoleculeFromSmiles(smi,FlagExplicitHydrogens);
+		IAtomContainer mol = SmartsHelper.getMoleculeFromSmiles(smi,FlagExplicitHydrogens);
 						
 		tman.setStructure(mol);
 		List<IAtomContainer> resultTautomers;
@@ -491,7 +489,7 @@ public class TestTautomers
 	public void visualTestInChI(String smi) throws Exception
 	{
 		System.out.println("Visual Testing of InChI algorithm: " + smi);
-		IMolecule mol = SmartsHelper.getMoleculeFromSmiles(smi);
+		IAtomContainer mol = SmartsHelper.getMoleculeFromSmiles(smi);
 
 		//Pre-processing (although aromaticity and implicit atoms should be handle from Smiles)
 		AtomContainerManipulator.percieveAtomTypesAndConfigureAtoms(mol);
@@ -518,7 +516,7 @@ public class TestTautomers
 	public int testCase(String smi, String expectedTautomers[], boolean FlagPrintTautomers) throws Exception
 	{			
 		System.out.println("Testing: " + smi);
-		IMolecule mol = SmartsHelper.getMoleculeFromSmiles(smi);
+		IAtomContainer mol = SmartsHelper.getMoleculeFromSmiles(smi);
 		tman.setStructure(mol);
 		//List<IAtomContainer> resultTautomers = tman.generateTautomers();
 		
@@ -606,7 +604,7 @@ public class TestTautomers
 	{
 		InChITautomerGenerator tautomerGenerator = new InChITautomerGenerator();
 		IChemObjectBuilder builder = SilentChemObjectBuilder.getInstance();
-		IMolecule mol = builder.newInstance(IMolecule.class);
+		IAtomContainer mol = builder.newInstance(IAtomContainer.class);
 		IAtom a1 = builder.newInstance(IAtom.class,"N");
 		mol.addAtom(a1);
 		IAtom a2 = builder.newInstance(IAtom.class,"N");
@@ -784,7 +782,7 @@ public class TestTautomers
 		IAtomContainer newStr = cof.connectStructures(smi1, numAt1, smi2, numAt2, order);
 		v.add(newStr);
 		
-		System.out.println("\nResult = " + SmartsHelper.moleculeToSMILES(new Molecule(newStr),false));
+		System.out.println("\nResult = " + SmartsHelper.moleculeToSMILES(new AtomContainer(newStr),false));
 		
 		TestStrVisualizer tsv = new TestStrVisualizer(v);
 	}
@@ -809,7 +807,7 @@ public class TestTautomers
 	public void testStereoInfo(String smi) throws Exception
 	{
 		System.out.println("Visual Testing: " + smi);
-		IMolecule mol = SmartsHelper.getMoleculeFromSmiles(smi, FlagExplicitHydrogens);
+		IAtomContainer mol = SmartsHelper.getMoleculeFromSmiles(smi, FlagExplicitHydrogens);
 		
 		System.out.println(SmartsHelper.getAtomsAttributes(mol));
 		
@@ -826,7 +824,7 @@ public class TestTautomers
 	public void testCACTVSRank(String smi) throws Exception
 	{	
 		System.out.println("Testing tautomer CACTVS ranking: " + smi);
-		IMolecule mol = SmartsHelper.getMoleculeFromSmiles(smi);
+		IAtomContainer mol = SmartsHelper.getMoleculeFromSmiles(smi);
 		double scoreRank = CACTVSRanking.calcScoreRank(mol);
 		System.out.println("Score = " + scoreRank);
 	}

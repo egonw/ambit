@@ -10,7 +10,7 @@ import org.openscience.cdk.CDKConstants;
 import org.openscience.cdk.interfaces.IAtom;
 import org.openscience.cdk.interfaces.IAtomContainer;
 import org.openscience.cdk.interfaces.IBond;
-import org.openscience.cdk.interfaces.IMolecule;
+import org.openscience.cdk.interfaces.IAtomContainer;
 import org.openscience.cdk.silent.SilentChemObjectBuilder;
 
 import ambit2.core.data.MoleculeTools;
@@ -419,7 +419,7 @@ public class RuleManager {
 	{
 		//The structure is fully cloned as well as all used and unused rule instances
 		
-		IMolecule mol = SilentChemObjectBuilder.getInstance().newInstance(IMolecule.class); //clone structure
+		IAtomContainer mol = SilentChemObjectBuilder.getInstance().newInstance(IAtomContainer.class); //clone structure
 		IAtom newAtoms[] = new IAtom[prevStruct.getAtomCount()];
 		IBond newBonds[] = new IBond[prevStruct.getBondCount()];
 		

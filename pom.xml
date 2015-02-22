@@ -1,10 +1,10 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>ambit</groupId>
   <artifactId>ambit2-all</artifactId>
   <packaging>pom</packaging>
-  <version>2.7.3-SNAPSHOT</version>
+  <version>3.0.0-SNAPSHOT</version>
   <name>Ambit 2</name>
   <description>AMBIT offers chemoinformatics functionality via REST web services and desktop applications. Chemical compounds and data storage in MySQL database; substructure, similarity and other queries, descriptor calculation and predictive models building.</description>
   <url>http://ambit.sourceforge.net</url>
@@ -518,7 +518,8 @@
 			since ambit 2.4.7-SNAPSHOT -->
     <!-- cdk 1.4.11 is regular version, deployed to ambit repository; used 
 			since ambit 2.4.7-SNAPSHOT -->
-    <cdk.version>1.4.11</cdk.version>
+	<!--  cdk 1.5.10 @ maven central since ambit 3.0.0-SNAPSHOT -->		
+    <cdk.version>1.5.10</cdk.version>
     <restnet.version>1.0.7</restnet.version>
     <modbcum.version>1.0.4</modbcum.version>
     <dbunit.version>2.4.9</dbunit.version>

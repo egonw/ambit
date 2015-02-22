@@ -32,13 +32,11 @@ import java.io.Writer;
 import java.util.logging.Level;
 
 import org.openscience.cdk.ChemObject;
-import org.openscience.cdk.MoleculeSet;
 import org.openscience.cdk.exception.CDKException;
 import org.openscience.cdk.interfaces.IAtomContainer;
 import org.openscience.cdk.interfaces.IAtomContainerSet;
 import org.openscience.cdk.interfaces.IChemFile;
 import org.openscience.cdk.interfaces.IChemObject;
-import org.openscience.cdk.interfaces.IMoleculeSet;
 import org.openscience.cdk.io.formats.IResourceFormat;
 import org.openscience.cdk.smiles.SmilesGenerator;
 import org.openscience.cdk.tools.DataFeatures;
@@ -53,7 +51,7 @@ public class DelimitedFileWriter extends FilesWithHeaderWriter {
 	protected BufferedWriter writer;
 	protected DelimitedFileFormat format;
 
-	protected SmilesGenerator sg = new SmilesGenerator(true);
+	protected SmilesGenerator sg = new SmilesGenerator();
 
 
 	/**
@@ -198,7 +196,7 @@ public class DelimitedFileWriter extends FilesWithHeaderWriter {
 		Class[] interfaces = classObject.getInterfaces();
 		for (int i=0; i<interfaces.length; i++) {
 			if (IChemFile.class.equals(interfaces[i])) return true;
-			if (IMoleculeSet.class.equals(interfaces[i])) return true;
+			if (IAtomContainerSet.class.equals(interfaces[i])) return true;
 		}
 		return false;
 	}

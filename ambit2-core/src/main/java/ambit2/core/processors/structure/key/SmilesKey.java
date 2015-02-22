@@ -34,7 +34,7 @@ import net.idea.modbcum.p.DefaultAmbitProcessor;
 
 import org.openscience.cdk.exception.CDKException;
 import org.openscience.cdk.interfaces.IAtomContainer;
-import org.openscience.cdk.interfaces.IMolecule;
+import org.openscience.cdk.interfaces.IAtomContainer;
 import org.openscience.cdk.smiles.SmilesGenerator;
 import org.openscience.cdk.tools.manipulator.AtomContainerManipulator;
 
@@ -53,7 +53,7 @@ public class SmilesKey extends DefaultAmbitProcessor<IAtomContainer,String> impl
 	protected Object key="smiles";
 	//protected AtomConfigurator conf = new AtomConfigurator();
 	public SmilesKey() {
-		gen = new SmilesGenerator(true);
+		gen = new SmilesGenerator();
 	}
 	public Object getKey() {
 		return key;
@@ -69,10 +69,10 @@ public class SmilesKey extends DefaultAmbitProcessor<IAtomContainer,String> impl
 			mol = (IAtomContainer)molecule.clone();
 
 			mol = AtomContainerManipulator.removeHydrogensPreserveMultiplyBonded(mol);
-			return gen.createSMILES((IMolecule)mol,false,new boolean[mol.getAtomCount()]);
+			return gen.createSMILES((IAtomContainer)mol,false,new boolean[mol.getAtomCount()]);
 		} catch (CDKException x) {
 			logger.log(java.util.logging.Level.WARNING,x.getMessage(),x);
-			return gen.createSMILES((IMolecule)mol);
+			return gen.createSMILES((IAtomContainer)mol);
 		} catch (Exception x) {
 			throw new AmbitException(x);
 		}

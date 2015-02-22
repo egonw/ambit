@@ -37,7 +37,6 @@ import junit.framework.Assert;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.openscience.cdk.aromaticity.CDKHueckelAromaticityDetector;
 import org.openscience.cdk.interfaces.IAtomContainer;
 import org.openscience.cdk.io.iterator.IIteratingChemObjectReader;
 import org.openscience.cdk.isomorphism.UniversalIsomorphismTester;
@@ -115,13 +114,14 @@ public class MengineCrashTest {
 
     public void isIsomorph(IAtomContainer a,IAtomContainer b) throws  Exception {
         
-        SmilesGenerator g = new SmilesGenerator(true);
+        SmilesGenerator g = new SmilesGenerator();
         AtomConfigurator c= new AtomConfigurator();
         HydrogenAdderProcessor h = new HydrogenAdderProcessor();
         CDKHueckelAromaticityDetector.detectAromaticity(c.process(h.process(a)));
         CDKHueckelAromaticityDetector.detectAromaticity(c.process(h.process(b)));
         Assert.assertEquals(a.getAtomCount(),b.getAtomCount());
-        Assert.assertTrue(UniversalIsomorphismTester.isIsomorph(a,b));
+        UniversalIsomorphismTester uit = new UniversalIsomorphismTester();
+        Assert.assertTrue(uit.isIsomorph(a,b));
 
         
         String s1= g.createSMILES(a);
@@ -130,13 +130,14 @@ public class MengineCrashTest {
         SmilesParser p = new SmilesParser(SilentChemObjectBuilder.getInstance());
         IAtomContainer a1 = p.parseSmiles(s1);
         IAtomContainer b1 = p.parseSmiles(s2);
-        Assert.assertTrue(UniversalIsomorphismTester.isIsomorph(a1,b1));
-        Assert.assertTrue(UniversalIsomorphismTester.isIsomorph(a,a1));
-        Assert.assertTrue(UniversalIsomorphismTester.isIsomorph(b,b1));
+        
+        Assert.assertTrue(uit.isIsomorph(a1,b1));
+        Assert.assertTrue(uit.isIsomorph(a,a1));
+        Assert.assertTrue(uit.isIsomorph(b,b1));
         
         CDKHueckelAromaticityDetector.detectAromaticity(h.process(c.process(a)));
         CDKHueckelAromaticityDetector.detectAromaticity(h.process(c.process(b)));
-        Assert.assertTrue(UniversalIsomorphismTester.isIsomorph(a,b));
+        Assert.assertTrue(uit.isIsomorph(a,b));
 
 
     }

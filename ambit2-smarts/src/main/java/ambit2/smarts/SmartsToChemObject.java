@@ -11,14 +11,12 @@ import org.openscience.cdk.interfaces.IAtomContainer;
 import org.openscience.cdk.interfaces.IBond;
 import org.openscience.cdk.interfaces.IBond.Order;
 import org.openscience.cdk.interfaces.IChemObjectBuilder;
-import org.openscience.cdk.interfaces.IMolecule;
 import org.openscience.cdk.interfaces.IRing;
 import org.openscience.cdk.interfaces.IRingSet;
 import org.openscience.cdk.isomorphism.matchers.IQueryAtomContainer;
 import org.openscience.cdk.isomorphism.matchers.QueryAtomContainer;
 import org.openscience.cdk.isomorphism.matchers.smarts.AromaticQueryBond;
 import org.openscience.cdk.isomorphism.matchers.smarts.OrderQueryBond;
-import org.openscience.cdk.ringsearch.SSSRFinder;
 import org.openscience.cdk.silent.SilentChemObjectBuilder;
 import org.openscience.cdk.tools.periodictable.PeriodicTable;
 
@@ -85,7 +83,7 @@ public class SmartsToChemObject  extends DefaultAmbitProcessor<IQueryAtomContain
 			atoms.add(toAtom(query.getAtom(i)));
 		
 		//Adding the atoms
-		IMolecule container = builder.newInstance(IMolecule.class);
+		IAtomContainer container = builder.newInstance(IAtomContainer.class);
 		for (int i = 0; i < atoms.size(); i++)
 		{	
 			IAtom a = atoms.get(i); 
@@ -163,7 +161,7 @@ public class SmartsToChemObject  extends DefaultAmbitProcessor<IQueryAtomContain
 		}	
 		
 		//Adding the atoms
-		IMolecule container = builder.newInstance(IMolecule.class);
+		IAtomContainer container = builder.newInstance(IAtomContainer.class);
 		for (int i = 0; i < atoms.size(); i++)
 		{	
 			IAtom a = atoms.get(i); 
@@ -1034,7 +1032,7 @@ public class SmartsToChemObject  extends DefaultAmbitProcessor<IQueryAtomContain
 	
 	IAtomContainer condensedFragmentToContainer(IQueryAtomContainer frag)
 	{
-		IMolecule container = builder.newInstance(IMolecule.class);
+		IAtomContainer container = builder.newInstance(IAtomContainer.class);
 		
 		//Converting atoms
 		Vector<IAtom> atoms = new Vector<IAtom>();

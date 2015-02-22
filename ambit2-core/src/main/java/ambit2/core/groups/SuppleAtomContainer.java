@@ -39,7 +39,6 @@ import java.util.Map;
 import org.openscience.cdk.ChemObject;
 import org.openscience.cdk.interfaces.IAtom;
 import org.openscience.cdk.interfaces.IAtomContainer;
-import org.openscience.cdk.interfaces.IAtomParity;
 import org.openscience.cdk.interfaces.IBond;
 import org.openscience.cdk.interfaces.IBond.Order;
 import org.openscience.cdk.interfaces.IBond.Stereo;
@@ -47,14 +46,13 @@ import org.openscience.cdk.interfaces.IChemObjectChangeEvent;
 import org.openscience.cdk.interfaces.IChemObjectListener;
 import org.openscience.cdk.interfaces.IElectronContainer;
 import org.openscience.cdk.interfaces.ILonePair;
-import org.openscience.cdk.interfaces.IMolecule;
 import org.openscience.cdk.interfaces.ISingleElectron;
 import org.openscience.cdk.interfaces.IStereoElement;
 
 import ambit2.core.data.MoleculeTools;
 
 public class SuppleAtomContainer extends ChemObject implements 
-        IMolecule,IChemObjectListener, Serializable, Cloneable, IFiltered<IAtom>{
+		IAtomContainer,IChemObjectListener, Serializable, Cloneable, IFiltered<IAtom>{
     /**
      * 
      */

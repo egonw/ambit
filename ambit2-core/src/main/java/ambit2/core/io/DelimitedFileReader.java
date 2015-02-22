@@ -30,14 +30,13 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 
-import org.openscience.cdk.MoleculeSet;
 import org.openscience.cdk.exception.CDKException;
 import org.openscience.cdk.interfaces.IAtomContainer;
+import org.openscience.cdk.interfaces.IAtomContainerSet;
 import org.openscience.cdk.interfaces.IChemFile;
 import org.openscience.cdk.interfaces.IChemModel;
 import org.openscience.cdk.interfaces.IChemObject;
 import org.openscience.cdk.interfaces.IChemSequence;
-import org.openscience.cdk.interfaces.IMoleculeSet;
 import org.openscience.cdk.io.DefaultChemObjectReader;
 import org.openscience.cdk.io.IChemObjectReader;
 import org.openscience.cdk.io.formats.IResourceFormat;
@@ -80,7 +79,7 @@ public class DelimitedFileReader extends DefaultChemObjectReader implements IChe
 	 * @see org.openscience.cdk.io.ChemObjectReader#read(org.openscience.cdk.ChemObject)
 	 */
 	public IChemObject read(IChemObject object) throws CDKException {
-        if (object instanceof IMoleculeSet) {
+        if (object instanceof IAtomContainerSet) {
             return (IChemObject)readSetOfMolecules();
         } else if (object instanceof IChemFile) {
             IChemFile file = MoleculeTools.newChemFile(SilentChemObjectBuilder.getInstance());
@@ -95,9 +94,9 @@ public class DelimitedFileReader extends DefaultChemObjectReader implements IChe
         }
 
 	}
-    private IMoleculeSet readSetOfMolecules() {
+    private IAtomContainerSet readSetOfMolecules() {
     	try {
-    		IMoleculeSet som = new MoleculeSet();
+    		IAtomContainerSet som = new MoleculeSet();
     		IteratingDelimitedFileReader reader = new IteratingDelimitedFileReader(input,format);
         while (reader.hasNext()) {
 	        Object object = reader.next();
@@ -161,7 +160,7 @@ public class DelimitedFileReader extends DefaultChemObjectReader implements IChe
 		Class[] interfaces = classObject.getInterfaces();
 		for (int i=0; i<interfaces.length; i++) {
 			if (IChemFile.class.equals(interfaces[i])) return true;
-			if (IMoleculeSet.class.equals(interfaces[i])) return true;
+			if (IAtomContainerSet.class.equals(interfaces[i])) return true;
 		}
 		return false;
 	}

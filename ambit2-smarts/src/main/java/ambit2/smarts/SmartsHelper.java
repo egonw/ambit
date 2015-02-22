@@ -29,14 +29,12 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.openscience.cdk.CDKConstants;
-import org.openscience.cdk.aromaticity.CDKHueckelAromaticityDetector;
 import org.openscience.cdk.graph.ConnectivityChecker;
 import org.openscience.cdk.interfaces.IAtom;
 import org.openscience.cdk.interfaces.IAtomContainer;
+import org.openscience.cdk.interfaces.IAtomContainerSet;
 import org.openscience.cdk.interfaces.IBond;
 import org.openscience.cdk.interfaces.IChemObjectBuilder;
-import org.openscience.cdk.interfaces.IMolecule;
-import org.openscience.cdk.interfaces.IMoleculeSet;
 import org.openscience.cdk.interfaces.IStereoElement;
 import org.openscience.cdk.interfaces.ITetrahedralChirality;
 import org.openscience.cdk.isomorphism.matchers.IQueryAtomContainer;
@@ -623,15 +621,15 @@ public class SmartsHelper
 		}
 	}
 	
-	public static  IMolecule getMoleculeFromSmiles(String smi) throws Exception {
-		IMolecule mol = null;
+	public static  IAtomContainer getMoleculeFromSmiles(String smi) throws Exception {
+		IAtomContainer mol = null;
 		SmilesParser sp = new SmilesParser(SilentChemObjectBuilder.getInstance());			
 		mol = sp.parseSmiles(smi);
 		return mol;
 	}
 	
-	public static  IMolecule getMoleculeFromSmiles(String smi, boolean FlagExplicitHatoms) throws Exception {
-		IMolecule mol = null;
+	public static  IAtomContainer getMoleculeFromSmiles(String smi, boolean FlagExplicitHatoms) throws Exception {
+		IAtomContainer mol = null;
 		SmilesParser sp = new SmilesParser(SilentChemObjectBuilder.getInstance());			
 		mol = sp.parseSmiles(smi);
 		
@@ -650,8 +648,8 @@ public class SmartsHelper
 	
 	public static String[] getCarbonSkelletonsFromString(String smiles) throws Exception
 	{	
-		IMolecule mol = getMoleculeFromSmiles(smiles);
-		IMoleculeSet ms =  ConnectivityChecker.partitionIntoMolecules(mol);
+		IAtomContainer mol = getMoleculeFromSmiles(smiles);
+		IAtomContainerSet ms =  ConnectivityChecker.partitionIntoMolecules(mol);
 		int n = ms.getAtomContainerCount();
 		String res[] = new String[n];
 		for(int i =0; i < n; i++)

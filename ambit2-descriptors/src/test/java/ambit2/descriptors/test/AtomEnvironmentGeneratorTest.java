@@ -40,7 +40,7 @@ public class AtomEnvironmentGeneratorTest {
 			AtomConfigurator typer = new AtomConfigurator();
 			typer.process(mol);
 			    
-			CDKHydrogenAdder hAdder = CDKHydrogenAdder.getInstance(NoNotificationChemObjectBuilder.getInstance());
+			CDKHydrogenAdder hAdder = CDKHydrogenAdder.getInstance(SilentChemObjectBuilder.getInstance());
 			hAdder.addImplicitHydrogens(mol);
 
 			mol = gen.process(mol);

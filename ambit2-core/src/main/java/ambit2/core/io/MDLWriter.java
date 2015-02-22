@@ -54,7 +54,7 @@ import org.openscience.cdk.interfaces.IChemFile;
 import org.openscience.cdk.interfaces.IChemModel;
 import org.openscience.cdk.interfaces.IChemObject;
 import org.openscience.cdk.interfaces.IChemSequence;
-import org.openscience.cdk.interfaces.IMolecule;
+import org.openscience.cdk.interfaces.IAtomContainer;
 import org.openscience.cdk.interfaces.IPseudoAtom;
 import org.openscience.cdk.io.DefaultChemObjectWriter;
 import org.openscience.cdk.io.formats.IResourceFormat;
@@ -72,7 +72,7 @@ import ambit2.core.data.MoleculeTools;
  * For writing a MDL molfile you can this code:
  * <pre>
  * MDLWriter writer = new MDLWriter(new FileWriter(new File("output.mol")));
- * writer.write((IMolecule)molecule);
+ * writer.write((IAtomContainer)molecule);
  * writer.close();
  * </pre>
  *
@@ -94,7 +94,7 @@ public class MDLWriter extends DefaultChemObjectWriter {
     private BufferedWriter writer;
     
     /**
-     * Constructs a new MDLWriter that can write an {@link IMolecule}
+     * Constructs a new MDLWriter that can write an {@link IAtomContainer}
      * to the MDL molfile format.
      *
      * @param   out  The Writer to write to
@@ -110,7 +110,7 @@ public class MDLWriter extends DefaultChemObjectWriter {
     }
 
     /**
-     * Constructs a new MDLWriter that can write an {@link IMolecule}
+     * Constructs a new MDLWriter that can write an {@link IAtomContainer}
      * to a given OutputStream.
      *
      * @param   output  The OutputStream to write to
@@ -167,7 +167,7 @@ public class MDLWriter extends DefaultChemObjectWriter {
     /**
      * Writes a {@link IChemObject} to the MDL molfile formated output. 
      * It can only output ChemObjects of type {@link IChemFile},
-     * {@link IMolecule} and {@link IAtomContainer}.
+     * {@link IAtomContainer} and {@link IAtomContainer}.
      *
      * @param object {@link IChemObject} to write
      *

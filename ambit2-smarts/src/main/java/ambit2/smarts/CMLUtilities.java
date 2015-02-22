@@ -3,16 +3,15 @@ package ambit2.smarts;
 import java.util.Vector;
 
 import org.openscience.cdk.interfaces.IAtom;
-import org.openscience.cdk.interfaces.IMolecule;
+import org.openscience.cdk.interfaces.IAtomContainer;
 import org.openscience.cdk.interfaces.IRingSet;
-import org.openscience.cdk.ringsearch.SSSRFinder;
 
 /**
  * SMARTSProp is a per atom property & 
  * 
  * hvnNrrrrrrrrRRRRRRRR
-extractSMARTSProperties(IMolecule mol)
-setCMLSMARTSProperties(IMolecule mol)
+extractSMARTSProperties(IAtomContainer mol)
+setCMLSMARTSProperties(IAtomContainer mol)
 mol.getAtom(i).setProperty("SMARTSProp", prop);
 
 if already set, 
@@ -37,7 +36,7 @@ public class CMLUtilities
 	 * 
 	 * @param mol
 	 */
-	public void setCMLSMARTSProperties(IMolecule mol)
+	public void setCMLSMARTSProperties(IAtomContainer mol)
 	{	
 		SSSRFinder sssrf = new SSSRFinder(mol);
 		IRingSet ringSet = sssrf.findSSSR();
@@ -63,7 +62,7 @@ public class CMLUtilities
 	 * rrrrrrrr - ring data
 	 * RRRRRRRR - ring data 2
 	 */
-	String getAtomCMLSMARTSProperty(int n, IMolecule mol)
+	String getAtomCMLSMARTSProperty(int n, IAtomContainer mol)
 	{						
 		StringBuffer sb = new StringBuffer();
 		IAtom atom = mol.getAtom(n);
@@ -109,7 +108,7 @@ public class CMLUtilities
 	 * Expects SMARTSProp to be set for each atom  !
 	 * @param mol
 	 */
-	public void extractSMARTSProperties(IMolecule mol)
+	public void extractSMARTSProperties(IAtomContainer mol)
 	{
 		for (int i = 0; i < mol.getAtomCount(); i++)
 		{

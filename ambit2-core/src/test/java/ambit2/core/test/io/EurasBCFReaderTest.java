@@ -5,7 +5,7 @@ import java.io.FileInputStream;
 import junit.framework.Assert;
 
 import org.junit.Test;
-import org.openscience.cdk.interfaces.IMolecule;
+import org.openscience.cdk.interfaces.IAtomContainer;
 
 import ambit2.core.io.bcf.EurasBCFReader;
 
@@ -17,7 +17,7 @@ public class EurasBCFReaderTest  {
 		EurasBCFReader reader = new EurasBCFReader(in,0);
 		int c = 0;
 		while (reader.hasNext()) {
-			IMolecule m = (IMolecule)reader.next();
+			IAtomContainer m = (IAtomContainer)reader.next();
 			/*
 			if (m==null) continue;
 			System.out.println(c+"\t"+

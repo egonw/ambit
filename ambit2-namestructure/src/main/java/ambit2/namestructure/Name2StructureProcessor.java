@@ -9,7 +9,6 @@ import nu.xom.Element;
 import nu.xom.Serializer;
 
 import org.openscience.cdk.interfaces.IAtomContainer;
-import org.openscience.cdk.interfaces.IMolecule;
 
 import uk.ac.cam.ch.wwmm.opsin.NameToStructure;
 import uk.ac.cam.ch.wwmm.opsin.OpsinResult;
@@ -95,7 +94,7 @@ public class Name2StructureProcessor extends
 			Element cmlElement = result.getCml();
 
 			if (cmlElement != null) {
-				IMolecule mol =  MoleculeTools.readCMLMolecule(cmlElement.toXML());
+				IAtomContainer mol =  MoleculeTools.readCMLMolecule(cmlElement.toXML());
 				mol.getProperties().clear();
 				mol.setProperty(
 						Property.getInstance("Name", 

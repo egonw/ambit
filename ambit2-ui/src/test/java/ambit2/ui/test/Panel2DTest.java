@@ -41,11 +41,10 @@ import net.idea.modbcum.i.processors.IProcessor;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.openscience.cdk.Molecule;
 import org.openscience.cdk.interfaces.IAtomContainer;
-import org.openscience.cdk.interfaces.IMolecule;
 import org.openscience.cdk.renderer.selection.IChemObjectSelection;
 import org.openscience.cdk.renderer.selection.SingleSelection;
+import org.openscience.cdk.silent.AtomContainer;
 import org.openscience.cdk.silent.SilentChemObjectBuilder;
 import org.openscience.cdk.smiles.SmilesParser;
 
@@ -53,7 +52,7 @@ import ambit2.rendering.CompoundImageTools;
 import ambit2.ui.Panel2D;
 
 public class Panel2DTest {
-	protected IMolecule mol;
+	protected IAtomContainer mol;
 
 	@Before
 	public void setup() throws Exception {
@@ -74,13 +73,13 @@ public class Panel2DTest {
 		return new IProcessor<IAtomContainer, IChemObjectSelection>() {
 			public IChemObjectSelection process(IAtomContainer mol)
 					throws AmbitException {
-				Molecule selected = new Molecule();
+				IAtomContainer selected = new AtomContainer();
 				for (int i = 0; i < 2; i++) {
 					selected.addAtom(mol.getBond(i).getAtom(0));
 					selected.addAtom(mol.getBond(i).getAtom(1));
 					selected.addBond(mol.getBond(i));
 				}
-				return new SingleSelection<Molecule>(selected);
+				return new SingleSelection<IAtomContainer>(selected);
 			}
 
 			public boolean isEnabled() {

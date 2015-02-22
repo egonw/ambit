@@ -39,12 +39,10 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.openscience.cdk.aromaticity.CDKHueckelAromaticityDetector;
 import org.openscience.cdk.inchi.InChIGenerator;
 import org.openscience.cdk.inchi.InChIGeneratorFactory;
 import org.openscience.cdk.inchi.InChIToStructure;
 import org.openscience.cdk.interfaces.IAtomContainer;
-import org.openscience.cdk.interfaces.IMolecule;
 import org.openscience.cdk.io.iterator.IIteratingChemObjectReader;
 import org.openscience.cdk.silent.SilentChemObjectBuilder;
 import org.openscience.cdk.smiles.SmilesParser;
@@ -85,14 +83,14 @@ public class InchiProcessorTest {
 	@Test
 	public void testProcessCaffeineAromaticity() throws Exception {
 		SmilesParser p = new SmilesParser(SilentChemObjectBuilder.getInstance());
-		IMolecule mol = p.parseSmiles("CN1C=NC2=C1C(=O)N(C(=O)N2C)C");
+		IAtomContainer mol = p.parseSmiles("CN1C=NC2=C1C(=O)N(C(=O)N2C)C");
 		generate(mol,"InChI=1S/C8H10N4O2/c1-10-4-9-6-5(10)7(13)12(3)8(14)11(6)2/h4H,1-3H3",true);
 	}	
 	
 	@Test
 	public void testProcess2() throws Exception {
 		SmilesParser p = new SmilesParser(SilentChemObjectBuilder.getInstance());
-		IMolecule mol = p.parseSmiles("NC1=CC(N)=NC(O)=N1");
+		IAtomContainer mol = p.parseSmiles("NC1=CC(N)=NC(O)=N1");
 		generate(mol,"InChI=1S/C4H6N4O/c5-2-1-3(6)8-4(9)7-2/h1H,(H5,5,6,7,8,9)",false);
 	}	
 	
@@ -100,8 +98,8 @@ public class InchiProcessorTest {
 	@Test
 	public void testProcessAromaticity() throws Exception {
 		SmilesParser p = new SmilesParser(SilentChemObjectBuilder.getInstance());
-		IMolecule mol = p.parseSmiles("CN1C=NC2=C1C(=O)N(C(=O)N2C)C");
-		//IMolecule mol = p.parseSmiles("c1ccccc1");
+		IAtomContainer mol = p.parseSmiles("CN1C=NC2=C1C(=O)N(C(=O)N2C)C");
+		//IAtomContainer mol = p.parseSmiles("c1ccccc1");
 
 		CDKHydrogenAdder ha = CDKHydrogenAdder.getInstance(SilentChemObjectBuilder.getInstance());
 		ha.addImplicitHydrogens(mol);
@@ -121,7 +119,7 @@ public class InchiProcessorTest {
 	@Test
 	public void testProcess1() throws Exception {
 		SmilesParser p = new SmilesParser(SilentChemObjectBuilder.getInstance());
-		IMolecule m = p.parseSmiles("Cc1ccc(cc1)C(C)C=O");
+		IAtomContainer m = p.parseSmiles("Cc1ccc(cc1)C(C)C=O");
 		
 	}
 	
@@ -185,10 +183,10 @@ public class InchiProcessorTest {
 		SmilesParser p = new SmilesParser(SilentChemObjectBuilder.getInstance());
 		
 		InputStream in = getClass().getClassLoader().getResourceAsStream("ambit2/core/data/stereo/stereo.sdf");
-		IIteratingChemObjectReader<IMolecule> reader =  FileInputState.getReader(in, "stereo.sdf");
+		IIteratingChemObjectReader<IAtomContainer> reader =  FileInputState.getReader(in, "stereo.sdf");
 		int count = 0;
 		while (reader.hasNext()) {
-			IMolecule o = reader.next();
+			IAtomContainer o = reader.next();
 			InChIGenerator gen = factory.getInChIGenerator(o);
 		    INCHI_RET ret = gen.getReturnStatus();
 		    if (ret != INCHI_RET.OKAY) {
@@ -201,7 +199,7 @@ public class InchiProcessorTest {
 			Object smiles = o.getProperty("SMILES");
 			Assert.assertNotNull(smiles);
 			 System.out.println(smiles);
-			IMolecule smilesMol = p.parseSmiles(smiles.toString());
+			IAtomContainer smilesMol = p.parseSmiles(smiles.toString());
 			gen = factory.getInChIGenerator(smilesMol);
 			System.out.println(gen.getReturnStatus() + " " + gen.getMessage());
 			System.out.println("from SMILES " + gen.getInchi());

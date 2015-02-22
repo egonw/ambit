@@ -8,7 +8,6 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 import org.openscience.cdk.interfaces.IAtomContainer;
-import org.openscience.cdk.interfaces.IMolecule;
 import org.openscience.cdk.io.iterator.IIteratingChemObjectReader;
 import org.openscience.cdk.isomorphism.UniversalIsomorphismTester;
 import org.openscience.cdk.silent.SilentChemObjectBuilder;
@@ -60,10 +59,11 @@ public class HinReaderTest {
 			logger.fine(o.toString());
 			Assert.assertTrue(o instanceof IAtomContainer);
 			Assert.assertEquals(target.getAtomCount(),((IAtomContainer)o).getAtomCount());
-			SmilesGenerator g = new SmilesGenerator(true);
+			SmilesGenerator g = new SmilesGenerator();
 			if (logger.isLoggable(Level.FINE))
-				logger.fine(g.createSMILES((IMolecule)o));			
-			Assert.assertTrue(UniversalIsomorphismTester.isIsomorph(target,((IAtomContainer)o)));
+				logger.fine(g.createSMILES((IAtomContainer)o));			
+			UniversalIsomorphismTester uit = new UniversalIsomorphismTester();
+			Assert.assertTrue(uit.isIsomorph(target,((IAtomContainer)o)));
 			count++;
 
 		}

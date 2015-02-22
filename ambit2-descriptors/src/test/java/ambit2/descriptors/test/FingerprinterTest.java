@@ -5,10 +5,9 @@ import java.util.BitSet;
 import junit.framework.Assert;
 
 import org.junit.Test;
-import org.openscience.cdk.aromaticity.CDKHueckelAromaticityDetector;
 import org.openscience.cdk.fingerprint.IFingerprinter;
 import org.openscience.cdk.fingerprint.PubchemFingerprinter;
-import org.openscience.cdk.interfaces.IMolecule;
+import org.openscience.cdk.interfaces.IAtomContainer;
 import org.openscience.cdk.qsar.DescriptorValue;
 import org.openscience.cdk.silent.SilentChemObjectBuilder;
 import org.openscience.cdk.templates.MoleculeFactory;
@@ -70,7 +69,7 @@ public class FingerprinterTest {
 	
 	@Test
 	public void testPubChem() throws Exception {
-		IMolecule mol = MoleculeFactory.make123Triazole();
+		IAtomContainer mol = MoleculeFactory.make123Triazole();
 		IFingerprinter fp = new PubchemFingerprinter();
 		AtomContainerManipulator.percieveAtomTypesAndConfigureAtoms(mol);
 		CDKHueckelAromaticityDetector.detectAromaticity(mol);
@@ -83,7 +82,7 @@ public class FingerprinterTest {
 	public void testDescriptor(Fingerprint2DescriptorWrapper wrapper) throws Exception {
 
 		
-		IMolecule mol = MoleculeFactory.make123Triazole();
+		IAtomContainer mol = MoleculeFactory.make123Triazole();
 		AtomContainerManipulator.percieveAtomTypesAndConfigureAtoms(mol);
 		CDKHueckelAromaticityDetector.detectAromaticity(mol);
 		CDKHydrogenAdder adder = CDKHydrogenAdder.getInstance(SilentChemObjectBuilder.getInstance());

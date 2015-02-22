@@ -36,8 +36,8 @@ import junit.framework.Assert;
 import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.ITable;
 import org.junit.Test;
+import org.openscience.cdk.interfaces.IAtomContainer;
 import org.openscience.cdk.interfaces.IChemObjectBuilder;
-import org.openscience.cdk.interfaces.IMolecule;
 import org.openscience.cdk.io.iterator.IIteratingChemObjectReader;
 import org.openscience.cdk.silent.SilentChemObjectBuilder;
 
@@ -130,9 +130,9 @@ public class PropertyWriterTest  extends DbUnitTest {
 			
 			if (mReader.hasNext()) {
 				Object mol = mReader.next();
-				if (mol instanceof IMolecule) {
+				if (mol instanceof IAtomContainer) {
 					o.clearProperties();
-					o.addProperties(((IMolecule)mol).getProperties());
+					o.addProperties(((IAtomContainer)mol).getProperties());
 					propertyWriter.write(o);
 				}
 			}

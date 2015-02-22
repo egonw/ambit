@@ -43,7 +43,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openscience.cdk.exception.CDKException;
 import org.openscience.cdk.exception.InvalidSmilesException;
 import org.openscience.cdk.interfaces.IAtomContainer;
-import org.openscience.cdk.interfaces.IMolecule;
+import org.openscience.cdk.interfaces.IAtomContainer;
 import org.openscience.cdk.io.formats.IResourceFormat;
 import org.openscience.cdk.io.setting.IOSetting;
 import org.openscience.cdk.io.setting.StringIOSetting;
@@ -197,7 +197,7 @@ public class IteratingXLSReader extends IteratingFilesWithHeaderReader<Property>
 				}
 	
 			}
-			if (mol == null) mol = SilentChemObjectBuilder.getInstance().newInstance(IMolecule.class);
+			if (mol == null) mol = SilentChemObjectBuilder.getInstance().newInstance(IAtomContainer.class);
 			mol.setProperties(properties);
 			processRow(mol);
 		} catch (Exception x) {

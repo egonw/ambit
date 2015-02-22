@@ -31,12 +31,10 @@ import java.util.Map;
 import java.util.logging.Logger;
 
 import org.openscience.cdk.ChemObject;
-import org.openscience.cdk.MoleculeSet;
 import org.openscience.cdk.exception.CDKException;
 import org.openscience.cdk.interfaces.IAtomContainer;
+import org.openscience.cdk.interfaces.IAtomContainerSet;
 import org.openscience.cdk.interfaces.IChemObject;
-import org.openscience.cdk.interfaces.IMolecule;
-import org.openscience.cdk.interfaces.IMoleculeSet;
 import org.openscience.cdk.io.DefaultChemObjectWriter;
 import org.openscience.cdk.io.setting.IOSetting;
 import org.openscience.cdk.smiles.SmilesGenerator;
@@ -47,7 +45,7 @@ public abstract class FileWithHeaderWriter extends DefaultChemObjectWriter {
 	protected static Logger logger = Logger.getLogger(DelimitedFileWriter.class.getName());
 	protected Header header = null;
 	protected int smilesIndex = -1;
-	protected SmilesGenerator sg = new SmilesGenerator(true);
+	protected SmilesGenerator sg = new SmilesGenerator();
 	public static String defaultSMILESHeader = "SMILES";
 	protected boolean writingStarted = false;
 
@@ -60,10 +58,10 @@ public abstract class FileWithHeaderWriter extends DefaultChemObjectWriter {
 	 */
 	public void write(IChemObject object) throws CDKException {
 		fireIOSettingQuestion(null);
-		if (object instanceof IMoleculeSet) {
-		    writeSetOfMolecules((IMoleculeSet)object);
-		} else if (object instanceof IMolecule) {
-		    writeMolecule((IMolecule)object);
+		if (object instanceof IAtomContainerSet) {
+		    writeSetOfMolecules((IAtomContainerSet)object);
+		} else if (object instanceof IAtomContainer) {
+		    writeMolecule((IAtomContainer)object);
 		} else {
 		    throw new CDKException("Only supported is writing of ChemFile and Molecule objects." + object.getClass().getName());
 		}
@@ -123,12 +121,12 @@ public abstract class FileWithHeaderWriter extends DefaultChemObjectWriter {
 		if (smilesIndex == -1) { header.list.add(0,defaultSMILESHeader); smilesIndex = 0; }
 		logger.fine("Header created from hashtable\t"+header);
 	}
-	public abstract void writeMolecule(IMolecule molecule) ;
-	public void  writeSetOfMolecules(IMoleculeSet som)
+	public abstract void writeMolecule(IAtomContainer molecule) ;
+	public void  writeSetOfMolecules(IAtomContainerSet som)
 	{
-		Iterator<IAtomContainer> molecules = som.molecules().iterator();
+		Iterator<IAtomContainer> molecules = som.atomContainers().iterator();
 		while (molecules.hasNext()) {
-			writeMolecule((IMolecule)molecules.next());	
+			writeMolecule((IAtomContainer)molecules.next());	
 		}
 		/**
 		writeMolecule(molecules[0]);

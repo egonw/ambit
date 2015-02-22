@@ -13,7 +13,7 @@ import org.openscience.cdk.CDKConstants;
 import org.openscience.cdk.aromaticity.CDKHueckelAromaticityDetector;
 import org.openscience.cdk.interfaces.IAtomContainer;
 import org.openscience.cdk.interfaces.IBond;
-import org.openscience.cdk.interfaces.IMolecule;
+import org.openscience.cdk.interfaces.IAtomContainer;
 import org.openscience.cdk.io.iterator.IIteratingChemObjectReader;
 import org.openscience.cdk.silent.SilentChemObjectBuilder;
 import org.openscience.cdk.smiles.FixBondOrdersTool;
@@ -70,7 +70,7 @@ public class TestTautomersFromSDF {
 		String warfarin2 = "C3=C(C(C1=C(OC2=C(C1=O)C=CC=C2)O)CC(=O)C)C=CC=C3";
 		SmilesParser parser = new SmilesParser(SilentChemObjectBuilder.getInstance());
 		
-		IMolecule mol = parser.parseSmiles(warfarin1);
+		IAtomContainer mol = parser.parseSmiles(warfarin1);
 		List<IAtomContainer> tautomers1 = testTautomerGeneration(mol);
 		//6 tautomers
 		mol = parser.parseSmiles(warfarin2);
@@ -95,7 +95,7 @@ public class TestTautomersFromSDF {
 		CDKHydrogenAdder.getInstance(mol.getBuilder()).addImplicitHydrogens(mol);
 		
 		if (aromatic) 
-			mol = kekulizer.kekuliseAromaticRings((IMolecule)mol);
+			mol = kekulizer.kekuliseAromaticRings((IAtomContainer)mol);
 		
 		//System.out.println(g.createSMILES(mol));
 		tman.setStructure(mol);

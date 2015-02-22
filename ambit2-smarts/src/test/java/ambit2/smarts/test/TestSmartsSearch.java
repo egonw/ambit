@@ -34,16 +34,15 @@ import junit.framework.TestSuite;
 
 import org.openscience.cdk.Atom;
 import org.openscience.cdk.Bond;
-import org.openscience.cdk.Molecule;
 import org.openscience.cdk.exception.CDKException;
 import org.openscience.cdk.interfaces.IAtom;
 import org.openscience.cdk.interfaces.IAtomContainer;
 import org.openscience.cdk.interfaces.IBond;
-import org.openscience.cdk.interfaces.IMolecule;
 import org.openscience.cdk.isomorphism.UniversalIsomorphismTester;
 import org.openscience.cdk.isomorphism.matchers.IQueryAtom;
 import org.openscience.cdk.isomorphism.matchers.IQueryAtomContainer;
 import org.openscience.cdk.isomorphism.mcss.RMap;
+import org.openscience.cdk.silent.AtomContainer;
 import org.openscience.cdk.silent.SilentChemObjectBuilder;
 import org.openscience.cdk.smiles.SmilesParser;
 import org.openscience.cdk.tools.LoggingTool;
@@ -58,6 +57,7 @@ import ambit2.smarts.SmartsParser;
 public class TestSmartsSearch extends TestCase 
 {	 
 	public List<List<Integer>>  matchingAtoms = null;
+	protected UniversalIsomorphismTester uit = new UniversalIsomorphismTester();
 	public SmartsParser smartsParser = new SmartsParser();
 	public LoggingTool logger;
 	public IQueryAtomContainer mQuery;
@@ -93,7 +93,7 @@ public class TestSmartsSearch extends TestCase
 		}
 		else 
 		{
-			List bondMapping = UniversalIsomorphismTester.getSubgraphMaps(atomContainer, query);
+			List bondMapping = uit.getSubgraphMaps(atomContainer, query);
 			matchingAtoms = getAtomMappings(bondMapping, atomContainer);
 		}		
 		return matchingAtoms.size() != 0;
@@ -768,9 +768,9 @@ public class TestSmartsSearch extends TestCase
 	
 	//This molecule is specially created for Stereo Bond tests
 	//Since stereo bond is not implemented in smiles parser. 
-	IMolecule getFCCCl(int absStereo) throws Exception
+	IAtomContainer getFCCCl(int absStereo) throws Exception
 	{
-		Molecule mol = new Molecule();
+		IAtomContainer mol = new AtomContainer();
 		Atom a1 = new Atom("F");
 		mol.addAtom(a1);
 		Atom a2 = new Atom("C");

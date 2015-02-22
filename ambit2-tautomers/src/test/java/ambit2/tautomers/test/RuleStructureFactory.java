@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
 
-import org.openscience.cdk.Molecule;
 import org.openscience.cdk.interfaces.IAtomContainer;
 import org.openscience.cdk.interfaces.IBond;
 import org.openscience.cdk.silent.SilentChemObjectBuilder;

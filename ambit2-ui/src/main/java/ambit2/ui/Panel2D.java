@@ -44,7 +44,7 @@ import net.idea.modbcum.i.processors.IProcessor;
 
 import org.openscience.cdk.event.ICDKChangeListener;
 import org.openscience.cdk.interfaces.IAtomContainer;
-import org.openscience.cdk.interfaces.IMolecule;
+import org.openscience.cdk.interfaces.IAtomContainer;
 import org.openscience.cdk.renderer.selection.IChemObjectSelection;
 import org.openscience.cdk.silent.SilentChemObjectBuilder;
 
@@ -58,7 +58,7 @@ import ambit2.rendering.CompoundImageTools;
  * @author Nina Jeliazkova
  *
  */
-public class Panel2D<A extends IMoleculeEditAction> extends JPanel implements ICDKChangeListener, ComponentListener, IAmbitEditor<IAtomContainer>, PropertyChangeListener
+public class Panel2D<A extends IAtomContainerEditAction> extends JPanel implements ICDKChangeListener, ComponentListener, IAmbitEditor<IAtomContainer>, PropertyChangeListener
 {
 	/**
 	 * 
@@ -142,9 +142,9 @@ public class Panel2D<A extends IMoleculeEditAction> extends JPanel implements IC
 			editAction.setParentComponent(parentComponent);
 			editAction.setModal(true);
 			editAction.setMolecule(
-					getObject()==null?MoleculeTools.newMolecule(SilentChemObjectBuilder.getInstance()):(IMolecule)getObject());
+					getObject()==null?MoleculeTools.newMolecule(SilentChemObjectBuilder.getInstance()):(IAtomContainer)getObject());
 			editAction.actionPerformed(null);
-			IMolecule molecule = editAction.getMolecule();
+			IAtomContainer molecule = editAction.getMolecule();
 			if (molecule != null) {
 				//to force 2D generation, otherwise the image is broken
     			//Iterator<IAtom> atoms = molecule.atoms();

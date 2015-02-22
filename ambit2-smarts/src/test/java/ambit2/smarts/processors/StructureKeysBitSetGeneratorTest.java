@@ -8,13 +8,11 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 import org.openscience.cdk.CDKConstants;
-import org.openscience.cdk.aromaticity.CDKHueckelAromaticityDetector;
 import org.openscience.cdk.interfaces.IAtom;
 import org.openscience.cdk.interfaces.IAtomContainer;
 import org.openscience.cdk.interfaces.IBond;
 import org.openscience.cdk.interfaces.IChemObject;
-import org.openscience.cdk.interfaces.IMolecule;
-import org.openscience.cdk.io.iterator.IteratingMDLReader;
+import org.openscience.cdk.io.iterator.IteratingSDFReader;
 import org.openscience.cdk.isomorphism.UniversalIsomorphismTester;
 import org.openscience.cdk.silent.SilentChemObjectBuilder;
 import org.openscience.cdk.smiles.SmilesParser;
@@ -97,15 +95,15 @@ public class StructureKeysBitSetGeneratorTest {
 	}
 	@Test
 	public void testBiphenyl4CDK() throws Exception {
-		IteratingMDLReader reader = new IteratingMDLReader(
+		IteratingSDFReader reader = new IteratingSDFReader(
 				new InputStreamReader(getClass().getClassLoader().getResourceAsStream("biphenyl.sdf")),
 				SilentChemObjectBuilder.getInstance());
 		
-		IMolecule biphenyl_kekule=null;
+		IAtomContainer biphenyl_kekule=null;
 		while (reader.hasNext()) {
 			IChemObject o = reader.next();
-			Assert.assertTrue(o instanceof IMolecule);
-			biphenyl_kekule = (IMolecule) o;
+			Assert.assertTrue(o instanceof IAtomContainer);
+			biphenyl_kekule = (IAtomContainer) o;
 			AtomContainerManipulator.percieveAtomTypesAndConfigureAtoms(biphenyl_kekule);
 			//well, Hydrogens are already in the file, but we need to mimic the generic read/processing workflow
 			CDKHydrogenAdder hAdder = CDKHydrogenAdder.getInstance(biphenyl_kekule.getBuilder());
@@ -122,7 +120,7 @@ public class StructureKeysBitSetGeneratorTest {
 		
 		//get the biphenyl as aromatic smiles
 		SmilesParser parser = new SmilesParser(SilentChemObjectBuilder.getInstance());
-		IMolecule biphenyl_aromaticsmiles = parser.parseSmiles("c1ccccc1c2ccccc2");
+		IAtomContainer biphenyl_aromaticsmiles = parser.parseSmiles("c1ccccc1c2ccccc2");
 		biphenyl_aromaticsmiles.setID("biphenyl_aromatic");
 		AtomContainerManipulator.percieveAtomTypesAndConfigureAtoms(biphenyl_aromaticsmiles);
 		CDKHydrogenAdder hAdder = CDKHydrogenAdder.getInstance(biphenyl_aromaticsmiles.getBuilder());
@@ -132,7 +130,7 @@ public class StructureKeysBitSetGeneratorTest {
 		
 		
 		//get the biphenyl as Kekule smiles
-		IMolecule biphenyl_kekulesmiles = parser.parseSmiles("C1=C(C=CC=C1)C2=CC=CC=C2");
+		IAtomContainer biphenyl_kekulesmiles = parser.parseSmiles("C1=C(C=CC=C1)C2=CC=CC=C2");
 		biphenyl_kekulesmiles.setID("biphenyl_kekulesmiles");
 		AtomContainerManipulator.percieveAtomTypesAndConfigureAtoms(biphenyl_kekulesmiles);
 		hAdder = CDKHydrogenAdder.getInstance(biphenyl_kekulesmiles.getBuilder());
@@ -140,12 +138,12 @@ public class StructureKeysBitSetGeneratorTest {
 		CDKHueckelAromaticityDetector.detectAromaticity(biphenyl_kekulesmiles);		
 		AtomContainerManipulator.convertImplicitToExplicitHydrogens(biphenyl_kekulesmiles);
 		
-
-		Assert.assertTrue(UniversalIsomorphismTester.isIsomorph(biphenyl_aromaticsmiles,biphenyl_kekule));
+		UniversalIsomorphismTester uit = new UniversalIsomorphismTester();
+		Assert.assertTrue(uit.isIsomorph(biphenyl_aromaticsmiles,biphenyl_kekule));
 		
-		Assert.assertTrue(UniversalIsomorphismTester.isIsomorph(biphenyl_aromaticsmiles,biphenyl_kekulesmiles));
+		Assert.assertTrue(uit.isIsomorph(biphenyl_aromaticsmiles,biphenyl_kekulesmiles));
 		
-		Assert.assertTrue(UniversalIsomorphismTester.isIsomorph(biphenyl_kekulesmiles,biphenyl_kekule));
+		Assert.assertTrue(uit.isIsomorph(biphenyl_kekulesmiles,biphenyl_kekule));
 		
 		
 		// #1 with the latest fix, we'll not find double bonds :)
@@ -217,7 +215,7 @@ public class StructureKeysBitSetGeneratorTest {
 		reader.close();
 		
 		SmilesParser parser = new SmilesParser(SilentChemObjectBuilder.getInstance());
-		IMolecule mol = parser.parseSmiles("c1ccccc1c2ccccc2");
+		IAtomContainer mol = parser.parseSmiles("c1ccccc1c2ccccc2");
 	
 		BitSet bitsetAromatic = bitsetGenerator.process(mol);
 		

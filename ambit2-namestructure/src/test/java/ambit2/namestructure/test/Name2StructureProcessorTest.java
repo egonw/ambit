@@ -5,7 +5,7 @@ import junit.framework.Assert;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.openscience.cdk.interfaces.IMolecule;
+import org.openscience.cdk.interfaces.IAtomContainer;
 import org.openscience.cdk.isomorphism.UniversalIsomorphismTester;
 import org.openscience.cdk.templates.MoleculeFactory;
 
@@ -29,7 +29,7 @@ public class Name2StructureProcessorTest {
 	@Test
 	public void testIUPACName() throws Exception {
 		Name2StructureProcessor p = new Name2StructureProcessor();
-		IMolecule mol =  (IMolecule)p.process("2-[(3Z)-6-fluoro-2-methyl-3-[(4-methylsulfinylphenyl)methylidene]inden-1-yl]acetic acid");
+		IAtomContainer mol =  (IAtomContainer)p.process("2-[(3Z)-6-fluoro-2-methyl-3-[(4-methylsulfinylphenyl)methylidene]inden-1-yl]acetic acid");
 		Assert.assertNotNull(mol);
 		Assert.assertTrue(mol.getAtomCount()>0);
 	}
@@ -38,11 +38,12 @@ public class Name2StructureProcessorTest {
 	@Test
 	public void test() throws Exception {
 		Name2StructureProcessor p = new Name2StructureProcessor();
-		IMolecule mol =  (IMolecule)p.process("benzene");
+		IAtomContainer mol =  (IAtomContainer)p.process("benzene");
 		Assert.assertNotNull(mol);
-		IMolecule benzene = MoleculeFactory.makeBenzene();
+		IAtomContainer benzene = MoleculeFactory.makeBenzene();
 		HydrogenAdderProcessor hp = new HydrogenAdderProcessor();
-		Assert.assertTrue(UniversalIsomorphismTester.isIsomorph(hp.process(benzene),mol));
+		UniversalIsomorphismTester uit = new UniversalIsomorphismTester();
+		Assert.assertTrue(uit.isIsomorph(hp.process(benzene),mol));
 	}
 	
 	

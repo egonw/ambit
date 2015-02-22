@@ -40,7 +40,7 @@ import org.openscience.cdk.annotations.TestMethod;
 import org.openscience.cdk.exception.CDKException;
 import org.openscience.cdk.interfaces.IAtomContainer;
 import org.openscience.cdk.interfaces.IChemObjectBuilder;
-import org.openscience.cdk.interfaces.IMolecule;
+import org.openscience.cdk.interfaces.IAtomContainer;
 import org.openscience.cdk.io.ISimpleChemObjectReader;
 import org.openscience.cdk.io.ReaderFactory;
 import org.openscience.cdk.io.formats.IChemFormat;
@@ -73,7 +73,7 @@ import ambit2.base.processors.CASProcessor;
  *   new FileInputStream(sdfFile), SilentChemObjectBuilder.getInstance()
  * );
  * while (reader.hasNext()) {
- *   IMolecule molecule = (IMolecule)reader.next();
+ *   IAtomContainer molecule = (IAtomContainer)reader.next();
  * }
  * </pre>
  *
@@ -102,7 +102,7 @@ implements IChemObjectIOListener {
     private boolean nextAvailableIsKnown;
     private boolean hasNext;
     private IChemObjectBuilder builder;
-    private IMolecule nextMolecule;
+    private IAtomContainer nextMolecule;
     
     protected CASProcessor casTransformer = new CASProcessor();
     private BooleanIOSetting forceReadAs3DCoords;
@@ -218,7 +218,7 @@ implements IChemObjectIOListener {
     }
 
     /**
-     * Returns true if another IMolecule can be read.
+     * Returns true if another IAtomContainer can be read.
      */
     public boolean hasNext() {
 
@@ -254,13 +254,13 @@ implements IChemObjectIOListener {
 
                     logger.debug("MDL file part read: ", buffer);
 
-                    IMolecule molecule = null;
+                    IAtomContainer molecule = null;
 
                     try{
                         ISimpleChemObjectReader reader = getReader(currentFormat);
                         InputStream byteStream         = new ByteArrayInputStream(buffer.toString().getBytes("UTF-8"));
                         reader.setReader(byteStream);
-                        molecule = (IMolecule)reader.read(builder.newInstance(IMolecule.class));
+                        molecule = (IAtomContainer)reader.read(builder.newInstance(IAtomContainer.class));
                         byteStream.close();
                     } catch (Exception exception){
                         logger.error("Error while reading next molecule: " +
@@ -307,7 +307,7 @@ implements IChemObjectIOListener {
 
     }
 
-    private void readDataBlockInto(IMolecule m) throws IOException {
+    private void readDataBlockInto(IAtomContainer m) throws IOException {
         String fieldName = null;
         while ((currentLine = input.readLine()) != null
                 && !SDF_RECORD_SEPARATOR.matcher(currentLine).matches()) {
@@ -378,7 +378,7 @@ implements IChemObjectIOListener {
     }
     
     /**
-     * Returns the next IMolecule.
+     * Returns the next IAtomContainer.
      */
     public IAtomContainer next() {
         if (!nextAvailableIsKnown) {

@@ -37,7 +37,7 @@ import org.openscience.cdk.CDKConstants;
 import org.openscience.cdk.interfaces.IAtom;
 import org.openscience.cdk.interfaces.IAtomContainer;
 import org.openscience.cdk.interfaces.IChemObject;
-import org.openscience.cdk.interfaces.IMolecule;
+import org.openscience.cdk.interfaces.IAtomContainer;
 import org.openscience.cdk.io.IChemObjectReader;
 import org.openscience.cdk.io.iterator.IIteratingChemObjectReader;
 import org.openscience.cdk.silent.SilentChemObjectBuilder;
@@ -67,7 +67,7 @@ public class MDLV2000ReaderExtendedTest  {
 		MDLV2000ReaderExtended reader = new MDLV2000ReaderExtended(
 				MDLV2000ReaderExtended.class.getClassLoader().getResourceAsStream(dir+file),
 				IChemObjectReader.Mode.RELAXED);
-		IMolecule mol = MoleculeTools.newMolecule(SilentChemObjectBuilder.getInstance());
+		IAtomContainer mol = MoleculeTools.newMolecule(SilentChemObjectBuilder.getInstance());
 		IChemObject newMol = reader.read(mol);
 		reader.close();
 		return newMol;
@@ -76,7 +76,7 @@ public class MDLV2000ReaderExtendedTest  {
 	public void testAnyAtom() throws Exception {
         IChemObject mol = readSGroup("A.mol");
 		Assert.assertNotNull(mol);
-		Assert.assertTrue(mol instanceof IMolecule);
+		Assert.assertTrue(mol instanceof IAtomContainer);
       
         
 	}
@@ -466,7 +466,7 @@ public class MDLV2000ReaderExtendedTest  {
             		Object title = ((IChemObject)a).getProperty(CDKConstants.TITLE);
             		records++;
             		if ("Rgroup bad way".equals(title) || ("Radicals".equals(title))) {
-            			//IMolecule
+            			//IAtomContainer
             		} else Assert.assertTrue(a instanceof SuppleAtomContainer);
             	}
             	if ("sgroup.sdf".equals(file.getName()))
@@ -489,7 +489,7 @@ public class MDLV2000ReaderExtendedTest  {
 		for (File file: files) 
 			try {
 				MDLV2000ReaderExtended reader = new MDLV2000ReaderExtended(new FileInputStream(file));
-				IMolecule mol = MoleculeTools.newMolecule(SilentChemObjectBuilder.getInstance());
+				IAtomContainer mol = MoleculeTools.newMolecule(SilentChemObjectBuilder.getInstance());
 				reader.read(mol);
 				reader.close();
 			} catch (Exception x) {

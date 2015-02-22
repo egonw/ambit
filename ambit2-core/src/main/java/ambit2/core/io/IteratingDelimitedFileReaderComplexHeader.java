@@ -16,7 +16,7 @@ import org.openscience.cdk.exception.InvalidSmilesException;
 import org.openscience.cdk.inchi.InChIGeneratorFactory;
 import org.openscience.cdk.inchi.InChIToStructure;
 import org.openscience.cdk.interfaces.IAtomContainer;
-import org.openscience.cdk.interfaces.IMolecule;
+import org.openscience.cdk.interfaces.IAtomContainer;
 import org.openscience.cdk.io.formats.IResourceFormat;
 import org.openscience.cdk.io.setting.IOSetting;
 import org.openscience.cdk.io.setting.StringIOSetting;
@@ -137,18 +137,18 @@ public abstract class IteratingDelimitedFileReaderComplexHeader<COLUMN> extends 
 						if ((nextMolecule==null) && (smilesIndex >= 0)) {
 							try {
 								if (values[smilesIndex]==null) {
-									nextMolecule = SilentChemObjectBuilder.getInstance().newInstance(IMolecule.class);
+									nextMolecule = SilentChemObjectBuilder.getInstance().newInstance(IAtomContainer.class);
 								} else 
 							    nextMolecule = sp.parseSmiles(values[smilesIndex].toString());
 							} catch (InvalidSmilesException x) {
 									// do not want to break if a record is faulty
 									logger.fine("Empty molecule!");
-									nextMolecule = SilentChemObjectBuilder.getInstance().newInstance(IMolecule.class); // just create
+									nextMolecule = SilentChemObjectBuilder.getInstance().newInstance(IAtomContainer.class); // just create
 									nextMolecule.setProperty("SMILES", "Invalid SMILES");
 							}
 						}
 
-						if (nextMolecule == null) nextMolecule = SilentChemObjectBuilder.getInstance().newInstance(IMolecule.class);
+						if (nextMolecule == null) nextMolecule = SilentChemObjectBuilder.getInstance().newInstance(IAtomContainer.class);
 						
 						for (int i = 0; i < values.length; i++) 
 							if (values[i]!=null)  {

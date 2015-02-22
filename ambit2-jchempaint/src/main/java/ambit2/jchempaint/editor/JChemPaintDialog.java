@@ -42,10 +42,10 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import org.openscience.cdk.Molecule;
+import org.openscience.cdk.interfaces.IAtomContainer;
+import org.openscience.cdk.interfaces.IAtomContainerSet;
 import org.openscience.cdk.interfaces.IChemModel;
-import org.openscience.cdk.interfaces.IMolecule;
-import org.openscience.cdk.interfaces.IMoleculeSet;
+import org.openscience.cdk.silent.AtomContainer;
 import org.openscience.cdk.smiles.SmilesGenerator;
 import org.openscience.jchempaint.JChemPaintPanel;
 
@@ -192,16 +192,16 @@ public class JChemPaintDialog extends JDialog {
         
 		
 	}
-	public IMolecule okAction() {
+	public IAtomContainer okAction() {
 	    result = JOptionPane.OK_OPTION;
 		setVisible(false);
         
-        IMolecule updatedMolecule = new Molecule(); 
+        IAtomContainer updatedMolecule = new AtomContainer(); 
         
-        IMoleculeSet m = jcpep.getChemModel().getMoleculeSet();  
+        IAtomContainerSet m = jcpep.getChemModel().getMoleculeSet();  
         
         for (int i=0; i < m.getAtomContainerCount(); i++) 
-                updatedMolecule.add(m.getMolecule(i));
+                updatedMolecule.add(m.getAtomContainer(i));
 
 
         /* TODO

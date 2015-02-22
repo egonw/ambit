@@ -9,7 +9,7 @@ import java.util.Iterator;
 import junit.framework.Assert;
 
 import org.junit.Test;
-import org.openscience.cdk.interfaces.IMolecule;
+import org.openscience.cdk.interfaces.IAtomContainer;
 import org.openscience.cdk.io.iterator.IIteratingChemObjectReader;
 
 import ambit2.base.data.LiteratureEntry;
@@ -55,7 +55,7 @@ public class RawIteratingWrapperTest {
 
 		int count = 0;
 		while(reader.hasNext()) {
-			IMolecule record = (IMolecule) reader.next();
+			IAtomContainer record = (IAtomContainer) reader.next();
 			Assert.assertEquals(10,record.getProperties().size());
 			Iterator<Object> keys = record.getProperties().keySet().iterator();
 			while (keys.hasNext()) {

@@ -145,9 +145,9 @@ public class AtomEnvironmentDistanceTest {
 
 		SmilesParserWrapper sp = SmilesParserWrapper.getInstance();
 
-		// IMolecule mol = sp.parseSmiles("O=N(=O)c1ccc(O)c(N)c1");
+		// IAtomContainer mol = sp.parseSmiles("O=N(=O)c1ccc(O)c(N)c1");
 		// Amino-2nitro-3.4-5 hydroxy-methyl benzene (ANMB)
-		// IMolecule mol1 = sp.parseSmiles("Cc1c(C)c(cc(N)c1(O))N(=O)=O");
+		// IAtomContainer mol1 = sp.parseSmiles("Cc1c(C)c(cc(N)c1(O))N(=O)=O");
 
 		IAtomContainer molecule1 = sp.parseSmiles("Nc1c(C)cccc1");
 		// Amino-2nitro-3.4-5 hydroxy-methyl benzene (ANMB)

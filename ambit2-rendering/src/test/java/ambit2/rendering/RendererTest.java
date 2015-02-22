@@ -23,8 +23,7 @@ import org.openscience.cdk.interfaces.IAtom;
 import org.openscience.cdk.interfaces.IAtomContainer;
 import org.openscience.cdk.interfaces.IBond;
 import org.openscience.cdk.interfaces.IChemObject;
-import org.openscience.cdk.interfaces.IMolecule;
-import org.openscience.cdk.io.iterator.IteratingMDLReader;
+import org.openscience.cdk.io.iterator.IteratingSDFReader;
 import org.openscience.cdk.layout.StructureDiagramGenerator;
 import org.openscience.cdk.renderer.AtomContainerRenderer;
 import org.openscience.cdk.renderer.IRenderer;
@@ -89,7 +88,7 @@ public class RendererTest {
 
 		CompoundImageTools t = new CompoundImageTools();
 		// t.setBackground(Color.GRAY);
-		final IMolecule mol = MoleculeFactory.makePhenylAmine();
+		final IAtomContainer mol = MoleculeFactory.makePhenylAmine();
 		IAtom anAtom = null;
 		for (IAtom atom : mol.atoms()) {
 			if (atom.getSymbol().equals("N")) {
@@ -100,7 +99,7 @@ public class RendererTest {
 		}
 		StructureDiagramGenerator g = new StructureDiagramGenerator(mol);
 		g.generateCoordinates();
-		final IMolecule selectedMol = MoleculeTools
+		final IAtomContainer selectedMol = MoleculeTools
 				.newMolecule(SilentChemObjectBuilder.getInstance());
 		selectedMol.addAtom(anAtom);
 		selectedMol.addBond(mol.getBond(0));
@@ -164,24 +163,24 @@ public class RendererTest {
 				.getResourceAsStream(filename);
 
 		Assert.assertNotNull(in);
-		IteratingMDLReader reader = new IteratingMDLReader(in,
+		IteratingSDFReader reader = new IteratingSDFReader(in,
 				SilentChemObjectBuilder.getInstance());
 
 		while (reader.hasNext()) {
 			IChemObject mol = reader.next();
-			Assert.assertTrue(mol instanceof IMolecule);
+			Assert.assertTrue(mol instanceof IAtomContainer);
 			AtomContainerManipulator
-					.percieveAtomTypesAndConfigureAtoms((IMolecule) mol);
+					.percieveAtomTypesAndConfigureAtoms((IAtomContainer) mol);
 			/**
 			 * if generating 2D coordinates via StructureDiagramGenerator, the
 			 * problem goes away, but it is still valid use case to generate a
 			 * structure diagram from coordinates retrieved from a file
 			 */
 			// StructureDiagramGenerator sdg = new
-			// StructureDiagramGenerator((IMolecule)mol);
+			// StructureDiagramGenerator((IAtomContainer)mol);
 			// sdg.generateCoordinates(new Vector2d(0,1));
 
-			BufferedImage img = paint((IMolecule) mol);
+			BufferedImage img = paint((IAtomContainer) mol);
 			File file = new File(imgfile);
 			// file.deleteOnExit();
 			if (file.exists())

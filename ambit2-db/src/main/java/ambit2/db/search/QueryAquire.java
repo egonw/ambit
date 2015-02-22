@@ -36,7 +36,7 @@ public class QueryAquire extends QueryExperiment {
      * }
      * 
      * 
-     * public Object next() { try { IMolecule m =
+     * public Object next() { try { IAtomContainer m =
      * SilentChemObjectBuilder.getInstance().newMolecule();
      * m.setProperty(AmbitCONSTANTS.NAMES,resultset.getString(2));
      * m.setProperty(AmbitCONSTANTS.CASRN,

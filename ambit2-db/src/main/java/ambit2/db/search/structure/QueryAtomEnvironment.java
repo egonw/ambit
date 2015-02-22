@@ -36,7 +36,7 @@ public class QueryAtomEnvironment extends QuerySimilarity {
     			CMLWriter cmlWriter = new CMLWriter(w);						
     			cmlWriter.write(query);
     			cmlWriter = null;
-    			IMolecule mol = MoleculeTools.readCMLMolecule(w.toString());
+    			IAtomContainer mol = MoleculeTools.readCMLMolecule(w.toString());
     			
 //    			IAtomContainer mol = query;
     			

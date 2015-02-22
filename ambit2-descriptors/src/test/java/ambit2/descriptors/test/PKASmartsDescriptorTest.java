@@ -46,7 +46,7 @@ import org.junit.Test;
 import org.openscience.cdk.aromaticity.CDKHueckelAromaticityDetector;
 import org.openscience.cdk.exception.CDKException;
 import org.openscience.cdk.interfaces.IAtomContainer;
-import org.openscience.cdk.interfaces.IMolecule;
+import org.openscience.cdk.interfaces.IAtomContainer;
 import org.openscience.cdk.isomorphism.matchers.IQueryAtomContainer;
 import org.openscience.cdk.qsar.DescriptorValue;
 import org.openscience.cdk.qsar.result.DoubleResult;
@@ -183,7 +183,7 @@ public class PKASmartsDescriptorTest {
      //System.out.println("sequnce check  -- > " + res);  
     }
     
-    public static  IMolecule getMoleculeFromSmiles(String smi)  throws Exception { 
+    public static  IAtomContainer getMoleculeFromSmiles(String smi)  throws Exception { 
      SmilesParser sp = new SmilesParser(SilentChemObjectBuilder.getInstance());   
      return sp.parseSmiles(smi);
     }

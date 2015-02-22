@@ -8,7 +8,7 @@ import java.util.List;
 
 import org.openscience.cdk.interfaces.IAtomContainer;
 import org.openscience.cdk.interfaces.IBond;
-import org.openscience.cdk.interfaces.IMolecule;
+import org.openscience.cdk.interfaces.IAtomContainer;
 import org.openscience.cdk.io.SMILESWriter;
 import org.openscience.cdk.isomorphism.matchers.IQueryAtomContainer;
 import org.openscience.cdk.silent.SilentChemObjectBuilder;
@@ -1123,7 +1123,7 @@ public class AutomaticTautomerTests
 		try
 		{
 			//Create molecule from SMILES
-			IMolecule mol = null;
+			IAtomContainer mol = null;
 			SmilesParser sp = new SmilesParser(SilentChemObjectBuilder.getInstance());			
 			mol = sp.parseSmiles(tokens.get(1));
 			
@@ -1152,7 +1152,7 @@ public class AutomaticTautomerTests
 	{
 		try
 		{
-			IMolecule mol = null;
+			IAtomContainer mol = null;
 			SmilesParser sp = new SmilesParser(SilentChemObjectBuilder.getInstance());			
 			mol = sp.parseSmiles(line.trim());
 			
@@ -1236,7 +1236,7 @@ public class AutomaticTautomerTests
 		System.out.println("" + curLine + "   " + line);
 		try
 		{
-			IMolecule mol = null;
+			IAtomContainer mol = null;
 			SmilesParser sp = new SmilesParser(SilentChemObjectBuilder.getInstance());			
 			mol = sp.parseSmiles(line.trim());
 			
@@ -1259,7 +1259,7 @@ public class AutomaticTautomerTests
 		System.out.println("" + curLine + "   " + line);
 		try
 		{
-			IMolecule mol = null;
+			IAtomContainer mol = null;
 			SmilesParser sp = new SmilesParser(SilentChemObjectBuilder.getInstance());			
 			mol = sp.parseSmiles(line.trim());
 			
@@ -1282,7 +1282,7 @@ public class AutomaticTautomerTests
 		System.out.println("" + curLine + "   " + line);
 		try
 		{
-			IMolecule mol = null;
+			IAtomContainer mol = null;
 			SmilesParser sp = new SmilesParser(SilentChemObjectBuilder.getInstance());			
 			mol = sp.parseSmiles(line.trim());
 			
@@ -1306,7 +1306,7 @@ public class AutomaticTautomerTests
 		System.out.println(line);
 		try
 		{
-			IMolecule mol = null;
+			IAtomContainer mol = null;
 			SmilesParser sp = new SmilesParser(SilentChemObjectBuilder.getInstance());			
 			mol = sp.parseSmiles(line.trim());
 			
@@ -1530,7 +1530,7 @@ public class AutomaticTautomerTests
 		System.out.print("" + curLine + "   " + line);
 		try
 		{
-			IMolecule mol = null;
+			IAtomContainer mol = null;
 			SmilesParser sp = new SmilesParser(SilentChemObjectBuilder.getInstance());			
 			mol = sp.parseSmiles(line.trim());
 			
@@ -2307,7 +2307,7 @@ public class AutomaticTautomerTests
 	{	
 		try
 		{
-			IMolecule mol = null;
+			IAtomContainer mol = null;
 			SmilesParser sp = new SmilesParser(SilentChemObjectBuilder.getInstance());			
 			
 			String smiles = line.trim();
@@ -2603,11 +2603,11 @@ public class AutomaticTautomerTests
 				tok = tokens.get(numTokenAtFile1+1).trim();
 				tok2 = tokens2.get(numTokenAtFile2+1).trim();
 				
-				IMolecule mol = null;
+				IAtomContainer mol = null;
 				SmilesParser sp = new SmilesParser(SilentChemObjectBuilder.getInstance());			
 				mol = sp.parseSmiles(tok);
 				
-				IMolecule mol2 = null;
+				IAtomContainer mol2 = null;
 				sp = new SmilesParser(SilentChemObjectBuilder.getInstance());			
 				mol2 = sp.parseSmiles(tok2);
 				

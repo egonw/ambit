@@ -40,9 +40,8 @@ import org.openscience.cdk.exception.CDKException;
 import org.openscience.cdk.graph.ConnectivityChecker;
 import org.openscience.cdk.interfaces.IAtom;
 import org.openscience.cdk.interfaces.IAtomContainer;
+import org.openscience.cdk.interfaces.IAtomContainerSet;
 import org.openscience.cdk.interfaces.IBond;
-import org.openscience.cdk.interfaces.IMolecule;
-import org.openscience.cdk.interfaces.IMoleculeSet;
 import org.openscience.cdk.silent.SilentChemObjectBuilder;
 import org.openscience.cdk.tools.CDKHydrogenAdder;
 
@@ -70,7 +69,7 @@ public class HydrogenAdderProcessor extends	AtomConfigurator {
 	public IAtomContainer process(IAtomContainer mol) throws AmbitException {
 		super.process(mol);
 		try {
-	       	if ((mol instanceof IMolecule) || (mol instanceof IAtomContainer))  {
+	       	if ((mol instanceof IAtomContainer) || (mol instanceof IAtomContainer))  {
                 try {
     	            adder.addImplicitHydrogens(mol);
     	            logger.fine("Adding implicit hydrogens; atom count "+mol.getAtomCount());
@@ -86,10 +85,10 @@ public class HydrogenAdderProcessor extends	AtomConfigurator {
                     } else logger.log(Level.WARNING,x.getMessage());
                 }
         	} else {
-        		IMoleculeSet moleculeSet = ConnectivityChecker.partitionIntoMolecules(mol);
+        		IAtomContainerSet moleculeSet = ConnectivityChecker.partitionIntoMolecules(mol);
         	      
-        	      for (int k = 0; k < moleculeSet.getMoleculeCount(); k++) {
-        	    	  IMolecule molPart = moleculeSet.getMolecule(k);
+        	      for (int k = 0; k < moleculeSet.getAtomContainerCount(); k++) {
+        	    	  IAtomContainer molPart = moleculeSet.getAtomContainer(k);
       		          adder.addImplicitHydrogens(molPart);
       		          logger.fine("Adding implicit hydrogens; atom count "+molPart.getAtomCount());
       		          if (isAddEexplicitHydrogens()) {
