@@ -44,7 +44,6 @@ import net.idea.modbcum.i.processors.IProcessor;
 
 import org.openscience.cdk.event.ICDKChangeListener;
 import org.openscience.cdk.interfaces.IAtomContainer;
-import org.openscience.cdk.interfaces.IAtomContainer;
 import org.openscience.cdk.renderer.selection.IChemObjectSelection;
 import org.openscience.cdk.silent.SilentChemObjectBuilder;
 
@@ -58,7 +57,7 @@ import ambit2.rendering.CompoundImageTools;
  * @author Nina Jeliazkova
  *
  */
-public class Panel2D<A extends IAtomContainerEditAction> extends JPanel implements ICDKChangeListener, ComponentListener, IAmbitEditor<IAtomContainer>, PropertyChangeListener
+public class Panel2D<A extends IMoleculeEditAction> extends JPanel implements ICDKChangeListener, ComponentListener, IAmbitEditor<IAtomContainer>, PropertyChangeListener
 {
 	/**
 	 * 

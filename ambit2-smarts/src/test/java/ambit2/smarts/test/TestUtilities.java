@@ -41,6 +41,7 @@ import org.openscience.cdk.isomorphism.matchers.smarts.AliphaticSymbolAtom;
 import org.openscience.cdk.isomorphism.matchers.smarts.AnyAtom;
 import org.openscience.cdk.isomorphism.matchers.smarts.OrderQueryBond;
 import org.openscience.cdk.isomorphism.mcss.RMap;
+import org.openscience.cdk.ringsearch.SSSRFinder;
 import org.openscience.cdk.silent.SilentChemObjectBuilder;
 import org.openscience.cdk.smiles.SmilesGenerator;
 import org.openscience.cdk.smiles.SmilesParser;
@@ -1868,24 +1869,24 @@ public class TestUtilities {
 		// result
 
 		// Setting search query 'C**C'
-		QueryAtomContainer q = new QueryAtomContainer();
+		QueryAtomContainer q = new QueryAtomContainer(SilentChemObjectBuilder.getInstance());
 		// setting atoms
-		IQueryAtom a0 = new AliphaticSymbolAtom("C");
+		IQueryAtom a0 = new AliphaticSymbolAtom("C",q.getBuilder());
 		q.addAtom(a0);
-		IQueryAtom a1 = new AnyAtom();
+		IQueryAtom a1 = new AnyAtom(q.getBuilder());
 		q.addAtom(a1);
-		IQueryAtom a2 = new AnyAtom();
+		IQueryAtom a2 = new AnyAtom(q.getBuilder());
 		q.addAtom(a2);
-		IQueryAtom a3 = new AliphaticSymbolAtom("C");
+		IQueryAtom a3 = new AliphaticSymbolAtom("C",q.getBuilder());
 		q.addAtom(a3);
 		// setting bonds
-		OrderQueryBond b0 = new OrderQueryBond(IBond.Order.SINGLE);
+		OrderQueryBond b0 = new OrderQueryBond(IBond.Order.SINGLE,q.getBuilder());
 		b0.setAtoms(new IAtom[] { a0, a1 });
 		q.addBond(b0);
-		OrderQueryBond b1 = new OrderQueryBond(IBond.Order.SINGLE);
+		OrderQueryBond b1 = new OrderQueryBond(IBond.Order.SINGLE,q.getBuilder());
 		b1.setAtoms(new IAtom[] { a1, a2 });
 		q.addBond(b1);
-		OrderQueryBond b2 = new OrderQueryBond(IBond.Order.SINGLE);
+		OrderQueryBond b2 = new OrderQueryBond(IBond.Order.SINGLE,q.getBuilder());
 		b2.setAtoms(new IAtom[] { a2, a3 });
 		q.addBond(b2);
 

@@ -24,6 +24,7 @@ import org.openscience.cdk.isomorphism.matchers.smarts.HydrogenAtom;
 import org.openscience.cdk.isomorphism.matchers.smarts.LogicalOperatorAtom;
 import org.openscience.cdk.isomorphism.matchers.smarts.RecursiveSmartsAtom;
 import org.openscience.cdk.ringsearch.AllRingsFinder;
+import org.openscience.cdk.ringsearch.SSSRFinder;
 import org.openscience.cdk.silent.SilentChemObjectBuilder;
 import org.openscience.cdk.smiles.smarts.parser.SMARTSParser;
 import org.openscience.cdk.tools.manipulator.AtomContainerManipulator;
@@ -41,7 +42,7 @@ import ambit2.smarts.StructInfo;
 //This class provides utilities for automatic testing of Substructure Searching algorithms
 public class AutomaticTestUtilities {
 	UniversalIsomorphismTester uit = new UniversalIsomorphismTester();
-	
+
 	class CmdOption {
 		String option = null;
 		String value = null;
@@ -749,7 +750,7 @@ public class AutomaticTestUtilities {
 		// CDK parser
 		QueryAtomContainer query_CDK = null;
 		try {
-			query_CDK = SMARTSParser.parse(line);
+			query_CDK = SMARTSParser.parse(line,SilentChemObjectBuilder.getInstance());
 		} catch (Exception e) {
 			System.out.println("CDK parsing error: " + e.toString());
 			return -1;

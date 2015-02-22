@@ -6,7 +6,7 @@ import javax.swing.Action;
 
 import org.openscience.cdk.interfaces.IAtomContainer;
 
-public interface IAtomContainerEditAction extends Action {
+public interface IMoleculeEditAction extends Action {
 	public IAtomContainer getMolecule();
 
 	public void setMolecule(IAtomContainer molecule);

@@ -520,7 +520,8 @@ public class SmartsManager {
 
 		while (curComb != null) {
 			newAtoms = new IAtom[curComb.length];
-			IQueryAtomContainer subQuery = new QueryAtomContainer();
+			IQueryAtomContainer subQuery = new QueryAtomContainer(
+					SilentChemObjectBuilder.getInstance());
 			subQuery.add(baseStr);
 			for (int i = 0; i < curComb.length; i++)
 				expandBaseStruct(subQuery, i);
@@ -532,7 +533,7 @@ public class SmartsManager {
 
 	void gatBaseStructure() {
 		// SmartsWriter smwriter = new SmartsWriter();
-		baseStr = new QueryAtomContainer();
+		baseStr = new QueryAtomContainer(SilentChemObjectBuilder.getInstance());
 
 		baseStr.add(query);
 		// System.out.println("base0:   " + smwriter.toSmarts(baseStr));
@@ -605,20 +606,20 @@ public class SmartsManager {
 			IBond bond) {
 		IBond newBond = null;
 		if (bond instanceof AnyOrderQueryBond)
-			newBond = new AnyOrderQueryBond();
+			newBond = new AnyOrderQueryBond(bond.getBuilder());
 		else if (bond instanceof OrderQueryBond) {
-			newBond = new AnyOrderQueryBond();
+			newBond = new AnyOrderQueryBond(bond.getBuilder());
 			newBond.setOrder(bond.getOrder());
 		} else if (bond instanceof AromaticQueryBond)
-			newBond = new AromaticQueryBond();
+			newBond = new AromaticQueryBond(bond.getBuilder());
 		else if (bond instanceof RingQueryBond)
-			newBond = new RingQueryBond();
+			newBond = new RingQueryBond(bond.getBuilder());
 		else if (bond instanceof SmartsBondExpression) {
-			newBond = new SmartsBondExpression();
+			newBond = new SmartsBondExpression(bond.getBuilder());
 			((SmartsBondExpression) newBond).tokens = ((SmartsBondExpression) bond).tokens;
 		} else {
 			// by default single bond. Any way this should not be called
-			newBond = new AnyOrderQueryBond();
+			newBond = new AnyOrderQueryBond(bond.getBuilder());
 			newBond.setOrder(IBond.Order.SINGLE);
 		}
 

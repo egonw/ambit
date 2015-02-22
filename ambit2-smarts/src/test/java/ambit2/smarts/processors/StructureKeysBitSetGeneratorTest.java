@@ -168,7 +168,7 @@ public class StructureKeysBitSetGeneratorTest {
 		
 		
 		//same as #3 but using CDK code only
-		SMARTSQueryTool sqt = new SMARTSQueryTool("[#6]=[#6]");
+		SMARTSQueryTool sqt = new SMARTSQueryTool("[#6]=[#6]",SilentChemObjectBuilder.getInstance());
 		//there is no any double bond in biphenyl, created via aromatic smiles
 		//Fixed in cdk 1.4.4
 		Assert.assertFalse(sqt.matches(biphenyl_aromaticsmiles));
