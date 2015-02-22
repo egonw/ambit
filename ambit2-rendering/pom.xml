@@ -37,6 +37,12 @@
     </dependency>
     <dependency>
       <groupId>org.openscience.cdk</groupId>
+      <artifactId>cdk-legacy</artifactId>
+      <version>${cdk.version}</version>
+      <scope>compile</scope>
+    </dependency>    
+    <dependency>
+      <groupId>org.openscience.cdk</groupId>
       <artifactId>cdk-jchempaint</artifactId>
       <version>26</version>
     </dependency>

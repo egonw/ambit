@@ -36,5 +36,11 @@
       <type>jar</type>
       <scope>compile</scope>
     </dependency>
+    <dependency>
+      <groupId>org.openscience.cdk</groupId>
+      <artifactId>cdk-legacy</artifactId>
+      <version>${cdk.version}</version>
+      <scope>compile</scope>
+    </dependency>    
   </dependencies>
 </project>
