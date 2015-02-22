@@ -45,6 +45,7 @@ import org.openscience.cdk.smiles.SmilesGenerator;
 import org.openscience.cdk.smiles.SmilesParser;
 
 import ambit2.base.config.Preferences;
+import ambit2.core.helper.CDKHueckelAromaticityDetector;
 import ambit2.core.io.MyIteratingMDLReader;
 import ambit2.core.processors.structure.AtomConfigurator;
 import ambit2.core.processors.structure.HydrogenAdderProcessor;

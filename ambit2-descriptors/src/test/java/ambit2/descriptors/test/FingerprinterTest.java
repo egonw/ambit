@@ -15,6 +15,7 @@ import org.openscience.cdk.tools.CDKHydrogenAdder;
 import org.openscience.cdk.tools.manipulator.AtomContainerManipulator;
 
 import ambit2.core.data.StringDescriptorResultType;
+import ambit2.core.helper.CDKHueckelAromaticityDetector;
 import ambit2.descriptors.fingerprints.EStateFingerprinterWrapper;
 import ambit2.descriptors.fingerprints.ExtendedFingerprinterWrapper;
 import ambit2.descriptors.fingerprints.Fingerprint2DescriptorWrapper;

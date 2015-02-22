@@ -8,6 +8,7 @@ import org.openscience.cdk.CDKConstants;
 import org.openscience.cdk.interfaces.IAtomContainer;
 
 import ambit2.base.data.Property;
+import ambit2.core.helper.CDKHueckelAromaticityDetector;
 import ambit2.core.processors.structure.AbstractPropertyGenerator;
 import ambit2.core.processors.structure.AtomConfigurator;
 import ambit2.smarts.CMLUtilities;

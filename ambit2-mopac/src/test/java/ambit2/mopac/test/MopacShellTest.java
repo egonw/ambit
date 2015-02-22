@@ -25,6 +25,7 @@ import org.openscience.cdk.tools.manipulator.AtomContainerManipulator;
 import ambit2.base.data.Property;
 import ambit2.base.external.CommandShell;
 import ambit2.base.external.ShellException;
+import ambit2.core.helper.CDKHueckelAromaticityDetector;
 import ambit2.core.io.IteratingDelimitedFileReader;
 import ambit2.core.smiles.SmilesParserWrapper;
 import ambit2.core.smiles.SmilesParserWrapper.SMILES_PARSER;
