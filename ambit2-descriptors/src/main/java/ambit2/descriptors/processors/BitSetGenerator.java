@@ -9,6 +9,7 @@ import net.idea.modbcum.i.processors.IProcessor;
 import org.openscience.cdk.fingerprint.Fingerprinter;
 import org.openscience.cdk.fingerprint.PubchemFingerprinter;
 import org.openscience.cdk.interfaces.IAtomContainer;
+import org.openscience.cdk.silent.SilentChemObjectBuilder;
 
 import ambit2.base.config.Preferences;
 import ambit2.base.data.Property;
@@ -207,7 +208,7 @@ public class BitSetGenerator extends AbstractPropertyGenerator<BitSet> {
 			}
 			@Override
 			public IProcessor<IAtomContainer, BitSet> getGenerator() throws Exception{
-				return new FingerprintGenerator(new PubchemFingerprinter());
+				return new FingerprintGenerator(new PubchemFingerprinter(SilentChemObjectBuilder.getInstance()));
 			}
 			@Override
 			public String getTable() {

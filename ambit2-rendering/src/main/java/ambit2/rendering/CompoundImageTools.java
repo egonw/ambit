@@ -608,7 +608,7 @@ public class CompoundImageTools implements IStructureDiagramHighlights,
 						.getInstance());
 
 				// calculate box dimension, so that we can center vertically
-				for (IAtomContainer m : molecules.molecules()) {
+				for (IAtomContainer m : molecules.atomContainers()) {
 					c++;
 					Rectangle2D r = GeometryTools.getRectangle2D(m);
 
@@ -623,7 +623,7 @@ public class CompoundImageTools implements IStructureDiagramHighlights,
 				}
 				double hoffset = box.getHeight() / 2.0;
 				Rectangle2D b = new Rectangle2D.Double(0, 0, 0, 0);
-				for (IAtomContainer m : molecules.molecules()) {
+				for (IAtomContainer m : molecules.atomContainers()) {
 					c++;
 					Rectangle2D r = GeometryTools.getRectangle2D(m);
 

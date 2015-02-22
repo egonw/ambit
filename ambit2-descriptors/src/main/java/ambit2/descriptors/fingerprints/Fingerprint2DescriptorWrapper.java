@@ -14,26 +14,23 @@ import ambit2.core.data.StringDescriptorResultType;
 
 public class Fingerprint2DescriptorWrapper implements IMolecularDescriptor {
 	IFingerprinter fingerprinter;
-	
+
 	public IFingerprinter getFingerprinter() {
 		return fingerprinter;
 	}
-
 
 	public Fingerprint2DescriptorWrapper(IFingerprinter fingerprint) {
 		super();
 		this.fingerprinter = fingerprint;
 	}
-	
 
 	@Override
 	public DescriptorSpecification getSpecification() {
-		String ref = String.format("http://www.blueobelisk.org/ontologies/chemoinformatics-algorithms/#%s", fingerprinter.getClass().getName());
-        return new DescriptorSpecification(
-                ref,
-                getClass().getName(),
-                getClass().getName(),
-                "The Chemistry Development Kit");
+		String ref = String
+				.format("http://www.blueobelisk.org/ontologies/chemoinformatics-algorithms/#%s",
+						fingerprinter.getClass().getName());
+		return new DescriptorSpecification(ref, getClass().getName(),
+				getClass().getName(), "The Chemistry Development Kit");
 	}
 
 	@Override
@@ -48,7 +45,7 @@ public class Fingerprint2DescriptorWrapper implements IMolecularDescriptor {
 
 	@Override
 	public void setParameters(Object[] params) throws CDKException {
-		
+
 	}
 
 	@Override
@@ -58,55 +55,48 @@ public class Fingerprint2DescriptorWrapper implements IMolecularDescriptor {
 
 	@Override
 	public String[] getDescriptorNames() {
-		return new String[] {fingerprinter.getClass().getName()};
+		return new String[] { fingerprinter.getClass().getName() };
 	}
 
 	/**
-	 * TODO this is inefficient, convert to hex or use org.openscience.cdk.fingerprint.io.FPSWriter
+	 * TODO this is inefficient, convert to hex or use
+	 * org.openscience.cdk.fingerprint.io.FPSWriter
+	 * 
 	 * @param bitset
 	 * @return
 	 */
 	public String bitset2String(BitSet bitset) {
 		return bitset.toString();
-		
+
 	}
+
 	@Override
-	public DescriptorValue calculate(IAtomContainer mol)  {
-		if (fingerprinter == null)  {
+	public DescriptorValue calculate(IAtomContainer mol) {
+		if (fingerprinter == null) {
 			return new DescriptorValue(
 					getSpecification(),
 					getParameterNames(),
 					getParameters(),
 					null,
 					getDescriptorNames(),
-					new CDKException("org.openscience.cdk.fingerprint.IFingerprinter not assigned!")
-					);	
+					new CDKException(
+							"org.openscience.cdk.fingerprint.IFingerprinter not assigned!"));
 		}
 
 		try {
-			BitSet bitset = fingerprinter.getFingerprint(mol);
-			
-			StringDescriptorResultType value = new StringDescriptorResultType(bitset2String(bitset)); 
-			
-			return new DescriptorValue(
-						getSpecification(),
-						getParameterNames(),
-						getParameters(),
-						value,
-						getDescriptorNames()
-						);					
+			BitSet bitset = fingerprinter.getBitFingerprint(mol).asBitSet();
+
+			StringDescriptorResultType value = new StringDescriptorResultType(
+					bitset2String(bitset));
+
+			return new DescriptorValue(getSpecification(), getParameterNames(),
+					getParameters(), value, getDescriptorNames());
 
 		} catch (CDKException x) {
-			return new DescriptorValue(
-					getSpecification(),
-					getParameterNames(),
-					getParameters(),
-					null,
-					getDescriptorNames(),
-					x
-					);		
+			return new DescriptorValue(getSpecification(), getParameterNames(),
+					getParameters(), null, getDescriptorNames(), x);
 		}
-	}	
+	}
 
 	@Override
 	public IDescriptorResult getDescriptorResultType() {

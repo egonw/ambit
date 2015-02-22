@@ -45,7 +45,7 @@ import java.util.Set;
 import org.openscience.cdk.CDKConstants;
 import org.openscience.cdk.annotations.TestClass;
 import org.openscience.cdk.annotations.TestMethod;
-import org.openscience.cdk.config.IsotopeFactory;
+import org.openscience.cdk.config.Isotopes;
 import org.openscience.cdk.exception.CDKException;
 import org.openscience.cdk.interfaces.IAtom;
 import org.openscience.cdk.interfaces.IAtomContainer;
@@ -54,7 +54,6 @@ import org.openscience.cdk.interfaces.IChemFile;
 import org.openscience.cdk.interfaces.IChemModel;
 import org.openscience.cdk.interfaces.IChemObject;
 import org.openscience.cdk.interfaces.IChemSequence;
-import org.openscience.cdk.interfaces.IAtomContainer;
 import org.openscience.cdk.interfaces.IPseudoAtom;
 import org.openscience.cdk.io.DefaultChemObjectWriter;
 import org.openscience.cdk.io.formats.IResourceFormat;
@@ -390,7 +389,7 @@ public class MDLWriter extends DefaultChemObjectWriter {
             if (!(atom instanceof IPseudoAtom)) {
                 Integer atomicMass = atom.getMassNumber();
                 if (atomicMass != null) {
-                	int majorMass = IsotopeFactory.getInstance(atom.getBuilder()).getMajorIsotope(atom.getSymbol()).getMassNumber();
+                	int majorMass = Isotopes.getInstance().getMajorIsotope(atom.getSymbol()).getMassNumber();
                 	if (atomicMass != majorMass) {
                 		writer.write("M  ISO  1 ");
                 		writer.write(formatMDLInt(i+1,3));

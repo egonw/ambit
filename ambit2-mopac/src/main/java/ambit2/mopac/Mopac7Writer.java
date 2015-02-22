@@ -15,6 +15,7 @@ import javax.vecmath.Point3d;
 import javax.vecmath.Vector2d;
 
 import org.openscience.cdk.config.IsotopeFactory;
+import org.openscience.cdk.config.Isotopes;
 import org.openscience.cdk.exception.CDKException;
 import org.openscience.cdk.interfaces.IAtom;
 import org.openscience.cdk.interfaces.IAtomContainer;
@@ -24,7 +25,6 @@ import org.openscience.cdk.interfaces.IChemObject;
 import org.openscience.cdk.io.DefaultChemObjectWriter;
 import org.openscience.cdk.io.formats.IResourceFormat;
 import org.openscience.cdk.layout.StructureDiagramGenerator;
-import org.openscience.cdk.silent.SilentChemObjectBuilder;
 import org.openscience.cdk.tools.LoggingTool;
 import org.openscience.cdk.tools.manipulator.AtomContainerManipulator;
 
@@ -63,7 +63,7 @@ public class Mopac7Writer extends DefaultChemObjectWriter {
         nf.setMaximumFractionDigits(4);
         writer = new BufferedWriter(out);
         try {
-            isotopeFactory = IsotopeFactory.getInstance(SilentChemObjectBuilder.getInstance());
+            isotopeFactory = Isotopes.getInstance();
         } catch (Exception exception) {
             logger.error("Failed to initiate isotope factory: ", exception.getMessage());
             logger.debug(exception);

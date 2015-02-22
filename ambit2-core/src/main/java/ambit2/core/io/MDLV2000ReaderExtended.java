@@ -47,6 +47,7 @@ import org.openscience.cdk.CDKConstants;
 import org.openscience.cdk.annotations.TestClass;
 import org.openscience.cdk.annotations.TestMethod;
 import org.openscience.cdk.config.IsotopeFactory;
+import org.openscience.cdk.config.Isotopes;
 import org.openscience.cdk.exception.CDKException;
 import org.openscience.cdk.interfaces.IAtom;
 import org.openscience.cdk.interfaces.IAtomContainer;
@@ -427,8 +428,7 @@ public class MDLV2000ReaderExtended extends DefaultChemObjectReader {
 		Map<Integer, IPseudoAtom> rAtoms = new HashMap<Integer, IPseudoAtom>();
 		Hashtable<Integer, ISGroup> sgroups = null;
 		try {
-			IsotopeFactory isotopeFactory = IsotopeFactory.getInstance(molecule
-					.getBuilder());
+			IsotopeFactory isotopeFactory = Isotopes.getInstance();
 
 			logger.info("Reading header");
 			line = input.readLine();
@@ -587,9 +587,8 @@ public class MDLV2000ReaderExtended extends DefaultChemObjectReader {
 						try {
 							int massDiff = Integer.parseInt(massDiffString);
 							if (massDiff != 0) {
-								IIsotope major = IsotopeFactory.getInstance(
-										molecule.getBuilder()).getMajorIsotope(
-										element);
+								IIsotope major = Isotopes.getInstance()
+										.getMajorIsotope(element);
 								atom.setMassNumber(major.getMassNumber()
 										+ massDiff);
 							}

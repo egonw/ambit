@@ -62,7 +62,7 @@ public class FingerprintGenerator<FGenerator extends IFingerprinter> extends Def
                 }
     			fp_time = System.currentTimeMillis() - fp_time;
       			((IAtomContainer)object).setProperty(AmbitCONSTANTS.FingerprintTIME,new Long(fp_time));                
-				return fingerprinter.getFingerprint(c);
+				return fingerprinter.getBitFingerprint(c).asBitSet();
 			
 			} catch (AmbitException x) {
 				throw x;

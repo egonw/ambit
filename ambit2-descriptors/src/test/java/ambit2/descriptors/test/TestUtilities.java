@@ -187,7 +187,7 @@ public class TestUtilities
 		long length = f.length();
 		
 		PubChemFingerprinter ambitFP = new PubChemFingerprinter();
-		PubchemFingerprinter cdkFP = new PubchemFingerprinter();
+		PubchemFingerprinter cdkFP = new PubchemFingerprinter(SilentChemObjectBuilder.getInstance());
 		long ambitTime = 0;
 		long cdkTime = 0;
 		long curTime = 0;
@@ -245,9 +245,9 @@ public class TestUtilities
 	{
 		IAtomContainer mol = SmartsHelper.getMoleculeFromSmiles(smiles);
 		PubChemFingerprinter ambitFP = new PubChemFingerprinter();
-		PubchemFingerprinter cdkFP = new PubchemFingerprinter();
+		PubchemFingerprinter cdkFP = new PubchemFingerprinter(SilentChemObjectBuilder.getInstance());
 		BitSet bs0 = ambitFP.getFingerprint(mol);
-		BitSet bs1 = cdkFP.getFingerprint(mol);
+		BitSet bs1 = cdkFP.getBitFingerprint(mol).asBitSet();
 		System.out.println(smiles);
 		System.out.println("ambit: " + bs0);
 		System.out.println("cdk:   " + bs1);

@@ -1044,7 +1044,7 @@ public class TestUtilities {
 
 		Fingerprinter fp = new Fingerprinter();
 		try {
-			BitSet bs = fp.getFingerprint(mol);
+			BitSet bs = fp.getBitFingerprint(mol).asBitSet();
 			return (bs.toString());
 		} catch (Exception e) {
 			System.out.println(e.toString());

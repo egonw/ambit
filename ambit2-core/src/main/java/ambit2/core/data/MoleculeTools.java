@@ -17,7 +17,7 @@ import java.util.logging.Logger;
 import javax.vecmath.Point2d;
 
 import org.openscience.cdk.CDKConstants;
-import org.openscience.cdk.config.IsotopeFactory;
+import org.openscience.cdk.config.Isotopes;
 import org.openscience.cdk.exception.CDKException;
 import org.openscience.cdk.exception.InvalidSmilesException;
 import org.openscience.cdk.fingerprint.Fingerprinter;
@@ -94,7 +94,7 @@ public class MoleculeTools {
 		IAtomContainer mol = sp.parseSmiles(smiles);
 		if (fingerprinter == null)
 			fingerprinter = new Fingerprinter(fpLength);
-		return fingerprinter.getFingerprint(mol);
+		return fingerprinter.getBitFingerprint(mol).asBitSet();
 
 	}
 
@@ -145,8 +145,7 @@ public class MoleculeTools {
 		IMolecularFormula formula = MolecularFormulaManipulator
 				.getMolecularFormula(molecule);
 
-		IElement h = IsotopeFactory.getInstance(molecule.getBuilder())
-				.getElement("H");
+		IElement h = Isotopes.getInstance().getElement("H");
 		if (MolecularFormulaManipulator.getElementCount(formula, h) == 0) {
 
 			noH = 1;
@@ -360,12 +359,6 @@ public class MoleculeTools {
 
 	public static IRing newRing(IChemObjectBuilder builder, int i) {
 		return builder.newInstance(IRing.class, i);
-	}
-
-	public static IAtomParity newAtomParity(IChemObjectBuilder builder,
-			IAtom a, IAtom a1, IAtom a2, IAtom a3, IAtom a4, int parity) {
-		return builder
-				.newInstance(IAtomParity.class, a, a1, a2, a3, a4, parity);
 	}
 
 	public static IElement newElement(IChemObjectBuilder builder, String element) {
