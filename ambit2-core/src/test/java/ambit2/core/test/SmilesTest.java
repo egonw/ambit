@@ -59,6 +59,7 @@ import ambit2.core.test.io.RawIteratingWrapperTest;
 
 public class SmilesTest {
 	protected UniversalIsomorphismTester uit = new UniversalIsomorphismTester();
+
 	@Before
 	public void setUp() throws Exception {
 	}
@@ -270,9 +271,10 @@ public class SmilesTest {
 						bond.setOrder(Order.SINGLE);
 				}
 
-				SmilesGenerator g = new SmilesGenerator();
-				System.out.println(g.createChiralSMILES(mol,
-						new boolean[mol.getAtomCount()]));
+				SmilesGenerator g = SmilesGenerator.absolute();
+				System.out.println(g.createSMILES(mol));
+				// System.out.println(g.createChiralSMILES(mol, new
+				// boolean[mol.getAtomCount()]));
 				// [H][C@]14(COP\(=O)(O)O\[C@]4([H])(C\(O)C/(O1)N/2C\3N\C\N\C\(N)C\3(N\C\2Cl)))
 			}
 			reader.close();

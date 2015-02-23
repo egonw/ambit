@@ -53,7 +53,7 @@ public class SmilesKey extends DefaultAmbitProcessor<IAtomContainer,String> impl
 	protected Object key="smiles";
 	//protected AtomConfigurator conf = new AtomConfigurator();
 	public SmilesKey() {
-		gen = new SmilesGenerator();
+		gen = SmilesGenerator.unique();
 	}
 	public Object getKey() {
 		return key;
@@ -67,12 +67,12 @@ public class SmilesKey extends DefaultAmbitProcessor<IAtomContainer,String> impl
 		IAtomContainer mol = null;
 		try {
 			mol = (IAtomContainer)molecule.clone();
-
 			mol = AtomContainerManipulator.removeHydrogensPreserveMultiplyBonded(mol);
-			return gen.createSMILES((IAtomContainer)mol,false,new boolean[mol.getAtomCount()]);
+			//return gen.createSMILES((IAtomContainer)mol,false,new boolean[mol.getAtomCount()]);
+			return gen.create(mol);
 		} catch (CDKException x) {
 			logger.log(java.util.logging.Level.WARNING,x.getMessage(),x);
-			return gen.createSMILES((IAtomContainer)mol);
+			throw new AmbitException(x);
 		} catch (Exception x) {
 			throw new AmbitException(x);
 		}
