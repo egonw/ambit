@@ -29,6 +29,7 @@
 
 package ambit2.core.test;
 
+import java.io.InputStream;
 import java.io.StringReader;
 
 import junit.framework.Assert;
@@ -50,6 +51,7 @@ import org.openscience.cdk.silent.SilentChemObjectBuilder;
 import org.openscience.cdk.smiles.FixBondOrdersTool;
 import org.openscience.cdk.smiles.SmilesGenerator;
 import org.openscience.cdk.smiles.SmilesParser;
+import org.openscience.cdk.tools.CDKHydrogenAdder;
 import org.openscience.cdk.tools.manipulator.AtomContainerManipulator;
 
 import ambit2.core.data.MoleculeTools;
@@ -76,25 +78,33 @@ public class SmilesTest {
 				"Clc1ccc(cc1)C(=C(Cl)Cl)c2ccc(Cl)cc2",
 				"C(=C(Cl)Cl)(C1C=CC(=CC=1)Cl)C2=CC=C(C=C2)Cl" };
 		String[] newSmiles = { "", "", "" };
-		SmilesGenerator gen = new SmilesGenerator();
-		gen.setUseAromaticityFlag(true);
+		SmilesGenerator gen = SmilesGenerator.unique().aromatic();
 		IAtomContainer m = getMolecule();
-		String m_smiles = gen.createSMILES(m);
+
+		// SmilesGenerator now wants implicit H counts set , and atom types
+		// needs to be set before that
+		AtomContainerManipulator.percieveAtomTypesAndConfigureAtoms(m);
+		CDKHydrogenAdder.getInstance(SilentChemObjectBuilder.getInstance())
+				.addImplicitHydrogens(m);
+		CDKHueckelAromaticityDetector.detectAromaticity(m);
+		String m_smiles = gen.create(m);
 		Assert.assertFalse("".equals(m_smiles));
 		SmilesParser parser = new SmilesParser(
 				SilentChemObjectBuilder.getInstance());
 		UniversalIsomorphismTester uit = new UniversalIsomorphismTester();
 		int count_differences = 0;
 		for (int i = 0; i < smiles.length; i++) {
+			System.out.println(smiles[i]);
 			IAtomContainer mol = parser.parseSmiles(smiles[i]);
+			AtomContainerManipulator.percieveAtomTypesAndConfigureAtoms(mol);
+			CDKHydrogenAdder.getInstance(SilentChemObjectBuilder.getInstance())
+			.addImplicitHydrogens(mol);
+			CDKHueckelAromaticityDetector.detectAromaticity(mol);
 			Assert.assertTrue(uit.isIsomorph(m, mol));
-			newSmiles[i] = gen.createSMILES(mol);
+			newSmiles[i] = gen.create(mol);
 
 			if (!newSmiles[i].equals(m_smiles)) {
 				count_differences++;
-				System.out.print(m_smiles);
-				System.out.print('\t');
-				System.out.println(newSmiles[i]);
 			}
 		}
 		Assert.assertEquals(0, count_differences);
@@ -240,13 +250,14 @@ public class SmilesTest {
 	}
 
 	@Test
-	public void testChiralSmiles() {
+	public void testChiralSmiles() throws Exception {
+		IIteratingChemObjectReader reader = null;
 		try {
-			IIteratingChemObjectReader reader = FileInputState.getReader(
-					RawIteratingWrapperTest.class.getClassLoader()
-							.getResourceAsStream(
-									"ambit2/core/data/427282-1.sdf"),
-					"427282-1.sdf");
+			InputStream in = RawIteratingWrapperTest.class.getClassLoader()
+					.getResourceAsStream("ambit2/core/data/427282-1.sdf");
+			Assert.assertNotNull(in);
+			reader = FileInputState.getReader(in, "427282-1.sdf");
+			Assert.assertNotNull(reader);
 			while (reader.hasNext()) {
 				IAtomContainer mol = (IAtomContainer) reader.next();
 
@@ -277,10 +288,10 @@ public class SmilesTest {
 				// boolean[mol.getAtomCount()]));
 				// [H][C@]14(COP\(=O)(O)O\[C@]4([H])(C\(O)C/(O1)N/2C\3N\C\N\C\(N)C\3(N\C\2Cl)))
 			}
-			reader.close();
 
-		} catch (Exception x) {
-			x.printStackTrace();
+		} finally {
+			if (reader != null)
+				reader.close();
 		}
 
 	}

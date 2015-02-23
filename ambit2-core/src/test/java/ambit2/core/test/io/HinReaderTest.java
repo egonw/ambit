@@ -13,6 +13,8 @@ import org.openscience.cdk.isomorphism.UniversalIsomorphismTester;
 import org.openscience.cdk.silent.SilentChemObjectBuilder;
 import org.openscience.cdk.smiles.SmilesGenerator;
 import org.openscience.cdk.smiles.SmilesParser;
+import org.openscience.cdk.tools.manipulator.AtomContainerManipulator;
+import org.openscience.cdk.tools.manipulator.AtomTypeManipulator;
 
 import ambit2.core.io.FileInputState;
 import ambit2.core.processors.structure.HydrogenAdderProcessor;
@@ -47,6 +49,7 @@ public class HinReaderTest {
 		String smiles  = "[H]C([H])([H])C([H])([H])C([H])([H])C([H])([H])N(C1=C(F)C(F)=C(C(F)=C1(F))C(F)(F)F)N(=O)[O-]";
 		SmilesParser p = new SmilesParser(SilentChemObjectBuilder.getInstance());
 		IAtomContainer target = p.parseSmiles(smiles);
+		AtomContainerManipulator.percieveAtomTypesAndConfigureAtoms(target);
 		HydrogenAdderProcessor ha = new HydrogenAdderProcessor();
 		target = ha.process(target);
 		InputStream in = getClass().getClassLoader().getResourceAsStream("ambit2/core/data/hin/nitro.hin");

@@ -148,6 +148,7 @@ public class I5ParserTest {
 	@Test
 	public void testSubstanceComposition() throws Exception {
 		InputStream in = getClass().getClassLoader().getResourceAsStream("ambit2/core/data/i5d/TestSubstance3.i5d");
+
 		I5ReaderSimple reader = new I5ReaderSimple(new InputStreamReader(in,"UTF-8"));
 		int count = 0;
 		int foundCas=0;

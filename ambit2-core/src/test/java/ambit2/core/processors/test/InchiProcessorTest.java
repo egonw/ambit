@@ -39,6 +39,7 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.openscience.cdk.atomtype.CDKAtomTypeMatcher;
 import org.openscience.cdk.inchi.InChIGenerator;
 import org.openscience.cdk.inchi.InChIGeneratorFactory;
 import org.openscience.cdk.inchi.InChIToStructure;
@@ -49,6 +50,7 @@ import org.openscience.cdk.smiles.SmilesParser;
 import org.openscience.cdk.templates.MoleculeFactory;
 import org.openscience.cdk.tools.CDKHydrogenAdder;
 import org.openscience.cdk.tools.manipulator.AtomContainerManipulator;
+import org.openscience.cdk.tools.manipulator.AtomTypeManipulator;
 
 import ambit2.core.config.AmbitCONSTANTS;
 import ambit2.core.helper.CDKHueckelAromaticityDetector;
@@ -101,7 +103,9 @@ public class InchiProcessorTest {
 		SmilesParser p = new SmilesParser(SilentChemObjectBuilder.getInstance());
 		IAtomContainer mol = p.parseSmiles("CN1C=NC2=C1C(=O)N(C(=O)N2C)C");
 		//IAtomContainer mol = p.parseSmiles("c1ccccc1");
-
+		
+		AtomContainerManipulator.percieveAtomTypesAndConfigureAtoms(mol);
+		
 		CDKHydrogenAdder ha = CDKHydrogenAdder.getInstance(SilentChemObjectBuilder.getInstance());
 		ha.addImplicitHydrogens(mol);
 		//AtomContainerManipulator.convertImplicitToExplicitHydrogens(mol);  // this is the most important

@@ -18,6 +18,7 @@ import org.openscience.cdk.fingerprint.PubchemFingerprinter;
 import org.openscience.cdk.fingerprint.SubstructureFingerprinter;
 import org.openscience.cdk.interfaces.IAtomContainer;
 import org.openscience.cdk.silent.SilentChemObjectBuilder;
+import org.openscience.cdk.tools.CDKHydrogenAdder;
 import org.openscience.cdk.tools.manipulator.AtomContainerManipulator;
 
 import ambit2.base.interfaces.IStructureRecord;
@@ -103,6 +104,7 @@ public class FingerPrintGeneratorTest {
 			IStructureRecord record = reader.nextRecord();
 			IAtomContainer mol = molreader.process(record);
 			AtomContainerManipulator.percieveAtomTypesAndConfigureAtoms(mol);
+			CDKHydrogenAdder.getInstance(SilentChemObjectBuilder.getInstance()).addImplicitHydrogens(mol);
 			CDKHueckelAromaticityDetector.detectAromaticity(mol);
 			gen.setHydrogens(false);
 			mol = AtomContainerManipulator.removeHydrogensPreserveMultiplyBonded(mol);
