@@ -21,7 +21,6 @@ import org.dbunit.dataset.ITable;
 import org.junit.Test;
 import org.openscience.cdk.interfaces.IAtomContainer;
 import org.openscience.cdk.interfaces.IChemObject;
-import org.openscience.cdk.interfaces.IMolecule;
 import org.openscience.cdk.silent.SilentChemObjectBuilder;
 import org.opentox.dsl.OTCompound;
 import org.restlet.Client;
@@ -175,7 +174,7 @@ public class CompoundResourceTest extends ResourceTest {
 		return count ==2;
 		*/
 
-		IMolecule mol = MoleculeTools.readCMLMolecule(in);
+		IAtomContainer mol = MoleculeTools.readCMLMolecule(in);
 		Assert.assertNotNull(mol);
 		Assert.assertEquals(3,mol.getAtomCount());
 		Assert.assertEquals(0,mol.getBondCount());
