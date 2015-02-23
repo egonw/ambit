@@ -30,7 +30,6 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.logging.Logger;
 
-import org.openscience.cdk.ChemObject;
 import org.openscience.cdk.exception.CDKException;
 import org.openscience.cdk.interfaces.IAtomContainer;
 import org.openscience.cdk.interfaces.IAtomContainerSet;
@@ -138,12 +137,7 @@ public abstract class FileWithHeaderWriter extends DefaultChemObjectWriter {
 		}
 		*/
 	}
-	/* (non-Javadoc)
-	 * @see org.openscience.cdk.io.ChemObjectWriter#highestSupportedChemObject()
-	 */
-	public ChemObject highestSupportedChemObject() {
-        return new MoleculeSet();
-	}
+
 
 }
 

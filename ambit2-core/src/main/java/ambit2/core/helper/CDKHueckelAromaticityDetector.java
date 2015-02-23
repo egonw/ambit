@@ -13,11 +13,11 @@ import org.openscience.cdk.interfaces.IAtomContainer;
  */
 public class CDKHueckelAromaticityDetector {
 
-	public static void detectAromaticity(IAtomContainer molecule)
+	public static boolean detectAromaticity(IAtomContainer molecule)
 			throws CDKException {
 		Aromaticity aromaticity = new Aromaticity(ElectronDonation.cdk(),
 				Cycles.cdkAromaticSet());
-		aromaticity.apply(molecule);
+		return aromaticity.apply(molecule);
 	}
 
 }

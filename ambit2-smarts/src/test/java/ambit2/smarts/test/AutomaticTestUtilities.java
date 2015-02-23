@@ -750,7 +750,8 @@ public class AutomaticTestUtilities {
 		// CDK parser
 		QueryAtomContainer query_CDK = null;
 		try {
-			query_CDK = SMARTSParser.parse(line,SilentChemObjectBuilder.getInstance());
+			query_CDK = SMARTSParser.parse(line,
+					SilentChemObjectBuilder.getInstance());
 		} catch (Exception e) {
 			System.out.println("CDK parsing error: " + e.toString());
 			return -1;
@@ -840,11 +841,14 @@ public class AutomaticTestUtilities {
 				initializeRecursiveSmartsAtom(
 						((LogicalOperatorAtom) atom).getRight(), atomContainer);
 			}
-		} else if (atom instanceof RecursiveSmartsAtom) {
+		}
+		/* setAtomContainer for these classes do not exist in cdk 1.5.10
+		else if (atom instanceof RecursiveSmartsAtom) {
 			((RecursiveSmartsAtom) atom).setAtomContainer(atomContainer);
 		} else if (atom instanceof HydrogenAtom) {
 			((HydrogenAtom) atom).setAtomContainer(atomContainer);
 		}
+		*/
 	}
 
 	private void initializeMolecule(IAtomContainer atomContainer)
@@ -1016,7 +1020,8 @@ public class AutomaticTestUtilities {
 		// CDK parser
 		QueryAtomContainer query_CDK = null;
 		try {
-			query_CDK = SMARTSParser.parse(line,SilentChemObjectBuilder.getInstance());
+			query_CDK = SMARTSParser.parse(line,
+					SilentChemObjectBuilder.getInstance());
 		} catch (Exception e) {
 			System.out.println("CDK parsing error: " + e.toString());
 			return -1;
@@ -1168,7 +1173,8 @@ public class AutomaticTestUtilities {
 		// CDK parser
 		try {
 			startTime = System.nanoTime();
-			QueryAtomContainer query_CDK = SMARTSParser.parse(line,SilentChemObjectBuilder.getInstance());
+			QueryAtomContainer query_CDK = SMARTSParser.parse(line,
+					SilentChemObjectBuilder.getInstance());
 			endTime = System.nanoTime();
 			timeCDK = endTime - startTime;
 		} catch (Exception e) {

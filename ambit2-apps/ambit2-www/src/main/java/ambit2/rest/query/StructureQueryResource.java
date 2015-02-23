@@ -15,7 +15,6 @@ import net.idea.restnet.c.RepresentationConvertor;
 import net.idea.restnet.db.convertors.OutputWriterConvertor;
 
 import org.openscience.cdk.CDKConstants;
-import org.openscience.cdk.aromaticity.CDKHueckelAromaticityDetector;
 import org.openscience.cdk.exception.InvalidSmilesException;
 import org.openscience.cdk.inchi.InChIGeneratorFactory;
 import org.openscience.cdk.inchi.InChIToStructure;

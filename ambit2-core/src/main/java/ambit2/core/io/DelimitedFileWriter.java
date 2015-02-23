@@ -31,7 +31,6 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.logging.Level;
 
-import org.openscience.cdk.ChemObject;
 import org.openscience.cdk.exception.CDKException;
 import org.openscience.cdk.interfaces.IAtomContainer;
 import org.openscience.cdk.interfaces.IAtomContainerSet;
@@ -89,12 +88,7 @@ public class DelimitedFileWriter extends FilesWithHeaderWriter {
 
 	}
 
-	/* (non-Javadoc)
-	 * @see org.openscience.cdk.io.ChemObjectWriter#highestSupportedChemObject()
-	 */
-	public ChemObject highestSupportedChemObject() {
-        return new MoleculeSet();
-	}
+
 
     public IResourceFormat getFormat() {
         return format;

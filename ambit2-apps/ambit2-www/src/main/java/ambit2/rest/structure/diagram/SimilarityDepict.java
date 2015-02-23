@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.BitSet;
 
-import org.openscience.cdk.aromaticity.CDKHueckelAromaticityDetector;
 import org.openscience.cdk.exception.CDKException;
 import org.openscience.cdk.exception.InvalidSmilesException;
 import org.openscience.cdk.fingerprint.Fingerprinter;
@@ -22,6 +21,7 @@ import org.restlet.data.Reference;
 import org.restlet.resource.ResourceException;
 
 import ambit2.core.config.AmbitCONSTANTS;
+import ambit2.core.helper.CDKHueckelAromaticityDetector;
 import ambit2.namestructure.Name2StructureProcessor;
 import ambit2.rest.AmbitResource;
 import ambit2.rest.query.QueryResource;

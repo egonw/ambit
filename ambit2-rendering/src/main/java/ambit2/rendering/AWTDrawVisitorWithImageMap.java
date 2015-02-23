@@ -53,6 +53,7 @@ import org.openscience.cdk.renderer.elements.RectangleElement;
 import org.openscience.cdk.renderer.elements.TextElement;
 import org.openscience.cdk.renderer.elements.TextGroupElement;
 import org.openscience.cdk.renderer.elements.WedgeLineElement;
+import org.openscience.cdk.renderer.elements.WedgeLineElement.TYPE;
 import org.openscience.cdk.renderer.elements.path.Type;
 import org.openscience.cdk.renderer.font.AWTFontManager;
 import org.openscience.cdk.renderer.font.IFontManager;
@@ -249,7 +250,7 @@ public class AWTDrawVisitorWithImageMap extends AbstractAWTDrawVisitor {
         vertexB.add(normal);
         vertexC.sub(normal);
         this.graphics.setColor(wedge.color);
-        if (wedge.isDashed) {
+        if (wedge.type == TYPE.DASHED) {
             this.drawDashedWedge(vertexA, vertexB, vertexC);
         } else {
             this.drawFilledWedge(vertexA, vertexB, vertexC);

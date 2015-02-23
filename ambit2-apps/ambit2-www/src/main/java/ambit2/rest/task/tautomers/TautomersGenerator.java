@@ -9,7 +9,6 @@ import net.idea.modbcum.i.exceptions.AmbitException;
 import net.idea.modbcum.i.exceptions.DbAmbitException;
 
 import org.openscience.cdk.CDKConstants;
-import org.openscience.cdk.aromaticity.CDKHueckelAromaticityDetector;
 import org.openscience.cdk.interfaces.IAtomContainer;
 import org.openscience.cdk.interfaces.IBond;
 import org.openscience.cdk.io.SDFWriter;
@@ -26,6 +25,7 @@ import ambit2.base.interfaces.IStructureRecord;
 import ambit2.base.interfaces.IStructureRecord.MOL_TYPE;
 import ambit2.base.relation.STRUCTURE_RELATION;
 import ambit2.core.data.model.ModelQueryResults;
+import ambit2.core.helper.CDKHueckelAromaticityDetector;
 import ambit2.core.processors.structure.MoleculeReader;
 import ambit2.core.processors.structure.StructureTypeProcessor;
 import ambit2.db.chemrelation.UpdateStructureRelation;
