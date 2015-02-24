@@ -10,6 +10,7 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 import org.openscience.cdk.CDKConstants;
+import org.openscience.cdk.interfaces.IAtom;
 import org.openscience.cdk.interfaces.IAtomContainer;
 import org.openscience.cdk.interfaces.IBond;
 import org.openscience.cdk.io.iterator.IIteratingChemObjectReader;
@@ -48,6 +49,9 @@ public class TestTautomersFromSDF {
 			IIteratingChemObjectReader<IAtomContainer> reader = FileInputState.getReader(in,".sdf");
 			while (reader.hasNext()) {
 				IAtomContainer mol = reader.next();
+				for (IAtom atom : mol.atoms()) {
+					System.out.println("atom: " + atom);
+				}
 				g.setUseAromaticityFlag(false);
 				tautomersSDF = testTautomerGeneration(mol);
 			}
@@ -90,8 +94,8 @@ public class TestTautomersFromSDF {
 		aromatic = false;
 		for (IBond bond : mol.bonds()) if (bond.getFlag(CDKConstants.ISAROMATIC)) {aromatic = true; break;}
 		//implicit H count is NULL if read from InChI ...
-		mol = AtomContainerManipulator.removeHydrogens(mol);
 		CDKHydrogenAdder.getInstance(mol.getBuilder()).addImplicitHydrogens(mol);
+		mol = AtomContainerManipulator.removeHydrogens(mol);
 		
 		if (aromatic) 
 			mol = kekulizer.kekuliseAromaticRings((IAtomContainer)mol);

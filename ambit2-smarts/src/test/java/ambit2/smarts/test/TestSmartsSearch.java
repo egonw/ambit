@@ -48,6 +48,7 @@ import org.openscience.cdk.smiles.SmilesParser;
 import org.openscience.cdk.tools.LoggingTool;
 import org.openscience.cdk.tools.manipulator.AtomContainerManipulator;
 
+import ambit2.core.helper.CDKHueckelAromaticityDetector;
 import ambit2.smarts.SmartsHelper;
 import ambit2.smarts.SmartsParser;
 
@@ -115,7 +116,8 @@ public class TestSmartsSearch extends TestCase
 		SmilesParser sp = new SmilesParser(SilentChemObjectBuilder.getInstance());
 		IAtomContainer atomContainer = sp.parseSmiles(smiles);
 		//if adding atom typing many more tests fail!
-		//AtomContainerManipulator.percieveAtomTypesAndConfigureAtoms(atomContainer);
+		AtomContainerManipulator.percieveAtomTypesAndConfigureAtoms(atomContainer);
+		CDKHueckelAromaticityDetector.detectAromaticity(atomContainer);
 		mTarget = atomContainer;
 		smartsParser.setSMARTSData(atomContainer);
 		
