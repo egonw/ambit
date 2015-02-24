@@ -203,8 +203,8 @@ public class SmilesTest {
 				SilentChemObjectBuilder.getInstance());
 		IAtomContainer mol = parser
 				.parseSmiles("Oc1ccc(cc1)c1coc2c(c1=O)c(O)cc(c2)O");
-		// AtomContainerManipulator.percieveAtomTypesAndConfigureAtoms(mol);
-		// CDKHueckelAromaticityDetector.detectAromaticity(mol);
+		AtomContainerManipulator.percieveAtomTypesAndConfigureAtoms(mol);
+		CDKHueckelAromaticityDetector.detectAromaticity(mol);
 		int c = 0;
 		for (IAtom atom : mol.atoms())
 			c += atom.getFlag(CDKConstants.ISAROMATIC) ? 1 : 0;

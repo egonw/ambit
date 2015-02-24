@@ -6,6 +6,7 @@ import net.idea.modbcum.i.exceptions.AmbitException;
 import net.idea.modbcum.p.DefaultAmbitProcessor;
 
 import org.openscience.cdk.CDKConstants;
+import org.openscience.cdk.graph.Cycles;
 import org.openscience.cdk.interfaces.IAtom;
 import org.openscience.cdk.interfaces.IAtomContainer;
 import org.openscience.cdk.interfaces.IBond;
@@ -17,7 +18,6 @@ import org.openscience.cdk.isomorphism.matchers.IQueryAtomContainer;
 import org.openscience.cdk.isomorphism.matchers.QueryAtomContainer;
 import org.openscience.cdk.isomorphism.matchers.smarts.AromaticQueryBond;
 import org.openscience.cdk.isomorphism.matchers.smarts.OrderQueryBond;
-import org.openscience.cdk.ringsearch.SSSRFinder;
 import org.openscience.cdk.silent.SilentChemObjectBuilder;
 import org.openscience.cdk.tools.periodictable.PeriodicTable;
 
@@ -241,24 +241,23 @@ public class SmartsToChemObject extends
 
 	/** Version of the function when the Ring data is not supplied outside */
 	public IAtomContainer extractAtomContainer(IQueryAtomContainer query) {
-		SSSRFinder sssrf = new SSSRFinder(query);
-		IRingSet ringSet = sssrf.findSSSR();
+
+		IRingSet ringSet = Cycles.sssr(query).toRingSet();
 
 		return (extractAtomContainer(query, ringSet));
 	}
 
 	public IAtomContainer extractAtomContainerFullyConnected(
 			IQueryAtomContainer query) {
-		SSSRFinder sssrf = new SSSRFinder(query);
-		IRingSet ringSet = sssrf.findSSSR();
+		IRingSet ringSet = Cycles.sssr(query).toRingSet();
 
 		return (extractAtomContainerFullyConnected(query, ringSet));
 	}
 
 	public IQueryAtomContainer convertKekuleSmartsToAromatic(
 			IQueryAtomContainer query) throws Exception {
-		SSSRFinder sssrf = new SSSRFinder(query);
-		IRingSet ringSet = sssrf.findSSSR();
+
+		IRingSet ringSet = Cycles.sssr(query).toRingSet();
 
 		return (convertKekuleSmartsToAromatic(query, ringSet));
 	}
@@ -386,11 +385,13 @@ public class SmartsToChemObject extends
 	public Vector<SmartsAtomExpression> getSubExpressions(
 			SmartsAtomExpression a, int separator) {
 		Vector<SmartsAtomExpression> v = new Vector<SmartsAtomExpression>();
-		SmartsAtomExpression sub = new SmartsAtomExpression(SilentChemObjectBuilder.getInstance());
+		SmartsAtomExpression sub = new SmartsAtomExpression(
+				SilentChemObjectBuilder.getInstance());
 		for (int i = 0; i < a.tokens.size(); i++) {
 			if (a.tokens.get(i).type == separator) {
 				v.add(sub);
-				sub = new SmartsAtomExpression(SilentChemObjectBuilder.getInstance());
+				sub = new SmartsAtomExpression(
+						SilentChemObjectBuilder.getInstance());
 			} else
 				sub.tokens.add(a.tokens.get(i));
 		}
@@ -709,11 +710,13 @@ public class SmartsToChemObject extends
 	public Vector<SmartsBondExpression> getSubExpressions(
 			SmartsBondExpression b, int separator) {
 		Vector<SmartsBondExpression> v = new Vector<SmartsBondExpression>();
-		SmartsBondExpression sub = new SmartsBondExpression(SilentChemObjectBuilder.getInstance());
+		SmartsBondExpression sub = new SmartsBondExpression(
+				SilentChemObjectBuilder.getInstance());
 		for (int i = 0; i < b.tokens.size(); i++) {
 			if (b.tokens.get(i).intValue() == separator) {
 				v.add(sub);
-				sub = new SmartsBondExpression(SilentChemObjectBuilder.getInstance());
+				sub = new SmartsBondExpression(
+						SilentChemObjectBuilder.getInstance());
 			} else
 				sub.tokens.add(b.tokens.get(i));
 		}

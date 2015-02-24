@@ -61,6 +61,7 @@ public class HinReaderTest {
 			Object o = reader.next();
 			logger.fine(o.toString());
 			Assert.assertTrue(o instanceof IAtomContainer);
+			//may be extra H atom?
 			Assert.assertEquals(target.getAtomCount(),((IAtomContainer)o).getAtomCount());
 			SmilesGenerator g = new SmilesGenerator();
 			if (logger.isLoggable(Level.FINE))

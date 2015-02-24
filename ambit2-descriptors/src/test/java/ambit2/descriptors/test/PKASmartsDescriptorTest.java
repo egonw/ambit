@@ -51,6 +51,8 @@ import org.openscience.cdk.qsar.result.DoubleResult;
 import org.openscience.cdk.silent.SilentChemObjectBuilder;
 import org.openscience.cdk.smiles.SmilesParser;
 import org.openscience.cdk.templates.MoleculeFactory;
+import org.openscience.cdk.tools.manipulator.AtomContainerManipulator;
+import org.openscience.cdk.tools.manipulator.AtomTypeManipulator;
 
 import ambit2.base.config.Preferences;
 import ambit2.core.helper.CDKHueckelAromaticityDetector;
@@ -234,6 +236,7 @@ public class PKASmartsDescriptorTest {
     public void testOne() throws Exception {
     	SmilesParser parser = new SmilesParser(SilentChemObjectBuilder.getInstance());
     	IAtomContainer a = MoleculeFactory.makeBenzene();
+    	AtomContainerManipulator.percieveAtomTypesAndConfigureAtoms(a);
     	HydrogenAdderProcessor ha = new HydrogenAdderProcessor();
     	//SmartParser throws error if explicit hydrogens are used - fixed
     	ha.setAddEexplicitHydrogens(true);

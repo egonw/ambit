@@ -53,7 +53,7 @@ public class SmilesKey extends DefaultAmbitProcessor<IAtomContainer,String> impl
 	protected Object key="smiles";
 	//protected AtomConfigurator conf = new AtomConfigurator();
 	public SmilesKey() {
-		gen = SmilesGenerator.unique();
+		gen = SmilesGenerator.unique().aromatic();
 	}
 	public Object getKey() {
 		return key;

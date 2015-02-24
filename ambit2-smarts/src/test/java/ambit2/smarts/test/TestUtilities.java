@@ -20,6 +20,7 @@ import org.openscience.cdk.CDKConstants;
 import org.openscience.cdk.DefaultChemObjectBuilder;
 import org.openscience.cdk.exception.CDKException;
 import org.openscience.cdk.fingerprint.Fingerprinter;
+import org.openscience.cdk.graph.Cycles;
 import org.openscience.cdk.interfaces.IAtom;
 import org.openscience.cdk.interfaces.IAtomContainer;
 import org.openscience.cdk.interfaces.IAtomContainerSet;
@@ -41,7 +42,6 @@ import org.openscience.cdk.isomorphism.matchers.smarts.AliphaticSymbolAtom;
 import org.openscience.cdk.isomorphism.matchers.smarts.AnyAtom;
 import org.openscience.cdk.isomorphism.matchers.smarts.OrderQueryBond;
 import org.openscience.cdk.isomorphism.mcss.RMap;
-import org.openscience.cdk.ringsearch.SSSRFinder;
 import org.openscience.cdk.silent.SilentChemObjectBuilder;
 import org.openscience.cdk.smiles.SmilesGenerator;
 import org.openscience.cdk.smiles.SmilesParser;
@@ -332,8 +332,7 @@ public class TestUtilities {
 					CDKHueckelAromaticityDetector.detectAromaticity(mol);
 
 					// Calc. ring statistics
-					SSSRFinder sssrf = new SSSRFinder(mol);
-					IRingSet ringSet = sssrf.findSSSR();
+					IRingSet ringSet = Cycles.sssr(mol).toRingSet();
 					int n = ringSet.getAtomContainerCount();
 					double ringSizeSum = 0;
 					double ringAverSize = 0;
@@ -1381,8 +1380,7 @@ public class TestUtilities {
 		if (FlagTargetPreprocessing)
 			preProcess(mol);
 
-		SSSRFinder sssrf = new SSSRFinder(mol);
-		IRingSet ringSet = sssrf.findSSSR();
+		IRingSet ringSet = Cycles.sssr(mol).toRingSet();
 
 		for (int i = 0; i < ringSet.getAtomContainerCount(); i++) {
 			System.out.print("  Ring:");
@@ -1402,8 +1400,7 @@ public class TestUtilities {
 		if (FlagTargetPreprocessing)
 			preProcess(mol);
 
-		SSSRFinder sssrf = new SSSRFinder(mol);
-		IRingSet ringSet = sssrf.findSSSR();
+		IRingSet ringSet = Cycles.sssr(mol).toRingSet();
 
 		IRingSet rsConnected = ringSet.getConnectedRings((IRing) ringSet
 				.getAtomContainer(0));

@@ -12,6 +12,7 @@ import java.util.Vector;
 
 import org.openscience.cdk.CDKConstants;
 import org.openscience.cdk.exception.CDKException;
+import org.openscience.cdk.graph.Cycles;
 import org.openscience.cdk.interfaces.IAtom;
 import org.openscience.cdk.interfaces.IAtomContainer;
 import org.openscience.cdk.interfaces.IBond;
@@ -20,11 +21,8 @@ import org.openscience.cdk.interfaces.IRingSet;
 import org.openscience.cdk.isomorphism.UniversalIsomorphismTester;
 import org.openscience.cdk.isomorphism.matchers.IQueryAtomContainer;
 import org.openscience.cdk.isomorphism.matchers.QueryAtomContainer;
-import org.openscience.cdk.isomorphism.matchers.smarts.HydrogenAtom;
 import org.openscience.cdk.isomorphism.matchers.smarts.LogicalOperatorAtom;
-import org.openscience.cdk.isomorphism.matchers.smarts.RecursiveSmartsAtom;
 import org.openscience.cdk.ringsearch.AllRingsFinder;
-import org.openscience.cdk.ringsearch.SSSRFinder;
 import org.openscience.cdk.silent.SilentChemObjectBuilder;
 import org.openscience.cdk.smiles.smarts.parser.SMARTSParser;
 import org.openscience.cdk.tools.manipulator.AtomContainerManipulator;
@@ -842,13 +840,13 @@ public class AutomaticTestUtilities {
 						((LogicalOperatorAtom) atom).getRight(), atomContainer);
 			}
 		}
-		/* setAtomContainer for these classes do not exist in cdk 1.5.10
-		else if (atom instanceof RecursiveSmartsAtom) {
-			((RecursiveSmartsAtom) atom).setAtomContainer(atomContainer);
-		} else if (atom instanceof HydrogenAtom) {
-			((HydrogenAtom) atom).setAtomContainer(atomContainer);
-		}
-		*/
+		/*
+		 * setAtomContainer for these classes do not exist in cdk 1.5.10 else if
+		 * (atom instanceof RecursiveSmartsAtom) { ((RecursiveSmartsAtom)
+		 * atom).setAtomContainer(atomContainer); } else if (atom instanceof
+		 * HydrogenAtom) { ((HydrogenAtom)
+		 * atom).setAtomContainer(atomContainer); }
+		 */
 	}
 
 	private void initializeMolecule(IAtomContainer atomContainer)
@@ -909,8 +907,7 @@ public class AutomaticTestUtilities {
 		}
 
 		// sets SSSR information
-		SSSRFinder finder = new SSSRFinder(atomContainer);
-		IRingSet sssr = finder.findEssentialRings();
+		IRingSet sssr = Cycles.sssr(atomContainer).toRingSet();
 
 		for (IAtom atom : atomContainer.atoms()) {
 

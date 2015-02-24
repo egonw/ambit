@@ -73,6 +73,8 @@ public class FingerprinterTest {
 		IAtomContainer mol = MoleculeFactory.make123Triazole();
 		IFingerprinter fp = new PubchemFingerprinter(SilentChemObjectBuilder.getInstance());
 		AtomContainerManipulator.percieveAtomTypesAndConfigureAtoms(mol);
+		CDKHydrogenAdder h = CDKHydrogenAdder.getInstance(SilentChemObjectBuilder.getInstance());
+		h.addImplicitHydrogens(mol);
 		CDKHueckelAromaticityDetector.detectAromaticity(mol);
 		BitSet bs1 = fp.getBitFingerprint(mol).asBitSet();
 		BitSet bs2 = fp.getBitFingerprint(mol).asBitSet();

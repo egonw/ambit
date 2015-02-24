@@ -2,10 +2,10 @@ package ambit2.smarts;
 
 import java.util.Vector;
 
+import org.openscience.cdk.graph.Cycles;
 import org.openscience.cdk.interfaces.IAtom;
 import org.openscience.cdk.interfaces.IAtomContainer;
 import org.openscience.cdk.interfaces.IRingSet;
-import org.openscience.cdk.ringsearch.SSSRFinder;
 
 /**
  * SMARTSProp is a per atom property &
@@ -38,8 +38,7 @@ public class CMLUtilities {
 	 */
 	public void setCMLSMARTSProperties(IAtomContainer mol) {
 
-		SSSRFinder sssrf = new SSSRFinder(mol);
-		IRingSet ringSet = sssrf.findSSSR();
+		IRingSet ringSet = Cycles.sssr(mol).toRingSet();
 
 		SmartsParser.setNeighbourData(mol);
 		SmartsParser.setValenceData(mol);

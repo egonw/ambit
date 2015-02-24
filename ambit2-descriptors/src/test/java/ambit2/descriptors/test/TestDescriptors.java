@@ -16,6 +16,8 @@ import org.openscience.cdk.qsar.result.IntegerArrayResult;
 import org.openscience.cdk.qsar.result.IntegerResult;
 import org.openscience.cdk.silent.SilentChemObjectBuilder;
 import org.openscience.cdk.smiles.SmilesParser;
+import org.openscience.cdk.tools.manipulator.AtomContainerManipulator;
+import org.openscience.cdk.tools.manipulator.AtomTypeManipulator;
 
 import ambit2.descriptors.constitutional.AtomCountHybridizationDescriptor;
 import ambit2.descriptors.constitutional.AtomCountRelativeDescriptor;
@@ -38,6 +40,7 @@ public class TestDescriptors  {
 		for (int i = 0; i < smiles.size(); i++)
 		{	
 			IAtomContainer mol = sp.parseSmiles(smiles.get(i));
+			AtomContainerManipulator.percieveAtomTypesAndConfigureAtoms(mol);
 			DescriptorValue dv = descriptor.calculate(mol);
 			double d = TestDescriptors.unpackValueAsDouble(descrValueIndex, dv.getValue());
 			Assert.assertEquals(info + " value for " +smiles.get(i), expectedValues.get(i).doubleValue(), d, eps_precision);

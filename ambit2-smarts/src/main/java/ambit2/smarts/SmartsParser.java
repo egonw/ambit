@@ -29,6 +29,7 @@ import java.util.Stack;
 import java.util.TreeMap;
 import java.util.Vector;
 
+import org.openscience.cdk.graph.Cycles;
 import org.openscience.cdk.interfaces.IAtom;
 import org.openscience.cdk.interfaces.IAtomContainer;
 import org.openscience.cdk.interfaces.IBond;
@@ -44,7 +45,6 @@ import org.openscience.cdk.isomorphism.matchers.smarts.AromaticAtom;
 import org.openscience.cdk.isomorphism.matchers.smarts.AromaticQueryBond;
 import org.openscience.cdk.isomorphism.matchers.smarts.OrderQueryBond;
 import org.openscience.cdk.isomorphism.matchers.smarts.SMARTSBond;
-import org.openscience.cdk.ringsearch.SSSRFinder;
 import org.openscience.cdk.silent.SilentChemObjectBuilder;
 
 /**
@@ -2101,8 +2101,7 @@ public class SmartsParser {
 
 	static public void setRingData(IAtomContainer container, boolean rData,
 			boolean rData2) {
-		SSSRFinder sssrf = new SSSRFinder(container);
-		IRingSet ringSet = sssrf.findSSSR();
+		IRingSet ringSet = Cycles.sssr(container).toRingSet();
 		IRingSet atomRings;
 
 		if (rData) {

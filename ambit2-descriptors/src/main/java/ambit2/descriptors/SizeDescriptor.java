@@ -34,7 +34,7 @@ import java.util.logging.Logger;
 import javax.vecmath.Point3d;
 
 import org.openscience.cdk.exception.CDKException;
-import org.openscience.cdk.geometry.GeometryTools;
+import org.openscience.cdk.geometry.GeometryUtil;
 import org.openscience.cdk.interfaces.IAtom;
 import org.openscience.cdk.interfaces.IAtomContainer;
 import org.openscience.cdk.interfaces.IChemObjectBuilder;
@@ -172,7 +172,7 @@ public class SizeDescriptor implements IMolecularDescriptor {
 		 */
 
 		double[][] imat = new double[container.getAtomCount()][3];
-		Point3d centerOfMass = GeometryTools.get3DCenter(container);
+		Point3d centerOfMass = GeometryUtil.get3DCenter(container);
 
 		for (int k = 0; k < container.getAtomCount(); k++) {
 			double[] xyz = new double[3];

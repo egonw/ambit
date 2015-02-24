@@ -46,6 +46,7 @@ import org.openscience.cdk.silent.AtomContainer;
 import org.openscience.cdk.silent.SilentChemObjectBuilder;
 import org.openscience.cdk.smiles.SmilesParser;
 import org.openscience.cdk.tools.LoggingTool;
+import org.openscience.cdk.tools.manipulator.AtomContainerManipulator;
 
 import ambit2.smarts.SmartsHelper;
 import ambit2.smarts.SmartsParser;
@@ -113,6 +114,8 @@ public class TestSmartsSearch extends TestCase
 		}
 		SmilesParser sp = new SmilesParser(SilentChemObjectBuilder.getInstance());
 		IAtomContainer atomContainer = sp.parseSmiles(smiles);
+		//if adding atom typing many more tests fail!
+		//AtomContainerManipulator.percieveAtomTypesAndConfigureAtoms(atomContainer);
 		mTarget = atomContainer;
 		smartsParser.setSMARTSData(atomContainer);
 		

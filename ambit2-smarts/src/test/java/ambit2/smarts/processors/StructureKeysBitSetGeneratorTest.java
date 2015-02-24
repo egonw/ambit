@@ -19,6 +19,7 @@ import org.openscience.cdk.smiles.SmilesParser;
 import org.openscience.cdk.smiles.smarts.SMARTSQueryTool;
 import org.openscience.cdk.tools.CDKHydrogenAdder;
 import org.openscience.cdk.tools.manipulator.AtomContainerManipulator;
+import org.openscience.cdk.tools.manipulator.AtomTypeManipulator;
 
 import ambit2.base.data.StructureRecord;
 import ambit2.base.interfaces.IStructureRecord;
@@ -292,6 +293,7 @@ public class StructureKeysBitSetGeneratorTest {
 	public void parseTriazole() throws Exception {
 		SmilesParser parser = new SmilesParser(SilentChemObjectBuilder.getInstance());
 		IAtomContainer mol = parser.parseSmiles("c1cnn[nH]1"); //C1=CN=NN1
+		AtomContainerManipulator.percieveAtomTypesAndConfigureAtoms(mol);
 		CDKHueckelAromaticityDetector.detectAromaticity(mol);
 		for (IBond b: mol.bonds()) logger.fine(Boolean.toString(b.getFlag(CDKConstants.ISAROMATIC)));
 		for (IAtom a: mol.atoms()) logger.fine(Boolean.toString(a.getFlag(CDKConstants.ISAROMATIC)));
