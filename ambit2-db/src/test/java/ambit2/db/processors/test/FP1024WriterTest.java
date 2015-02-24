@@ -2,6 +2,7 @@ package ambit2.db.processors.test;
 
 import java.math.BigInteger;
 import java.sql.ResultSet;
+import java.util.logging.Level;
 
 import junit.framework.Assert;
 
@@ -67,6 +68,7 @@ public class FP1024WriterTest extends DbUnitTest {
 					record = generator.process(record);
 					fpWriter.write(record);
 				} catch (Exception x) {
+					logger.log(Level.SEVERE,x.getMessage(),x);
 					errors++;
 				}
 			}
@@ -80,7 +82,10 @@ public class FP1024WriterTest extends DbUnitTest {
 		
 		fp = 	dbConnection.createQueryTable("EXPECTED_FP",
 					String.format("SELECT count(*) as c FROM %s where status = 'valid'",generator.getFpmode().getTable()));
-		Assert.assertEquals(new BigInteger("4"), fp.getValue(0,"c"));		
+		Assert.assertEquals(new BigInteger("4"), fp.getValue(0,"c"));
+		fp = 	dbConnection.createQueryTable("EXPECTED_FP",
+				String.format("SELECT * FROM %s",generator.getFpmode().getTable()));
+		Assert.assertEquals(5,fp.getRowCount());
 		fp = 	dbConnection.createQueryTable("EXPECTED_FP",
 				String.format("SELECT count(*) as c FROM %s where status = 'error'",generator.getFpmode().getTable()));
 		Assert.assertEquals(new BigInteger("1"), fp.getValue(0,"c"));					
