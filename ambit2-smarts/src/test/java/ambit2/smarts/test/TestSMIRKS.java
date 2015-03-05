@@ -12,11 +12,13 @@ import org.openscience.cdk.graph.ConnectivityChecker;
 import org.openscience.cdk.interfaces.IAtom;
 import org.openscience.cdk.interfaces.IAtomContainer;
 import org.openscience.cdk.interfaces.IAtomContainerSet;
+import org.openscience.cdk.io.CDKSourceCodeWriter;
 import org.openscience.cdk.io.iterator.IteratingSDFReader;
 import org.openscience.cdk.isomorphism.matchers.IQueryAtomContainer;
 import org.openscience.cdk.silent.SilentChemObjectBuilder;
 import org.openscience.cdk.smiles.SmilesGenerator;
 import org.openscience.cdk.smiles.SmilesParser;
+import org.openscience.cdk.tools.CDKHydrogenAdder;
 import org.openscience.cdk.tools.manipulator.AtomContainerManipulator;
 
 import ambit2.core.helper.CDKHueckelAromaticityDetector;
@@ -28,13 +30,11 @@ import ambit2.smarts.SMIRKSReaction;
 import ambit2.smarts.SmartsParser;
 
 public class TestSMIRKS {
-	protected static Logger logger = Logger.getLogger(TestSMIRKS.class
-			.getName());
+	protected static Logger logger = Logger.getLogger(TestSMIRKS.class.getName());
 	// All tests fail , if hydrogens are explicit!
 	boolean explicitH = true;
 
-	SMIRKSManager smrkMan = new SMIRKSManager(
-			SilentChemObjectBuilder.getInstance());
+	SMIRKSManager smrkMan = new SMIRKSManager(SilentChemObjectBuilder.getInstance());
 	SmartsParser smartsParser = new SmartsParser();
 	IsomorphismTester isoTester = new IsomorphismTester();
 	SmilesGenerator smigen = new SmilesGenerator();
@@ -46,10 +46,15 @@ public class TestSMIRKS {
 	 * @param expectedResult
 	 * @throws Exception
 	 */
-	void checkReactionResult(IAtomContainer result, String expectedResult[],
-			String expectedResultExplH[]) throws Exception {
-		IAtomContainerSet ms = ConnectivityChecker
-				.partitionIntoMolecules(result);
+	void checkReactionResult(IAtomContainer result, String expectedResult[], String expectedResultExplH[])
+			throws Exception {
+		/*
+		CDKSourceCodeWriter w = new CDKSourceCodeWriter(System.err);
+		w.write(result);
+		w.close();
+		*/
+
+		IAtomContainerSet ms = ConnectivityChecker.partitionIntoMolecules(result);
 		String eResult[];
 
 		if (explicitH)
@@ -58,8 +63,8 @@ public class TestSMIRKS {
 			eResult = expectedResult;
 
 		if (ms.getAtomContainerCount() != eResult.length)
-			throw new Exception(String.format("Found %d products, expected %d",
-					ms.getAtomContainerCount(), expectedResult.length));
+			throw new Exception(String.format("Found %d products, expected %d", ms.getAtomContainerCount(),
+					expectedResult.length));
 
 		for (int i = 0; i < eResult.length; i++) {
 			IQueryAtomContainer query = smartsParser.parse(eResult[i]);
@@ -85,31 +90,32 @@ public class TestSMIRKS {
 			}
 
 			if (!FlagMatch)
-				throw new Exception(String.format(
-						"The product does not match expected product %s",
-						expectedResult[i]));
+				throw new Exception(String.format("The product does not match expected product %s", expectedResult[i]));
 		}
 		// all ok if coming here
 	}
 
-	IAtomContainer applySMIRKSReaction(String smirks, String targetSmiles)
-			throws Exception {
-		SmilesParser sp = new SmilesParser(
-				SilentChemObjectBuilder.getInstance());
+	IAtomContainer applySMIRKSReaction(String smirks, String targetSmiles) throws Exception {
+		SmilesParser sp = new SmilesParser(SilentChemObjectBuilder.getInstance());
 		IAtomContainer target = sp.parseSmiles(targetSmiles);
+		AtomContainerManipulator.percieveAtomTypesAndConfigureAtoms(target);
+		CDKHueckelAromaticityDetector.detectAromaticity(target);
+		CDKHydrogenAdder h = CDKHydrogenAdder.getInstance(target.getBuilder());
+		h.addImplicitHydrogens(target);
 		if (explicitH)
 			AtomContainerManipulator.convertImplicitToExplicitHydrogens(target);
-		// System.out.println(smigen.createSMILES(target));
+		/*
+		 * CDKSourceCodeWriter w = new CDKSourceCodeWriter(System.err);
+		 * w.write(target); w.close();
+		 */
 		return applySMIRKSReaction(smirks, target);
 	}
 
-	IAtomContainer applySMIRKSReaction(String smirks, IAtomContainer target)
-			throws Exception {
+	IAtomContainer applySMIRKSReaction(String smirks, IAtomContainer target) throws Exception {
 
 		SMIRKSReaction reaction = smrkMan.parse(smirks);
 		if (!smrkMan.getErrors().equals("")) {
-			throw (new Exception("Smirks Parser errors:\n"
-					+ smrkMan.getErrors()));
+			throw (new Exception("Smirks Parser errors:\n" + smrkMan.getErrors()));
 		}
 
 		// System.out.println("smirks = " + smirks);
@@ -131,8 +137,7 @@ public class TestSMIRKS {
 		String smirks = "[N:1][C:2][C:3][C:4]>>[C:4]=[C:3].S[C:2][N-:1]Cl";
 		String target = "NCCC";
 		String expectedResult[] = new String[] { "C=C", "SC[N-]Cl" };
-		String expectedResultExplH[] = new String[] {
-				"C([H])([H])=C([H])([H])[H]", "SC([H])([H])[N-]([H])([H])Cl" };
+		String expectedResultExplH[] = new String[] { "C([H])([H])=C([H])([H])[H]", "SC([H])([H])[N-]([H])([H])Cl" };
 
 		IAtomContainer result = applySMIRKSReaction(smirks, target);
 		Assert.assertNotNull(result);
@@ -150,8 +155,7 @@ public class TestSMIRKS {
 		String smirks = "[N:1][C:2]([H])>>[N:1][H].[C:2]=[O]";
 		String target = "SNC(Cl)[H]";
 		String expectedResult[] = new String[] { "SN[H]", "ClC=O" };
-		String expectedResultExplH[] = new String[] { "[H]SN([H])[H]",
-				"ClC([H])=O" };
+		String expectedResultExplH[] = new String[] { "[H]SN([H])[H]", "ClC([H])=O" };
 
 		IAtomContainer result = applySMIRKSReaction(smirks, target);
 		Assert.assertNotNull(result);
@@ -238,8 +242,7 @@ public class TestSMIRKS {
 		String smirks = "[O:1][C:2]([H])>>[O:1][H].[C:2]=[O]";
 		String target = "CCNCOC[H]";
 		String expectedResult[] = new String[] { "CCNCO[H]", "C=O" };
-		String expectedResultExplH[] = new String[] {
-				"C([H])([H])([H])C([H])([H])N([H])C([H])([H])O[H]",
+		String expectedResultExplH[] = new String[] { "C([H])([H])([H])C([H])([H])N([H])C([H])([H])O[H]",
 				"C([H])([H])=O" };
 
 		IAtomContainer result = applySMIRKSReaction(smirks, target);
@@ -255,6 +258,7 @@ public class TestSMIRKS {
 		String target = "[H]C(=O)C(=O)C([H])([H])C([H])([H])C([H])([H])C([H])([H])[H]";
 
 		IAtomContainer result = applySMIRKSReaction(smirks, target);
+
 		Assert.assertNotNull(result);
 
 		// if wrong valencies this will fail
@@ -266,12 +270,9 @@ public class TestSMIRKS {
 
 		// AtomContainerManipulator.removeHydrogensPreserveMultiplyBonded(result);
 		for (IAtom a : result.atoms()) {
-			logger.info(String
-					.format("%s valency %d hydrogens %d bond order sum %f neighbors %d",
-							a.getSymbol(), a.getValency(),
-							a.getImplicitHydrogenCount(),
-							result.getBondOrderSum(a),
-							a.getFormalNeighbourCount()));
+			logger.info(String.format("%s valency %d hydrogens %d bond order sum %f neighbors %d", a.getSymbol(),
+					a.getValency(), a.getImplicitHydrogenCount(), result.getBondOrderSum(a),
+					a.getFormalNeighbourCount()));
 			if ("C".equals(a.getSymbol()) && result.getBondOrderSum(a) == 5) {
 				List<IAtom> neighbors = result.getConnectedAtomsList(a);
 				for (IAtom neighbor : neighbors) {
@@ -320,19 +321,17 @@ public class TestSMIRKS {
 		hadder.setAddEexplicitHydrogens(explicitH); // does not work if
 													// hydrogens are explicit!
 
-		File file = new File(getClass().getClassLoader()
-				.getResource("smirkstest.sdf").getFile());
+		File file = new File(getClass().getClassLoader().getResource("smirkstest.sdf").getFile());
 
-		IteratingSDFReader reader = new IteratingSDFReader(new FileInputStream(
-				file), SilentChemObjectBuilder.getInstance());
+		IteratingSDFReader reader = new IteratingSDFReader(new FileInputStream(file),
+				SilentChemObjectBuilder.getInstance());
 		try {
 			while (reader.hasNext()) {
 				target = (IAtomContainer) reader.next();
 				hadder.process((IAtomContainer) target);
 				cfg.process((IAtomContainer) target);
 				// System.out.println(smigen.createSMILES(target));
-				CDKHueckelAromaticityDetector
-						.detectAromaticity((IAtomContainer) target);
+				CDKHueckelAromaticityDetector.detectAromaticity((IAtomContainer) target);
 				IAtomContainer result = applySMIRKSReaction(smirks, target);
 				Assert.assertNotNull(result);
 				// System.out.println(smigen.createSMILES(result));
