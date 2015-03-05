@@ -447,6 +447,8 @@ public class SMIRKSReaction
 	{
 		SmartsToChemObject stco = new SmartsToChemObject(builder);
 		
+		//TODO Improve charge treatment in some cases when atom type is not defined but charge info is defined
+		
 		for (int i = 0; i < reactant.getAtomCount(); i++)
 		{
 			IAtom a = stco.toAtom(reactant.getAtom(i));
