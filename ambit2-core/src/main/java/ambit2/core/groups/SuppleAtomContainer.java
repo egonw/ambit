@@ -52,8 +52,8 @@ import org.openscience.cdk.interfaces.IStereoElement;
 
 import ambit2.core.data.MoleculeTools;
 
-public class SuppleAtomContainer extends ChemObject implements IAtomContainer,
-		IChemObjectListener, Serializable, Cloneable, IFiltered<IAtom> {
+public class SuppleAtomContainer extends ChemObject implements IAtomContainer, IChemObjectListener, Serializable,
+		Cloneable, IFiltered<IAtom> {
 	/**
      * 
      */
@@ -146,16 +146,14 @@ public class SuppleAtomContainer extends ChemObject implements IAtomContainer,
 	}
 
 	public void addBond(int atom1, int atom2, Order order, Stereo stereo) {
-		IBond bond = MoleculeTools.newBond(getBuilder(), getAtom(atom1),
-				getAtom(atom2), order, stereo);
+		IBond bond = MoleculeTools.newBond(getBuilder(), getAtom(atom1), getAtom(atom2), order, stereo);
 		if (contains(bond))
 			return;
 		addBond(bond);
 	}
 
 	public void addBond(int atom1, int atom2, Order order) {
-		IBond bond = MoleculeTools.newBond(getBuilder(), getAtom(atom1),
-				getAtom(atom2), order);
+		IBond bond = MoleculeTools.newBond(getBuilder(), getAtom(atom1), getAtom(atom2), order);
 		if (contains(bond))
 			return;
 		addBond(bond);
@@ -176,8 +174,7 @@ public class SuppleAtomContainer extends ChemObject implements IAtomContainer,
 	}
 
 	public void addLonePair(int atomID) {
-		ILonePair lonePair = MoleculeTools.newLonePair(getBuilder(),
-				getAtom(atomID));
+		ILonePair lonePair = MoleculeTools.newLonePair(getBuilder(), getAtom(atomID));
 		lonePair.addListener(this);
 		addLonePair(lonePair);
 	}
@@ -188,8 +185,7 @@ public class SuppleAtomContainer extends ChemObject implements IAtomContainer,
 	}
 
 	public void addSingleElectron(int atomID) {
-		ISingleElectron singleElectron = MoleculeTools.newSingleElectron(
-				getBuilder(), getAtom(atomID));
+		ISingleElectron singleElectron = MoleculeTools.newSingleElectron(getBuilder(), getAtom(atomID));
 		singleElectron.addListener(this);
 		addSingleElectron(singleElectron);
 	}
@@ -215,8 +211,7 @@ public class SuppleAtomContainer extends ChemObject implements IAtomContainer,
 	}
 
 	public boolean contains(ISingleElectron singleElectron) {
-		return contains(singleElectron.getAtom())
-				&& singleElectrons.contains(singleElectron);
+		return contains(singleElectron.getAtom()) && singleElectrons.contains(singleElectron);
 	}
 
 	public boolean contains(IElectronContainer electronContainer) {
@@ -242,14 +237,12 @@ public class SuppleAtomContainer extends ChemObject implements IAtomContainer,
 	 * The inner ElectronContainerIterator class.
 	 * 
 	 */
-	private class ElectronContainerIterator implements
-			Iterator<IElectronContainer> {
+	private class ElectronContainerIterator implements Iterator<IElectronContainer> {
 
 		private int pointer = 0;
 
 		public boolean hasNext() {
-			return pointer < (bonds.size() + lonePairs.size() + singleElectrons
-					.size());
+			return pointer < (bonds.size() + lonePairs.size() + singleElectrons.size());
 		}
 
 		public IElectronContainer next() {
@@ -257,10 +250,8 @@ public class SuppleAtomContainer extends ChemObject implements IAtomContainer,
 				return bonds.get(pointer++);
 			else if (pointer < bonds.size() + lonePairs.size())
 				return lonePairs.get((pointer++) - bonds.size());
-			else if (pointer < bonds.size() + lonePairs.size()
-					+ singleElectrons.size())
-				return singleElectrons.get((pointer++) - bonds.size()
-						- lonePairs.size());
+			else if (pointer < bonds.size() + lonePairs.size() + singleElectrons.size())
+				return singleElectrons.get((pointer++) - bonds.size() - lonePairs.size());
 			return null;
 		}
 
@@ -269,10 +260,8 @@ public class SuppleAtomContainer extends ChemObject implements IAtomContainer,
 				removeBond(--pointer);
 			else if (pointer <= bonds.size() + lonePairs.size())
 				removeLonePair((--pointer) - bonds.size());
-			else if (pointer <= bonds.size() + lonePairs.size()
-					+ singleElectrons.size())
-				removeSingleElectron((--pointer) - bonds.size()
-						- lonePairs.size());
+			else if (pointer <= bonds.size() + lonePairs.size() + singleElectrons.size())
+				removeSingleElectron((--pointer) - bonds.size() - lonePairs.size());
 		}
 	}
 
@@ -377,8 +366,7 @@ public class SuppleAtomContainer extends ChemObject implements IAtomContainer,
 		return bondsList;
 	}
 
-	public List<IElectronContainer> getConnectedElectronContainersList(
-			IAtom atom) {
+	public List<IElectronContainer> getConnectedElectronContainersList(IAtom atom) {
 		List<IElectronContainer> lps = new ArrayList<IElectronContainer>();
 		Iterator<IBond> b = bonds.iterator();
 		while (b.hasNext()) {
@@ -489,8 +477,7 @@ public class SuppleAtomContainer extends ChemObject implements IAtomContainer,
 		Iterator<IBond> b = bonds.iterator();
 		while (b.hasNext()) {
 			IBond bond = b.next();
-			if (bond.contains(atom)
-					&& bond.getOrder().ordinal() > max.ordinal()) {
+			if (bond.contains(atom) && bond.getOrder().ordinal() > max.ordinal()) {
 				max = bond.getOrder();
 			}
 		}
@@ -502,8 +489,7 @@ public class SuppleAtomContainer extends ChemObject implements IAtomContainer,
 		Iterator<IBond> b = bonds.iterator();
 		while (b.hasNext()) {
 			IBond bond = b.next();
-			if (bond.contains(atom)
-					&& bond.getOrder().ordinal() < min.ordinal()) {
+			if (bond.contains(atom) && bond.getOrder().ordinal() < min.ordinal()) {
 				min = bond.getOrder();
 			}
 		}
@@ -539,8 +525,7 @@ public class SuppleAtomContainer extends ChemObject implements IAtomContainer,
 		while (ilp.hasNext()) {
 			removeLonePair(ilp.next());
 		}
-		Iterator<ISingleElectron> ise = atomContainer.singleElectrons()
-				.iterator();
+		Iterator<ISingleElectron> ise = atomContainer.singleElectrons().iterator();
 		while (ise.hasNext()) {
 			removeSingleElectron(ise.next());
 		}
@@ -692,7 +677,8 @@ public class SuppleAtomContainer extends ChemObject implements IAtomContainer,
 
 	public void setAtoms(IAtom[] newatoms) {
 
-		for (IAtom atom : atoms()) {
+		for (int i = getAtomCount() - 1; i >= 0; i--) {
+			IAtom atom = getAtom(i);
 			removeAtom(atom);
 		}
 		for (IAtom atom : newatoms) {
@@ -704,7 +690,8 @@ public class SuppleAtomContainer extends ChemObject implements IAtomContainer,
 
 	public void setBonds(IBond[] newbonds) {
 
-		for (IBond bond : bonds()) {
+		for (int i = getBondCount() - 1; i >= 0; i--) {
+			IBond bond = getBond(i);
 			removeBond(bond);
 		}
 		for (IBond bond : newbonds) {
@@ -852,7 +839,7 @@ public class SuppleAtomContainer extends ChemObject implements IAtomContainer,
 
 	@Override
 	public boolean isEmpty() {
-		return (atoms==null || atoms.size()==0);
+		return (atoms == null || atoms.size() == 0);
 	}
 
 }
