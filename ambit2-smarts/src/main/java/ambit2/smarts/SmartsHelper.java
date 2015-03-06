@@ -547,8 +547,11 @@ public class SmartsHelper {
 		// SmilesGenerator(true) - is needed for aromatic structures to obtain
 		// incorrect SMILES
 
-		smiGen.setUseAromaticityFlag(useAromaticityFlag);
-		return (smiGen.createSMILES(mol));
+		//smiGen.setUseAromaticityFlag(useAromaticityFlag);
+		if (useAromaticityFlag)
+			return (smiGen.aromatic().create(mol));
+		else
+			return (smiGen.create(mol));
 
 		/*
 		 * java.io.StringWriter result = new java.io.StringWriter();

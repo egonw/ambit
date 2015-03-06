@@ -2509,7 +2509,7 @@ public class TestUtilities {
 		// ReactionOperation.SingleCopyForEachPos);
 
 		// tu.FlagExplicitHAtoms = true;
-		tu.FlagTargetPreprocessing = true;
+		//tu.FlagTargetPreprocessing = true;
 		tu.FlagProductPreprocessing = true;
 		// tu.FlagPrintAtomAttributes = true;
 		// tu.FlagSSMode = SmartsConst.SSM_NON_IDENTICAL_FIRST;
@@ -2524,7 +2524,7 @@ public class TestUtilities {
 		// tu.testSMIRKS("[c:1]1[c:6][c:5][c:4][c:3][c:2]1>>[OH1]-[c:1]1[c:6][c:5][c:4][c:3][c:2]1-[OH1]",
 		// "C1=CC=CC=C1"); //This is a bug !!! 3 double bonds remain
 
-		// tu.testSMIRKS("[C:1]>>[C:1]=[Cl]", "CC");
+		tu.testSMIRKS("[C:1]>>[C:1]=[Cl]", "CC");
 		// tu.testSMIRKS("[C:1][C:2]>>[C:1]=[C:2]", "CC");
 		// tu.testSMIRKS("[C:1]>>[C:1]=[C]", "C");
 		// tu.testSMIRKS("[C:1]([H])[C:2]([H])>>[C:1]=[C:2]", "CCC");
