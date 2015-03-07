@@ -9,6 +9,16 @@
   <artifactId>ambit2-jchempaint</artifactId>
   <name>ambit2-jchempaint</name>
   <description>JChemPaint dependency</description>
+  <repositories>
+ 	<repository>
+            <id>ebi-repo</id>
+            <url>http://www.ebi.ac.uk/intact/maven/nexus/content/repositories/ebi-repo</url>
+        </repository>
+        <repository>
+            <id>ebi-repo-snapshots</id>
+            <url>http://www.ebi.ac.uk/intact/maven/nexus/content/repositories/ebi-repo-snapshots</url>
+        </repository>
+   </repositories> 
   <dependencies>
     <dependency>
       <groupId>ambit</groupId>
