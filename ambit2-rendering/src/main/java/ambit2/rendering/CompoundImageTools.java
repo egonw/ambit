@@ -8,6 +8,7 @@ import java.awt.AlphaComposite;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Rectangle;
@@ -30,6 +31,7 @@ import org.openscience.cdk.CDKConstants;
 import org.openscience.cdk.exception.CDKException;
 import org.openscience.cdk.exception.InvalidSmilesException;
 import org.openscience.cdk.geometry.GeometryTools;
+import org.openscience.cdk.geometry.GeometryUtil;
 import org.openscience.cdk.graph.ConnectivityChecker;
 import org.openscience.cdk.inchi.InChIGeneratorFactory;
 import org.openscience.cdk.inchi.InChIToStructure;
@@ -48,13 +50,11 @@ import org.openscience.cdk.renderer.elements.OvalElement;
 import org.openscience.cdk.renderer.elements.RectangleElement;
 import org.openscience.cdk.renderer.font.AWTFontManager;
 import org.openscience.cdk.renderer.generators.BasicAtomGenerator;
-import org.openscience.cdk.renderer.generators.BasicBondGenerator;
 import org.openscience.cdk.renderer.generators.BasicSceneGenerator;
 import org.openscience.cdk.renderer.generators.IGenerator;
 import org.openscience.cdk.renderer.generators.IGeneratorParameter;
-import org.openscience.cdk.renderer.generators.RingGenerator;
 import org.openscience.cdk.renderer.generators.SelectAtomGenerator;
-import org.openscience.cdk.renderer.generators.SelectBondGenerator;
+import org.openscience.cdk.renderer.generators.standard.StandardGenerator;
 import org.openscience.cdk.renderer.selection.IChemObjectSelection;
 import org.openscience.cdk.renderer.selection.IncrementalSelection;
 import org.openscience.cdk.silent.AtomContainerSet;
@@ -234,8 +234,15 @@ public class CompoundImageTools implements IStructureDiagramHighlights,
 	private IRenderer createRenderer(Dimension cellSize, Color background,
 			boolean rings, boolean atomNumbers, boolean explicitH) {
 		List<IGenerator<IAtomContainer>> generators = new ArrayList<IGenerator<IAtomContainer>>();
+		Font font = new Font("Arial", Font.PLAIN, 12);
+		
 		generators.add(new BasicSceneGenerator());
-
+		generators.add(new StandardGenerator(font));
+/*
+ * 
+ https://github.com/cdk/cdk/wiki/Standard-Generator
+ */
+		/*
 		generators.add(new BasicBondGenerator());
 
 		generators.add(new SelectBondGenerator());
@@ -251,10 +258,15 @@ public class CompoundImageTools implements IStructureDiagramHighlights,
 
 		generators.add(new AtomAnnotationGenerator());
 
+*/
 		IRenderer renderer = new AtomContainerRenderer(generators,
 				new AWTFontManager());
-		RendererModel r2dm = renderer.getRenderer2DModel();
 
+		RendererModel r2dm = renderer.getRenderer2DModel();
+		r2dm.set(StandardGenerator.Highlighting.class,
+                StandardGenerator.HighlightStyle.OuterGlow);
+
+		/*
 		RendererModelWrapper.setCompactShape(r2dm,
 				BasicAtomGenerator.Shape.OVAL);
 
@@ -273,7 +285,10 @@ public class CompoundImageTools implements IStructureDiagramHighlights,
 
 		RendererModelWrapper
 				.setAtomColorer(r2dm, new CDK2DAtomColorsHalogens());
-
+*/
+		r2dm.set(StandardGenerator.AtomColor.class,
+                new CDK2DAtomColors());
+		
 		return renderer;
 	}
 
@@ -628,7 +643,7 @@ public class CompoundImageTools implements IStructureDiagramHighlights,
 					c++;
 					Rectangle2D r = GeometryTools.getRectangle2D(m);
 
-					GeometryTools.translate2D(m,
+					GeometryUtil.translate2D(m,
 							-r.getX() + b.getX() + b.getWidth(),
 							-r.getY() + b.getY() + hoffset
 									- (r.getHeight() / 2.0));
@@ -660,20 +675,19 @@ public class CompoundImageTools implements IStructureDiagramHighlights,
 							.process(mol2process);
 					if (selected != null) {
 						highlighted = selected;
-
+						
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 
 			if (highlighted != null) {
-				RendererModelWrapper.setSelectedPartColor(r2dm, new Color(0,
-						183, 239, 128));
-				RendererModelWrapper.setSelectionShape(r2dm,
-						BasicAtomGenerator.Shape.OVAL);
+				//RendererModelWrapper.setSelectedPartColor(r2dm, new Color(0,183, 239, 128));
+				//RendererModelWrapper.setSelectionShape(r2dm,BasicAtomGenerator.Shape.OVAL);
 				r2dm.setSelection(highlighted);
-				RendererModelWrapper.setColorAtomsByType(r2dm, true);
-				RendererModelWrapper.setShowAtomTypeNames(r2dm, true);
+				//RendererModelWrapper.setColorAtomsByType(r2dm, true);
+				//RendererModelWrapper.setShowAtomTypeNames(r2dm, true);
+				r2dm.set(RendererModel.SelectionColor.class, Color.BLUE); 
 
 			}
 			try {

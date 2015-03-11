@@ -37,6 +37,7 @@ import org.openscience.cdk.renderer.generators.BasicSceneGenerator;
 import org.openscience.cdk.renderer.generators.IGenerator;
 import org.openscience.cdk.renderer.generators.IGeneratorParameter;
 import org.openscience.cdk.renderer.generators.SelectAtomGenerator;
+import org.openscience.cdk.renderer.generators.standard.StandardGenerator;
 import org.openscience.cdk.renderer.selection.IChemObjectSelection;
 import org.openscience.cdk.renderer.selection.SingleSelection;
 import org.openscience.cdk.renderer.visitor.AWTDrawVisitor;
@@ -94,6 +95,7 @@ public class RendererTest {
 			if (atom.getSymbol().equals("N")) {
 				atom.setProperty(CompoundImageTools.SELECTED_ATOM_COLOR,
 						Color.CYAN);
+				//atom.setProperty(StandardGenerator.HIGHLIGHT_COLOR, Color.red);
 				anAtom = atom;
 			}
 		}
@@ -261,7 +263,7 @@ public class RendererTest {
 		}
 	}
 
-	
+	@Test
 	public void testFullerene() throws Exception {
 		// String smiles =
 		// "O=C(O)C(N)CCCCNC%31%26C%29C5C3=C%25C=%23C%17=C4C=2c%16c1c%15c%14C%12=C1C=%10C=2C=9C(=C34)C5=C8c%30c7c6c%28C%22=C%21C6=C%13C=%11C7=C8C=9C=%10C=%11C%12=C%13C=%20c%14c%19c%18c%15c(c%16%17)C%24=C%18C=%27C(=C%19C=%20%21)C%22=C(C=%27C(C=%23%24)C%25%26)C%31c%28c%29%30";
