@@ -12,6 +12,7 @@ import org.openscience.cdk.graph.ConnectivityChecker;
 import org.openscience.cdk.interfaces.IAtom;
 import org.openscience.cdk.interfaces.IAtomContainer;
 import org.openscience.cdk.interfaces.IAtomContainerSet;
+import org.openscience.cdk.interfaces.IBond;
 import org.openscience.cdk.io.CDKSourceCodeWriter;
 import org.openscience.cdk.io.iterator.IteratingSDFReader;
 import org.openscience.cdk.isomorphism.matchers.IQueryAtomContainer;
@@ -278,8 +279,9 @@ public class TestSMIRKS {
 				for (IAtom neighbor : neighbors) {
 					logger.info(neighbor.getSymbol());
 					if ("H".equals(neighbor.getSymbol())) {
+						IBond b = result.getBond(neighbor, a);
+						result.removeBond(b);
 						result.removeAtom(neighbor);
-
 						break;
 					}
 				}
