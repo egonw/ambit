@@ -43,6 +43,7 @@ import org.openscience.cdk.isomorphism.UniversalIsomorphismTester;
 import org.openscience.cdk.silent.SilentChemObjectBuilder;
 import org.openscience.cdk.smiles.SmilesGenerator;
 import org.openscience.cdk.smiles.SmilesParser;
+import org.openscience.cdk.tools.manipulator.AtomContainerManipulator;
 
 import ambit2.base.config.Preferences;
 import ambit2.core.helper.CDKHueckelAromaticityDetector;
@@ -114,23 +115,28 @@ public class MengineCrashTest {
     }   
 
     public void isIsomorph(IAtomContainer a,IAtomContainer b) throws  Exception {
-        
+
         SmilesGenerator g = new SmilesGenerator();
         AtomConfigurator c= new AtomConfigurator();
         HydrogenAdderProcessor h = new HydrogenAdderProcessor();
         CDKHueckelAromaticityDetector.detectAromaticity(c.process(h.process(a)));
         CDKHueckelAromaticityDetector.detectAromaticity(c.process(h.process(b)));
         Assert.assertEquals(a.getAtomCount(),b.getAtomCount());
+        
         UniversalIsomorphismTester uit = new UniversalIsomorphismTester();
         Assert.assertTrue(uit.isIsomorph(a,b));
 
-        
-        String s1= g.createSMILES(a);
-        String s2= g.createSMILES(b);
+        String s1= g.create(a);
+        String s2= g.create(b);
         
         SmilesParser p = new SmilesParser(SilentChemObjectBuilder.getInstance());
         IAtomContainer a1 = p.parseSmiles(s1);
         IAtomContainer b1 = p.parseSmiles(s2);
+        
+        AtomContainerManipulator.percieveAtomTypesAndConfigureAtoms(a1);
+    	AtomContainerManipulator.percieveAtomTypesAndConfigureAtoms(b1);
+    	CDKHueckelAromaticityDetector.detectAromaticity(c.process(h.process(a1)));
+        CDKHueckelAromaticityDetector.detectAromaticity(c.process(h.process(b1)));
         
         Assert.assertTrue(uit.isIsomorph(a1,b1));
         Assert.assertTrue(uit.isIsomorph(a,a1));
@@ -278,14 +284,11 @@ public class MengineCrashTest {
     
     public IAtomContainer getChemical(String file) throws Exception {
     	IAtomContainer a = null;
-        IIteratingChemObjectReader reader = new MyIteratingMDLReader(
+        IIteratingChemObjectReader<IAtomContainer> reader = new MyIteratingMDLReader(
         		getClass().getClassLoader().getResourceAsStream(file),SilentChemObjectBuilder.getInstance());
         while (reader.hasNext()) {
-            Object o = reader.next();
-            if (o instanceof IAtomContainer) {
-                a = (IAtomContainer) o;
-                break;
-            }
+        	a = reader.next();
+        	break;
         }
         reader.close();
         return a;

@@ -10,7 +10,9 @@ import org.openscience.cdk.CDKConstants;
 import org.openscience.cdk.interfaces.IAtom;
 import org.openscience.cdk.interfaces.IAtomContainer;
 import org.openscience.cdk.isomorphism.UniversalIsomorphismTester;
+import org.openscience.cdk.silent.SilentChemObjectBuilder;
 import org.openscience.cdk.templates.MoleculeFactory;
+import org.openscience.cdk.tools.CDKHydrogenAdder;
 import org.openscience.cdk.tools.manipulator.AtomContainerManipulator;
 
 import ambit2.base.external.CommandShell;
@@ -138,6 +140,8 @@ public class CommandShellTest {
 	public void testRunSMI23D() throws Exception {
 		ShellSmi2SDF smi2sdf = new ShellSmi2SDF();
 		IAtomContainer mol = MoleculeFactory.makeAlkane(3);
+		AtomContainerManipulator.percieveAtomTypesAndConfigureAtoms(mol);
+		CDKHydrogenAdder.getInstance(SilentChemObjectBuilder.getInstance()).addImplicitHydrogens(mol);
 		smi2sdf.setOutputFile("test.sdf");
 		smi2sdf.runShell(mol);
 		ShellMengine mengine = new ShellMengine();
@@ -146,7 +150,7 @@ public class CommandShellTest {
 		IAtomContainer newmol = mengine.runShell(mol);
 		Assert.assertNotNull(newmol);
 		IAtomContainer c = AtomContainerManipulator
-				.removeHydrogensPreserveMultiplyBonded(newmol);
+				.suppressHydrogens(newmol);
 		UniversalIsomorphismTester uit = new UniversalIsomorphismTester();
 		Assert.assertTrue(uit.isIsomorph(mol, c));
 		for (int i = 0; i < newmol.getAtomCount(); i++) {
