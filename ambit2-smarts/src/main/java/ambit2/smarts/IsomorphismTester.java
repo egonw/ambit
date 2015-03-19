@@ -282,6 +282,31 @@ public class IsomorphismTester
 		return(v);
 	}
 	
+	public boolean checkIsomorphismAtPosition(IAtomContainer container, int atomNum)
+	{
+		if ((atomNum < 0) || (atomNum >= container.getAtomCount()))
+			return false;
+		
+		target = container;	
+		FlagStoreIsomorphismNode = false;
+		isomorphismNodes.clear();
+		
+		if (query.getAtomCount() == 1)
+		{
+			SMARTSAtom qa = (SMARTSAtom)query.getAtom(0);
+			return qa.matches(target.getAtom(atomNum));
+		}
+			
+			
+		TopLayer.setAtomTopLayers(target, TopLayer.TLProp);
+		
+		executeSequenceAtPos(atomNum);
+			if (isomorphismFound)
+				return true;
+			
+		return false;
+	}
+	
 	/**
 	 * This function returns null if no isomorphism is found
 	 * @param container
