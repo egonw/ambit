@@ -3,6 +3,7 @@ package ambit2.tautomers.test;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,6 +35,8 @@ import ambit2.tautomers.KnowledgeBase;
 import ambit2.tautomers.TautomerConst;
 import ambit2.tautomers.TautomerManager;
 import ambit2.tautomers.TautomerRanking;
+import ambit2.tautomers.rules.EnergyRule;
+import ambit2.tautomers.rules.JsonRuleParser;
 
 
 public class TestTautomers 
@@ -99,7 +102,7 @@ public class TestTautomers
 		//tt.visualTestInChI("NC1=CC(N)=NC(O)=N1");
 		
 		//tt.visualTest("NC1=CC(N)=NC(O)=N1");
-		tt.visualTest("OC1=C(O)C=CC=C1");
+		//tt.visualTest("OC1=C(O)C=CC=C1");
 		//tt.visualTest("CC(=O)C");
 		//tt.visualTest("N=NNCCC");
 		//tt.visualTest("S=CNCC");
@@ -212,6 +215,8 @@ public class TestTautomers
 		//tt.visualTestFromFile("/work/tempAmbitIn.sdf");
 		
 		//tt.testCACTVSRank("c1ccccc1CCC=O");
+		
+		tt.testEnergyRules();
 	}
 	
 	public void performTestCases() throws Exception
@@ -828,6 +833,19 @@ public class TestTautomers
 		IAtomContainer mol = SmartsHelper.getMoleculeFromSmiles(smi);
 		double scoreRank = CACTVSRanking.calcScoreRank(mol);
 		System.out.println("Score = " + scoreRank);
+	}
+	
+	public void testEnergyRules()  throws Exception
+	{
+		JsonRuleParser jrp = new JsonRuleParser();
+		URL resource = jrp.getClass().getClassLoader().getResource("ambit2/tautomers/energy-rules.json");
+		
+		List<EnergyRule> rules =  JsonRuleParser.readRuleSetFromJSON(resource.getFile());
+		for (int i = 0; i < rules.size(); i++)
+		{	
+			System.out.println("Rule #" + (i+1) + "\n" + JsonRuleParser.toJSONString(rules.get(i)) + "\n");
+		}
+		
 	}
 	
 	
