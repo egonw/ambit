@@ -37,7 +37,6 @@ import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 
 import net.idea.modbcum.i.exceptions.AmbitException;
-import net.idea.modbcum.i.processors.IProcessor;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -49,6 +48,7 @@ import org.openscience.cdk.silent.SilentChemObjectBuilder;
 import org.openscience.cdk.smiles.SmilesParser;
 
 import ambit2.rendering.CompoundImageTools;
+import ambit2.rendering.IAtomContainerHighlights;
 import ambit2.ui.Panel2D;
 
 public class Panel2DTest {
@@ -68,9 +68,9 @@ public class Panel2DTest {
 
 	}
 
-	protected IProcessor<IAtomContainer, IChemObjectSelection> getSelector(
+	protected IAtomContainerHighlights getSelector(
 			IAtomContainer mol) {
-		return new IProcessor<IAtomContainer, IChemObjectSelection>() {
+		return new IAtomContainerHighlights() {
 			public IChemObjectSelection process(IAtomContainer mol)
 					throws AmbitException {
 				IAtomContainer selected = new AtomContainer();

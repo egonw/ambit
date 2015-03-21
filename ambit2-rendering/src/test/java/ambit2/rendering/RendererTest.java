@@ -14,7 +14,6 @@ import javax.imageio.ImageIO;
 
 import junit.framework.Assert;
 import net.idea.modbcum.i.exceptions.AmbitException;
-import net.idea.modbcum.i.processors.IProcessor;
 
 import org.junit.Test;
 import org.openscience.cdk.graph.PathTools;
@@ -37,7 +36,6 @@ import org.openscience.cdk.renderer.generators.BasicSceneGenerator;
 import org.openscience.cdk.renderer.generators.IGenerator;
 import org.openscience.cdk.renderer.generators.IGeneratorParameter;
 import org.openscience.cdk.renderer.generators.SelectAtomGenerator;
-import org.openscience.cdk.renderer.generators.standard.StandardGenerator;
 import org.openscience.cdk.renderer.selection.IChemObjectSelection;
 import org.openscience.cdk.renderer.selection.SingleSelection;
 import org.openscience.cdk.renderer.visitor.AWTDrawVisitor;
@@ -108,7 +106,7 @@ public class RendererTest {
 		selectedMol.addAtom(mol.getBond(0).getAtom(0));
 		selectedMol.addAtom(mol.getBond(0).getAtom(1));
 		BufferedImage img = t.getImage(mol,
-				new IProcessor<IAtomContainer, IChemObjectSelection>() {
+				new IAtomContainerHighlights() {
 
 					@Override
 					public void setEnabled(boolean value) {

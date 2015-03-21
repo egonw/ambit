@@ -25,7 +25,6 @@ import javax.vecmath.Point2d;
 import javax.vecmath.Vector2d;
 
 import net.idea.modbcum.i.exceptions.AmbitException;
-import net.idea.modbcum.i.processors.IProcessor;
 
 import org.openscience.cdk.CDKConstants;
 import org.openscience.cdk.exception.CDKException;
@@ -339,13 +338,13 @@ public class CompoundImageTools implements IStructureDiagramHighlights,
 	}
 
 	public synchronized BufferedImage generateImage(String value,
-			IProcessor<IAtomContainer, IChemObjectSelection> selector,
+			IAtomContainerHighlights selector,
 			boolean build2d, boolean atomNumbers) throws CDKException {
 		return generateImage(value, selector, build2d, atomNumbers, null);
 	}
 
 	public synchronized BufferedImage generateImage(String value,
-			IProcessor<IAtomContainer, IChemObjectSelection> selector,
+			IAtomContainerHighlights selector,
 			boolean build2d, boolean atomNumbers, Mode2D mode2D)
 			throws CDKException {
 		if (value.startsWith(AmbitCONSTANTS.INCHI)) {
@@ -395,20 +394,20 @@ public class CompoundImageTools implements IStructureDiagramHighlights,
 	}
 
 	public synchronized BufferedImage getImage(IAtomContainer molecule,
-			IProcessor<IAtomContainer, IChemObjectSelection> selector,
+			IAtomContainerHighlights selector,
 			boolean build2d, boolean atomNumbers) {
 		return getImage(molecule, selector, build2d, atomNumbers, false);
 	}
 
 	public synchronized BufferedImage getImage(IAtomContainer molecule,
-			IProcessor<IAtomContainer, IChemObjectSelection> selector,
+			IAtomContainerHighlights selector,
 			boolean build2d, boolean atomNumbers, boolean explicitH) {
 		return getImage(molecule, selector, build2d, atomNumbers, explicitH,
 				null);
 	}
 
 	public synchronized BufferedImage getImage(IAtomContainer molecule,
-			IProcessor<IAtomContainer, IChemObjectSelection> selector,
+			IAtomContainerHighlights selector,
 			boolean build2d, boolean atomNumbers, boolean explicitH,
 			Mode2D mode2d) {
 
@@ -587,7 +586,7 @@ public class CompoundImageTools implements IStructureDiagramHighlights,
 
 	public synchronized void paint(IRenderer renderer,
 			IAtomContainerSet molecules, boolean explicitH, Graphics2D g,
-			IProcessor<IAtomContainer, IChemObjectSelection> selector,
+			IAtomContainerHighlights selector,
 			boolean atomNumbers) {
 		paint(renderer, molecules, explicitH, g, selector, getImageSize(),
 				atomNumbers);
@@ -606,7 +605,7 @@ public class CompoundImageTools implements IStructureDiagramHighlights,
 
 	public synchronized void paint(IRenderer renderer,
 			IAtomContainerSet molecules, boolean explicitH, Graphics2D g,
-			IProcessor<IAtomContainer, IChemObjectSelection> selector,
+			IAtomContainerHighlights selector,
 			Dimension imageSize, boolean atomNumbers) {
 		renderer = renderer == null ? createRenderer(imageSize,
 				whiteTransparent, false, atomNumbers, explicitH) : renderer;
@@ -802,7 +801,7 @@ public class CompoundImageTools implements IStructureDiagramHighlights,
 	public BufferedImage getImage(IAtomContainer mol, String smarts, int width,
 			int height, boolean atomnumbers) throws AmbitException {
 		setImageSize(new Dimension(width, height));
-		IProcessor<IAtomContainer, IChemObjectSelection> selector = null;
+		IAtomContainerHighlights selector = null;
 		if (smarts != null) {
 			// get smarts pattern
 

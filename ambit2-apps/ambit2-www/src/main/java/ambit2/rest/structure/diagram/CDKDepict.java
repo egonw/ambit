@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.Writer;
 
 import net.idea.modbcum.i.exceptions.AmbitException;
-import net.idea.modbcum.i.processors.IProcessor;
 import net.idea.modbcum.r.AbstractReporter;
 
 import org.openscience.cdk.interfaces.IAtomContainer;
@@ -27,6 +26,7 @@ import org.restlet.resource.ResourceException;
 import ambit2.core.data.MoleculeTools;
 import ambit2.rendering.CompoundImageTools;
 import ambit2.rendering.CompoundImageTools.Mode2D;
+import ambit2.rendering.IAtomContainerHighlights;
 import ambit2.rest.AmbitResource;
 import ambit2.rest.StringConvertor;
 import ambit2.rest.query.QueryResource;
@@ -107,7 +107,7 @@ public class CDKDepict extends AbstractDepict implements ISmartsDepiction {
 							/**
 						     * 
 						     */
-						    private static final long serialVersionUID = -1232605257681949242L;
+							private static final long serialVersionUID = -1232605257681949242L;
 
 							public void close() throws Exception {
 							};
@@ -115,12 +115,14 @@ public class CDKDepict extends AbstractDepict implements ISmartsDepiction {
 							public Writer process(String target)
 									throws AmbitException {
 								try {
-									AmbitResource.writeTopHeader(
-											output,
-											smiles[0] == null ? "2D structure diagram"
-													: smiles[0], getRequest(),
-											getResourceRef(getRequest()), ""
-											);
+									AmbitResource
+											.writeTopHeader(
+													output,
+													smiles[0] == null ? "2D structure diagram"
+															: smiles[0],
+													getRequest(),
+													getResourceRef(getRequest()),
+													"");
 									writeSearchForm(output, smiles[0],
 											getRequest(), "", Method.GET,
 											params);
@@ -255,8 +257,7 @@ public class CDKDepict extends AbstractDepict implements ISmartsDepiction {
 
 }
 
-class SmartsPatternSelector implements
-		IProcessor<IAtomContainer, IChemObjectSelection> {
+class SmartsPatternSelector implements IAtomContainerHighlights {
 	/**
 	 * 
 	 */

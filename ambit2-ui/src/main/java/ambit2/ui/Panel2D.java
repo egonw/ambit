@@ -40,16 +40,14 @@ import java.util.EventObject;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
-import net.idea.modbcum.i.processors.IProcessor;
-
 import org.openscience.cdk.event.ICDKChangeListener;
 import org.openscience.cdk.interfaces.IAtomContainer;
-import org.openscience.cdk.renderer.selection.IChemObjectSelection;
 import org.openscience.cdk.silent.SilentChemObjectBuilder;
 
 import ambit2.base.interfaces.IAmbitEditor;
 import ambit2.core.data.MoleculeTools;
 import ambit2.rendering.CompoundImageTools;
+import ambit2.rendering.IAtomContainerHighlights;
 
 
 /**
@@ -69,11 +67,11 @@ public class Panel2D<A extends IMoleculeEditAction> extends JPanel implements IC
 	};
 	protected CompoundImageTools tools;
 	protected IAtomContainer atomContainer;
-	protected IProcessor<IAtomContainer,IChemObjectSelection> selector=null;
-	public IProcessor<IAtomContainer, IChemObjectSelection> getSelector() {
+	protected IAtomContainerHighlights selector=null;
+	public IAtomContainerHighlights getSelector() {
 		return selector;
 	}
-	public void setSelector(IProcessor<IAtomContainer, IChemObjectSelection> selector) {
+	public void setSelector(IAtomContainerHighlights selector) {
 		this.selector = selector;
 		image = null;
 		repaint();
@@ -226,7 +224,7 @@ public class Panel2D<A extends IMoleculeEditAction> extends JPanel implements IC
 					break;
 				}
 				case panel2d_selected: {
-					setSelector((IProcessor<IAtomContainer,IChemObjectSelection>)evt.getNewValue());
+					setSelector((IAtomContainerHighlights)evt.getNewValue());
 					break;
 				}
 				}

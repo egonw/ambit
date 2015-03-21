@@ -46,7 +46,6 @@ import javax.swing.JTable;
 
 import junit.framework.Assert;
 import net.idea.modbcum.i.exceptions.AmbitException;
-import net.idea.modbcum.i.processors.IProcessor;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -65,6 +64,7 @@ import ambit2.descriptors.processors.AtomEnvironmentGenerator;
 import ambit2.descriptors.processors.AtomEnvironmentList;
 import ambit2.model.AtomEnvironmentListTableModel;
 import ambit2.rendering.CompoundImageTools;
+import ambit2.rendering.IAtomContainerHighlights;
 import ambit2.similarity.measure.AtomEnvironmentsDistance;
 
 /**
@@ -283,7 +283,7 @@ public class AtomEnvironmentDistanceTest {
 	}
 }
 
-class MySelector implements IProcessor<IAtomContainer, IChemObjectSelection> {
+class MySelector implements IAtomContainerHighlights {
 	protected int selected = 0;
 
 	public MySelector() {
