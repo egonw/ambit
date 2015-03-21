@@ -1,4 +1,4 @@
-package ambit2.reactions;
+package ambit2.reactions.rules;
 
 import java.util.ArrayList;
 
@@ -10,7 +10,7 @@ public class ReactionParser
 	RetroSynthRule curRule = null;
 	GenericParserUtils genericParserUtils = new GenericParserUtils(); 
 	
-	ArrayList<String> getErrors()
+	public ArrayList<String> getErrors()
 	{
 		return errors;
 	}

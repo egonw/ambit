@@ -1,4 +1,4 @@
-package ambit2.reactions;
+package ambit2.reactions.rules;
 
 import java.util.ArrayList;
 

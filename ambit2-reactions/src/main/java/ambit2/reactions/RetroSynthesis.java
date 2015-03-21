@@ -8,6 +8,9 @@ import org.openscience.cdk.interfaces.IAtom;
 import org.openscience.cdk.interfaces.IAtomContainer;
 import org.openscience.cdk.silent.SilentChemObjectBuilder;
 
+import ambit2.reactions.rules.IRetroSynthRuleInstance;
+import ambit2.reactions.rules.RetroSynthRule;
+import ambit2.reactions.rules.RetroSynthRuleInstance;
 import ambit2.smarts.SMIRKSManager;
 import ambit2.smarts.SmartsParser;
 
@@ -181,10 +184,10 @@ public class RetroSynthesis
 		for (int i = 0; i < rMaps.size(); i++)
 		{
 			RetroSynthRuleInstance rInstance = new RetroSynthRuleInstance();
-			rInstance.atoms = rMaps.get(i);
-			rInstance.rule = rule;
+			rInstance.setAtoms (rMaps.get(i));
+			rInstance.setRule(rule);
 			instances.add(rInstance);			
-			System.out.print("rule: " + rule.smirks+"  "); smrkMan.printSSMap(str, rInstance.atoms);			
+			System.out.print("rule: " + rule.smirks+"  "); smrkMan.printSSMap(str, rInstance.getAtoms());			
 		}
 		
 		return instances;

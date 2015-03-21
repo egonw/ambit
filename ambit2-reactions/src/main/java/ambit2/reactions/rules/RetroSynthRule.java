@@ -1,7 +1,8 @@
-package ambit2.reactions;
+package ambit2.reactions.rules;
 
 import java.util.ArrayList;
 
+import ambit2.reactions.ReactionConst;
 import ambit2.smarts.SMIRKSManager;
 import ambit2.smarts.SMIRKSReaction;
 
@@ -10,11 +11,11 @@ public class RetroSynthRule implements IRetroSynthRule
 	//String info
 	String originalRuleString = "";
 	String name = "";
-	String smirks = "";
+	public String smirks = "";
 	String info = "";
 	String stringRuleType = "";
 	IRetroSynthRule.Type ruleType;
-	SMIRKSReaction reaction;
+	public SMIRKSReaction reaction;
 			
 	
 	int id = 0;

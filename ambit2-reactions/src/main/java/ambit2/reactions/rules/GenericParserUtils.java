@@ -1,7 +1,9 @@
-package ambit2.reactions;
+package ambit2.reactions.rules;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+
+import ambit2.reactions.ReactionConst;
 
 public class GenericParserUtils 
 {

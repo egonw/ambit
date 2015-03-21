@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
 
+import ambit2.reactions.rules.ReactionParser;
+import ambit2.reactions.rules.RetroSynthRule;
+
 
 public class ReactionKnowledgeBase 
 {
