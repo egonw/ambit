@@ -36,6 +36,7 @@ import org.openscience.cdk.renderer.generators.BasicSceneGenerator;
 import org.openscience.cdk.renderer.generators.IGenerator;
 import org.openscience.cdk.renderer.generators.IGeneratorParameter;
 import org.openscience.cdk.renderer.generators.SelectAtomGenerator;
+import org.openscience.cdk.renderer.generators.standard.StandardGenerator;
 import org.openscience.cdk.renderer.selection.IChemObjectSelection;
 import org.openscience.cdk.renderer.selection.SingleSelection;
 import org.openscience.cdk.renderer.visitor.AWTDrawVisitor;
@@ -88,25 +89,12 @@ public class RendererTest {
 		CompoundImageTools t = new CompoundImageTools();
 		// t.setBackground(Color.GRAY);
 		final IAtomContainer mol = MoleculeFactory.makePhenylAmine();
-		IAtom anAtom = null;
-		for (IAtom atom : mol.atoms()) {
-			if (atom.getSymbol().equals("N")) {
-				atom.setProperty(CompoundImageTools.SELECTED_ATOM_COLOR,
-						Color.CYAN);
-				//atom.setProperty(StandardGenerator.HIGHLIGHT_COLOR, Color.red);
-				anAtom = atom;
-			}
-		}
+
 		StructureDiagramGenerator g = new StructureDiagramGenerator(mol);
 		g.generateCoordinates();
-		final IAtomContainer selectedMol = MoleculeTools
-				.newMolecule(SilentChemObjectBuilder.getInstance());
-		selectedMol.addAtom(anAtom);
-		selectedMol.addBond(mol.getBond(0));
-		selectedMol.addAtom(mol.getBond(0).getAtom(0));
-		selectedMol.addAtom(mol.getBond(0).getAtom(1));
-		BufferedImage img = t.getImage(mol,
-				new IAtomContainerHighlights() {
+
+
+		IAtomContainerHighlights p = new IAtomContainerHighlights() {
 
 					@Override
 					public void setEnabled(boolean value) {
@@ -122,8 +110,20 @@ public class RendererTest {
 					}
 
 					@Override
-					public IChemObjectSelection process(IAtomContainer target)
+					public IChemObjectSelection process(IAtomContainer mol)
 							throws AmbitException {
+						IAtom anAtom = null;
+						for (IAtom atom : mol.atoms()) {
+							if (atom.getSymbol().equals("N")) {
+								anAtom = atom;
+							}
+						}						
+						final IAtomContainer selectedMol = MoleculeTools
+								.newMolecule(SilentChemObjectBuilder.getInstance());
+						selectedMol.addAtom(anAtom);
+						selectedMol.addBond(mol.getBond(0));
+						selectedMol.addAtom(mol.getBond(0).getAtom(0));
+						selectedMol.addAtom(mol.getBond(0).getAtom(1));						
 						return new SingleSelection<IChemObject>(selectedMol);
 					}
 
@@ -136,7 +136,8 @@ public class RendererTest {
 					public long getID() {
 						return 0;
 					}
-				}, true, false);
+				};
+		BufferedImage img = t.getImage(mol,p,true, false);
 
 		File file = new File("test.png");
 		if (file.exists())

@@ -56,6 +56,7 @@ import org.openscience.cdk.renderer.generators.SelectAtomGenerator;
 import org.openscience.cdk.renderer.generators.standard.StandardGenerator;
 import org.openscience.cdk.renderer.selection.IChemObjectSelection;
 import org.openscience.cdk.renderer.selection.IncrementalSelection;
+import org.openscience.cdk.renderer.visitor.AWTDrawVisitor;
 import org.openscience.cdk.silent.AtomContainerSet;
 import org.openscience.cdk.silent.SilentChemObjectBuilder;
 import org.openscience.cdk.smiles.FixBondOrdersTool;
@@ -171,9 +172,9 @@ public class CompoundImageTools implements IStructureDiagramHighlights,
 		}
 	};
 
-	public final static String SELECTED_ATOM_COLOR = "ambit2.color";
+	public final static String SELECTED_ATOM_COLOR = "stdgen.highlight.color";
 	public final static String SELECTED_ATOM_SIZE = "ambit2.size";
-	public final static String ATOM_ANNOTATION = "ambit2.tooltip";
+	public final static String ATOM_ANNOTATION = "stdgen.annotation.label";
 	public final static Color whiteTransparent = new Color(0x00ffffff, true);
 	RendererModel r2dm;
 	IRenderer renderer;
@@ -489,6 +490,20 @@ public class CompoundImageTools implements IStructureDiagramHighlights,
 		g.setColor(background);
 		g.fillRect(0, 0, imageSize.width, imageSize.height);
 
+
+		if (selector != null)
+			try {
+				IChemObjectSelection selected = selector.process(molecule);
+				if (selected != null) {
+					for (IBond bond: selected.getConnectedAtomContainer().bonds())
+						bond.setProperty(StandardGenerator.HIGHLIGHT_COLOR,Color.CYAN);	
+					for (IAtom atom: selected.getConnectedAtomContainer().atoms())
+						atom.setProperty(StandardGenerator.HIGHLIGHT_COLOR,Color.CYAN);							
+				}
+			} catch (Exception e) {
+				logger.log(Level.WARNING, e.getMessage());
+			}
+		
 		IAtomContainerSet molecules = new AtomContainerSet();
 		generate2D(molecule, build2d, molecules);
 		Dimension shrinked = new Dimension(imageSize.width - 2 * offset,
@@ -666,34 +681,16 @@ public class CompoundImageTools implements IStructureDiagramHighlights,
 			renderer.setup(all, drawArea);
 			// renderer.getRenderer2DModel().setZoomFactor(0.8);
 
-			IChemObjectSelection highlighted = null;
-			if (selector != null)
-				try {
-					IAtomContainer mol2process = (IAtomContainer) all.clone();
-					IChemObjectSelection selected = selector
-							.process(mol2process);
-					if (selected != null) {
-						highlighted = selected;
-						
-					}
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
 
-			if (highlighted != null) {
-				//RendererModelWrapper.setSelectedPartColor(r2dm, new Color(0,183, 239, 128));
-				//RendererModelWrapper.setSelectionShape(r2dm,BasicAtomGenerator.Shape.OVAL);
-				r2dm.setSelection(highlighted);
-				//RendererModelWrapper.setColorAtomsByType(r2dm, true);
-				//RendererModelWrapper.setShowAtomTypeNames(r2dm, true);
-				r2dm.set(RendererModel.SelectionColor.class, Color.BLUE); 
-
-			}
 			try {
 				if (imageMap != null)
 					imageMap.append("{\n\t\"a\": [");
 				comma = "";
-				renderer.paint(all, new AWTDrawVisitorWithImageMap(g) {
+				//renderer.paint(all, new AWTDrawVisitorWithImageMap(g) {
+				g.setBackground(whiteTransparent);
+				g.clearRect(0, 0, imageSize.width, imageSize.height);				
+				renderer.paint(all, new AWTDrawVisitor(g) {
+					/*
 					@Override
 					protected void imageMap(ImageMapAreaElement atomSymbol,
 							Rectangle2D textBounds) {
@@ -709,12 +706,15 @@ public class CompoundImageTools implements IStructureDiagramHighlights,
 							comma = ",";
 						}
 					}
-
+					
+					*/
 				}, drawArea, false);
 
 			} catch (Exception e) {
+				e.printStackTrace();
 				r2dm.setSelection(null);
-				renderer.paint(all, new AWTDrawVisitorWithImageMap(g) {
+				renderer.paint(all, new AWTDrawVisitor(g) {
+					/*
 					protected void imageMap(ImageMapAreaElement atomSymbol,
 							Rectangle2D textBounds) {
 						if ((imageMap != null)) {
@@ -729,6 +729,7 @@ public class CompoundImageTools implements IStructureDiagramHighlights,
 							comma = ",";
 						}
 					}
+					*/
 				}, drawArea, false);
 			}
 		} else {
