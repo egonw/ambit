@@ -1,4 +1,4 @@
-package ambit2.reactions;
+package ambit2.reactions.retrosynth;
 
 import java.io.File;
 import java.io.RandomAccessFile;

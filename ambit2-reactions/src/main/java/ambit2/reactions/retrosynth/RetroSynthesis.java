@@ -1,4 +1,4 @@
-package ambit2.reactions;
+package ambit2.reactions.retrosynth;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,6 +7,7 @@ import java.util.Stack;
 import org.openscience.cdk.interfaces.IAtom;
 import org.openscience.cdk.interfaces.IAtomContainer;
 import org.openscience.cdk.silent.SilentChemObjectBuilder;
+
 
 import ambit2.reactions.rules.IRetroSynthRuleInstance;
 import ambit2.reactions.rules.RetroSynthRule;

@@ -1,4 +1,4 @@
-package ambit2.reactions;
+package ambit2.reactions.syntheticaccessibility;
 
 import ambit2.reactions.ReactionConst.SynthAccessStrategy;
 

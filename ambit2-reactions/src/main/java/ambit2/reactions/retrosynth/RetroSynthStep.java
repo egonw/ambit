@@ -1,4 +1,4 @@
-package ambit2.reactions;
+package ambit2.reactions.retrosynth;
 
 
 import org.openscience.cdk.interfaces.IAtomContainer;

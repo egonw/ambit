@@ -1,4 +1,4 @@
-package ambit2.reactions;
+package ambit2.reactions.retrosynth;
 
 public class PredefinedReactionKnowledgeBase 
 {	

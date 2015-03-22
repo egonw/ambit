@@ -2,8 +2,8 @@ package ambit2.reactions.test;
 
 import org.openscience.cdk.interfaces.IAtomContainer;
 
-import ambit2.reactions.RetroSynthesis;
-import ambit2.reactions.RetroSynthesisResult;
+import ambit2.reactions.retrosynth.RetroSynthesis;
+import ambit2.reactions.retrosynth.RetroSynthesisResult;
 import ambit2.smarts.SmartsHelper;
 public class TestRetroSynthesis 
 {
