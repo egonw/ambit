@@ -5,7 +5,7 @@ This is multi module maven project.
 #Build
 
 Prerequisites for building AMBIT2
-JDK 1.6 or higher 
+JDK 1.7 or higher 
 MySQL 5.5 or higher (also compatible with MySQL 5.1 )
 Maven 2.x or 3.x
 
@@ -117,6 +117,9 @@ To skip the tests, use -DskipTests=true option
 
 ----------------------------------------------------------------------
 #CHANGELOG
+
+AMBIT2 3.0.0-SNAPSHOT
+Upgrade to CDK 1.5.10
 
 AMBIT2 2.7.3-SNAPSHOT
 Current version at trunk
