@@ -6,7 +6,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.openscience.cdk.CDKConstants;
-import org.openscience.cdk.aromaticity.CDKHueckelAromaticityDetector;
 import org.openscience.cdk.interfaces.IAtom;
 import org.openscience.cdk.interfaces.IAtomContainer;
 import org.openscience.cdk.interfaces.IAtomType;
@@ -15,6 +14,7 @@ import org.openscience.cdk.silent.SilentChemObjectBuilder;
 import org.openscience.cdk.tools.CDKHydrogenAdder;
 import org.openscience.cdk.tools.manipulator.AtomContainerManipulator;
 
+import ambit2.core.helper.CDKHueckelAromaticityDetector;
 import ambit2.smarts.SmartsHelper;
 import ambit2.tautomers.ranking.EnergyRanking;
 
