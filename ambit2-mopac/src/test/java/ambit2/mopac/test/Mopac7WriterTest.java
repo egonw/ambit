@@ -83,7 +83,7 @@ public class Mopac7WriterTest  {
             };
             SmilesParser p = new SmilesParser(SilentChemObjectBuilder.getInstance());
             IAtomContainer mol = p.parseSmiles("CCCCCc1cccc2cccc(c12)CCC");
-
+            AtomContainerManipulator.percieveAtomTypesAndConfigureAtoms(mol);
     		CDKHydrogenAdder adder = CDKHydrogenAdder.getInstance(SilentChemObjectBuilder.getInstance());
             adder.addImplicitHydrogens(mol);
             AtomContainerManipulator.convertImplicitToExplicitHydrogens(mol);            
@@ -217,9 +217,7 @@ public class Mopac7WriterTest  {
             Assert.assertEquals(-0.560,
             		Double.parseDouble(m.getProperty(DescriptorMopacShell.ELUMO).toString()),
             		1E-3);   
-    		for (int i=0; i < ((IAtomContainer)m).getAtomCount(); i++) {
-    			Assert.assertNotNull(((IAtomContainer)m).getAtom(i).getPoint3d());
-    		}            
+                        
     }
     
     @Test
