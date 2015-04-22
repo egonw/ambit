@@ -8,13 +8,9 @@
 	</ul>
 </li>
 <li>
-	<a href="${ambit_root}/dataset?page=0&pagesize=100" title="Datasets: Chemical structures and properties">Datasets</a>
-	<#include "/menu/profile/default/dataset_menu.ftl">
-</li>
-<li>
-	<a href="${ambit_root}/substance?page=0&amp;pagesize=10">Substances</a>
-	<#include "/menu/profile/default/substance_menu.ftl">
-</li>
+	<a href="${ambit_root}/bundle">Substances and studies</a>
+	<#include "/menu/profile/default/assessment_menu.ftl">
+</li>	
 
 <li>
 	<a href="#">Enhanced functions</a>
@@ -29,13 +25,24 @@
 	</li>
 	</ul>
 </li>
-		
+
 <li >
 	<a href="${ambit_root}/ui/toxtree" title="Toxtree web release">Toxtree predictions</a>
-</li>		
+</li>
+
+
+<li>
+	<a href="${ambit_root}/admin">Admin</a>
+	<#include "/menu/profile/default/admin_menu.ftl">
+</li>	
+
+		
 <li>
 	<a href="${ambit_root}/help">Help</a>
 	<#include "/menu/profile/default/help_menu.ftl">
-</li>				
+</li>		
+
+
 </ul>
+
 
