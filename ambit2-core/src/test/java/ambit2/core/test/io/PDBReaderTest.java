@@ -8,6 +8,7 @@ import junit.framework.Assert;
 import org.junit.Test;
 import org.openscience.cdk.interfaces.IAtom;
 import org.openscience.cdk.interfaces.IAtomContainer;
+import org.openscience.cdk.interfaces.IPDBAtom;
 import org.openscience.cdk.io.PDBReader;
 import org.openscience.cdk.io.iterator.IIteratingChemObjectReader;
 import org.openscience.cdk.io.program.Mopac7Writer;
@@ -15,7 +16,6 @@ import org.openscience.cdk.silent.ChemFile;
 import org.openscience.cdk.silent.SilentChemObjectBuilder;
 import org.openscience.cdk.tools.CDKHydrogenAdder;
 import org.openscience.cdk.tools.manipulator.AtomContainerManipulator;
-import org.openscience.cdk.tools.manipulator.AtomTypeManipulator;
 
 import ambit2.core.io.FileInputState;
 
@@ -30,10 +30,7 @@ public class PDBReaderTest {
 		while (reader.hasNext()) {
 			Object o = reader.next();
 			logger.fine(o.toString());
-			/*
-			 * Assert.assertTrue(o instanceof IAtomContainer);
-			 * Assert.assertEquals(23,((IAtomContainer)o).getAtomCount());
-			 */
+			Assert.assertTrue(o instanceof IAtomContainer);
 			count++;
 		}
 		reader.close();
@@ -60,11 +57,21 @@ public class PDBReaderTest {
 		CDKHydrogenAdder h = CDKHydrogenAdder.getInstance(SilentChemObjectBuilder.getInstance());
 		h.addImplicitHydrogens(a);
 		for (IAtom m : a.atoms()) {
+			if (m instanceof IPDBAtom) {
+				IPDBAtom p = (IPDBAtom) m;
+				System.out.println(p);
+			}
+			System.out.print(m.getClass().getName());
+			System.out.print("\t");
 			System.out.print(m.getSymbol());
 			System.out.print("\t");
 			System.out.print(m.getAtomTypeName());
 			System.out.print("\t");
-			System.out.println(m.getImplicitHydrogenCount());
+			System.out.print(m.getImplicitHydrogenCount());
+			System.out.print("\t");
+			System.out.print(m.getCharge());
+			System.out.print("\t");
+			System.out.println(m.getBondOrderSum());
 		}
 		Mopac7Writer w = new Mopac7Writer(System.out);
 		w.write(a);

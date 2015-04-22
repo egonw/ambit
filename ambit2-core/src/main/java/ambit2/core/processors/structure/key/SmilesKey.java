@@ -71,7 +71,7 @@ public class SmilesKey extends DefaultAmbitProcessor<IAtomContainer,String> impl
 			//return gen.createSMILES((IAtomContainer)mol,false,new boolean[mol.getAtomCount()]);
 			return gen.create(mol);
 		} catch (CDKException x) {
-			logger.log(java.util.logging.Level.WARNING,x.getMessage(),x);
+			logger.log(java.util.logging.Level.WARNING,x.getMessage());
 			throw new AmbitException(x);
 		} catch (Exception x) {
 			throw new AmbitException(x);

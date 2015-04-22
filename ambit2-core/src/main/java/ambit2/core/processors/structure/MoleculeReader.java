@@ -52,21 +52,18 @@ import ambit2.core.config.AmbitCONSTANTS;
 import ambit2.core.data.MoleculeTools;
 import ambit2.core.io.FileInputState;
 
-public class MoleculeReader extends
-		DefaultAmbitProcessor<IStructureRecord, IAtomContainer> {
+public class MoleculeReader extends DefaultAmbitProcessor<IStructureRecord, IAtomContainer> {
 
 	protected InChIGeneratorFactory inchiFactory = null;
 	protected CASProcessor casTransformer = null;
 	protected SmilesParser smiParser = null;
-	protected CDKHydrogenAdder hadder = CDKHydrogenAdder
-			.getInstance(SilentChemObjectBuilder.getInstance());
+	protected CDKHydrogenAdder hadder = CDKHydrogenAdder.getInstance(SilentChemObjectBuilder.getInstance());
 	/**
      * 
      */
 	private static final long serialVersionUID = 1811923574213153916L;
 
-	public IAtomContainer process(IStructureRecord target)
-			throws AmbitException {
+	public IAtomContainer process(IStructureRecord target) throws AmbitException {
 		if (target.getContent() == null)
 			return null;
 		if (target.getFormat() == null)
@@ -80,13 +77,11 @@ public class MoleculeReader extends
 		return handleFormat(format, target);
 	}
 
-	protected IAtomContainer handleFormat(MOL_TYPE format,
-			IStructureRecord target) throws AmbitException {
+	protected IAtomContainer handleFormat(MOL_TYPE format, IStructureRecord target) throws AmbitException {
 		switch (format) {
 		case SDF: {
 			try {
-				IAtomContainer ac = MoleculeTools.readMolfile(target
-						.getContent());
+				IAtomContainer ac = MoleculeTools.readMolfile(target.getContent());
 				if ((ac != null) && (ac.getProperties() != null)) {
 					Object title = ac.getProperty(CDKConstants.TITLE);
 					if (title != null) {
@@ -94,9 +89,7 @@ public class MoleculeReader extends
 							try {
 								if (casTransformer == null)
 									casTransformer = new CASProcessor();
-								ac.setProperty(
-										AmbitCONSTANTS.CASRN,
-										casTransformer.process(title.toString()));
+								ac.setProperty(AmbitCONSTANTS.CASRN, casTransformer.process(title.toString()));
 							} catch (Exception x) {
 							}
 						ac.removeProperty(CDKConstants.TITLE);
@@ -113,11 +106,9 @@ public class MoleculeReader extends
 						ac.removeProperty("PUBCHEM_COMPOUND_CID");
 					}
 
-					Object synonyms = ac
-							.getProperty("PUBCHEM_SUBSTANCE_SYNONYM");
+					Object synonyms = ac.getProperty("PUBCHEM_SUBSTANCE_SYNONYM");
 					if (synonyms != null) {
-						BufferedReader reader = new BufferedReader(
-								new StringReader(synonyms.toString()));
+						BufferedReader reader = new BufferedReader(new StringReader(synonyms.toString()));
 						String line = null;
 						while ((line = reader.readLine()) != null) {
 
@@ -151,8 +142,7 @@ public class MoleculeReader extends
 					ac.removeProperty(CDKConstants.REMARK);
 				}
 				if (ac != null) {
-					AtomContainerManipulator
-							.percieveAtomTypesAndConfigureAtoms(ac);
+					AtomContainerManipulator.percieveAtomTypesAndConfigureAtoms(ac);
 					hadder.addImplicitHydrogens(ac);
 				}
 				return ac;
@@ -164,8 +154,7 @@ public class MoleculeReader extends
 
 		case CML:
 			try {
-				IAtomContainer ac = MoleculeTools.readCMLMolecule(target
-						.getContent());
+				IAtomContainer ac = MoleculeTools.readCMLMolecule(target.getContent());
 				if ((ac != null) && (ac.getProperties() != null)) {
 					Object title = ac.getProperty(CDKConstants.TITLE);
 					if (title != null) {
@@ -173,9 +162,7 @@ public class MoleculeReader extends
 							try {
 								if (casTransformer == null)
 									casTransformer = new CASProcessor();
-								ac.setProperty(
-										AmbitCONSTANTS.CASRN,
-										casTransformer.process(title.toString()));
+								ac.setProperty(AmbitCONSTANTS.CASRN, casTransformer.process(title.toString()));
 							} catch (Exception x) {
 							}
 						ac.removeProperty(CDKConstants.TITLE);
@@ -193,18 +180,14 @@ public class MoleculeReader extends
 				if (target.getContent().startsWith("InChI=")) {
 					if (inchiFactory == null)
 						inchiFactory = InChIGeneratorFactory.getInstance();
-					InChIToStructure c = inchiFactory.getInChIToStructure(
-							target.getContent(),
+					InChIToStructure c = inchiFactory.getInChIToStructure(target.getContent(),
 							SilentChemObjectBuilder.getInstance());
 					return c.getAtomContainer();
 				} else { // smiles
 					if (smiParser == null)
-						smiParser = new SmilesParser(
-								SilentChemObjectBuilder.getInstance());
-					IAtomContainer mol = smiParser.parseSmiles(target
-							.getContent());
-					AtomContainerManipulator
-							.percieveAtomTypesAndConfigureAtoms(mol);
+						smiParser = new SmilesParser(SilentChemObjectBuilder.getInstance());
+					IAtomContainer mol = smiParser.parseSmiles(target.getContent());
+					AtomContainerManipulator.percieveAtomTypesAndConfigureAtoms(mol);
 					hadder.addImplicitHydrogens(mol);
 					return mol;
 				}
@@ -215,14 +198,20 @@ public class MoleculeReader extends
 			try {
 				Class clazz = FileInputState.class.getClassLoader().loadClass(
 						"net.idea.ambit2.rest.nano.MoleculeNanoReader");
-				Method method = clazz.getMethod("nm2atomcontainer",
-						IStructureRecord.class);
+				Method method = clazz.getMethod("nm2atomcontainer", IStructureRecord.class);
 				return (IAtomContainer) method.invoke(null, target);
 			} catch (Exception x) {
 				if (x instanceof AmbitException)
 					throw (AmbitException) x;
 				else
 					throw new AmbitException(x);
+			}
+		case PDB:
+			try {
+				IAtomContainer ac = MoleculeTools.readPDBfile(target.getContent());
+				return ac;
+			} catch (Exception x) {
+				throw new AmbitException(x);
 			}
 		default: {
 			throw new AmbitException("Unknown format " + target.getFormat());

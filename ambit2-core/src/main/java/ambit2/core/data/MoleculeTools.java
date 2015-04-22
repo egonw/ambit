@@ -38,6 +38,7 @@ import org.openscience.cdk.interfaces.IRing;
 import org.openscience.cdk.interfaces.IRingSet;
 import org.openscience.cdk.interfaces.ISingleElectron;
 import org.openscience.cdk.io.CMLReader;
+import org.openscience.cdk.io.PDBReader;
 import org.openscience.cdk.io.iterator.IIteratingChemObjectReader;
 import org.openscience.cdk.silent.SilentChemObjectBuilder;
 import org.openscience.cdk.smiles.SmilesParser;
@@ -46,6 +47,7 @@ import org.openscience.cdk.tools.manipulator.AtomContainerManipulator;
 import org.openscience.cdk.tools.manipulator.MolecularFormulaManipulator;
 
 import ambit2.core.config.AmbitCONSTANTS;
+import ambit2.core.io.IteratingChemObjectReaderWrapper;
 import ambit2.core.io.MyIteratingMDLReader;
 import ambit2.core.processors.structure.StructureTypeProcessor;
 import ambit2.core.smiles.SmilesParserWrapper;
@@ -57,13 +59,11 @@ import ambit2.core.smiles.SmilesParserWrapper;
  *         <b>Modified</b> 2005-4-7
  */
 public class MoleculeTools {
-	protected static Logger logger = Logger.getLogger(MoleculeTools.class
-			.getName());
+	protected static Logger logger = Logger.getLogger(MoleculeTools.class.getName());
 	public final static int _FPLength = 1024;
 	protected static CDKHydrogenAdder adder = null;
 	protected static Fingerprinter fingerprinter = null;
-	public static final String[] substanceType = { "organic", "inorganic",
-			"mixture/unknown", "organometallic" };
+	public static final String[] substanceType = { "organic", "inorganic", "mixture/unknown", "organometallic" };
 	public static final int substTypeOrganic = 1;
 	public static final int substTypeInorganic = 2;
 	public static final int substTypeMixture = 3;
@@ -80,16 +80,13 @@ public class MoleculeTools {
 		super();
 	}
 
-	public static IAtomContainer getMolecule(String smiles)
-			throws InvalidSmilesException {
+	public static IAtomContainer getMolecule(String smiles) throws InvalidSmilesException {
 
-		SmilesParser parser = new SmilesParser(
-				SilentChemObjectBuilder.getInstance());
+		SmilesParser parser = new SmilesParser(SilentChemObjectBuilder.getInstance());
 		return parser.parseSmiles(smiles);
 	}
 
-	public static BitSet getFingerPrint(String smiles, int fpLength)
-			throws Exception {
+	public static BitSet getFingerPrint(String smiles, int fpLength) throws Exception {
 		SmilesParserWrapper sp = SmilesParserWrapper.getInstance();
 		IAtomContainer mol = sp.parseSmiles(smiles);
 		if (fingerprinter == null)
@@ -136,14 +133,12 @@ public class MoleculeTools {
 	 * }
 	 */
 
-	public static boolean analyzeSubstance(IAtomContainer molecule)
-			throws IOException {
+	public static boolean analyzeSubstance(IAtomContainer molecule) throws IOException {
 		if ((molecule == null) || (molecule.getAtomCount() == 0))
 			return false;
 		int noH = 0;
 		// MFAnalyser mfa = new MFAnalyser(molecule);
-		IMolecularFormula formula = MolecularFormulaManipulator
-				.getMolecularFormula(molecule);
+		IMolecularFormula formula = MolecularFormulaManipulator.getMolecularFormula(molecule);
 
 		IElement h = Isotopes.getInstance().getElement("H");
 		if (MolecularFormulaManipulator.getElementCount(formula, h) == 0) {
@@ -153,13 +148,11 @@ public class MoleculeTools {
 			// TODO this uses new SaturationChecker() which relies on
 			// cdk/data/config
 			if (adder == null)
-				adder = CDKHydrogenAdder.getInstance(SilentChemObjectBuilder
-						.getInstance());
+				adder = CDKHydrogenAdder.getInstance(SilentChemObjectBuilder.getInstance());
 			try {
 				adder.addImplicitHydrogens(molecule);
 				int atomCount = molecule.getAtomCount();
-				formula = MolecularFormulaManipulator
-						.getMolecularFormula(molecule);
+				formula = MolecularFormulaManipulator.getMolecularFormula(molecule);
 			} catch (CDKException x) {
 				logger.log(Level.SEVERE, x.getMessage(), x);
 				formula = null;
@@ -167,21 +160,17 @@ public class MoleculeTools {
 
 		}
 		if (formula != null) {
-			molecule.setProperty(AmbitCONSTANTS.FORMULA,
-					MolecularFormulaManipulator.getString(formula));
+			molecule.setProperty(AmbitCONSTANTS.FORMULA, MolecularFormulaManipulator.getString(formula));
 
-			double mass = MolecularFormulaManipulator
-					.getTotalMassNumber(formula);
+			double mass = MolecularFormulaManipulator.getTotalMassNumber(formula);
 			molecule.setProperty(AmbitCONSTANTS.MOLWEIGHT, new Double(mass));
 			try {
-				molecule.setProperty(AmbitCONSTANTS.STRUCTURETYPE,
-						sp.process(molecule));
+				molecule.setProperty(AmbitCONSTANTS.STRUCTURETYPE, sp.process(molecule));
 			} catch (Exception x) {
 			}
 			;
 			molecule.setProperty(AmbitCONSTANTS.SUBSTANCETYPE,
-					getSubstanceType(MolecularFormulaManipulator
-							.getString(formula)));
+					getSubstanceType(MolecularFormulaManipulator.getString(formula)));
 		}
 		return true;
 	}
@@ -197,8 +186,7 @@ public class MoleculeTools {
 	}
 
 	public static IAtomContainer readMolfile(Reader molfile) throws Exception {
-		IIteratingChemObjectReader mReader = new MyIteratingMDLReader(molfile,
-				SilentChemObjectBuilder.getInstance());
+		IIteratingChemObjectReader mReader = new MyIteratingMDLReader(molfile, SilentChemObjectBuilder.getInstance());
 		IAtomContainer molecule = null;
 		while (mReader.hasNext()) {
 			Object mol = mReader.next();
@@ -219,6 +207,26 @@ public class MoleculeTools {
 		return mol;
 	}
 
+	public static IAtomContainer readPDBfile(String molfile) throws Exception {
+		PDBReader pdbreader = new PDBReader(new StringReader(molfile));
+		IteratingChemObjectReaderWrapper reader = new IteratingChemObjectReaderWrapper(pdbreader);
+		try {
+			while (reader.hasNext()) {
+				Object o = reader.next();
+				if (o instanceof IAtomContainer)
+					return ((IAtomContainer) o);
+			}
+		} catch (Exception x) {
+			throw x;
+		} finally {
+			try {
+				reader.close();
+			} catch (Exception x) {
+			}
+		}
+		return null;
+	}
+
 	public static IAtomContainer readCMLMolecule(String cml) throws Exception {
 		IAtomContainer mol = null;
 		// StringReader strReader = null;
@@ -234,15 +242,13 @@ public class MoleculeTools {
 
 	}
 
-	public static IAtomContainer readCMLMolecule(InputStream in)
-			throws Exception {
+	public static IAtomContainer readCMLMolecule(InputStream in) throws Exception {
 		IAtomContainer mol = null;
 
 		CMLReader reader = new CMLReader(in);
 		IChemFile obj = null;
 
-		obj = (IChemFile) reader.read(newChemFile(SilentChemObjectBuilder
-				.getInstance()));
+		obj = (IChemFile) reader.read(newChemFile(SilentChemObjectBuilder.getInstance()));
 		int n = obj.getChemSequenceCount();
 		if (n > 1)
 			logger.finest("> 1 sequence in a record");
@@ -287,8 +293,7 @@ public class MoleculeTools {
 		return builder.newInstance(IAtom.class);
 	}
 
-	public static IPseudoAtom newPseudoAtom(IChemObjectBuilder builder,
-			String element) {
+	public static IPseudoAtom newPseudoAtom(IChemObjectBuilder builder, String element) {
 		return builder.newInstance(IPseudoAtom.class, element);
 	}
 
@@ -296,13 +301,11 @@ public class MoleculeTools {
 		return builder.newInstance(ILonePair.class, atom);
 	}
 
-	public static IBond newBond(IChemObjectBuilder builder, IAtom a1, IAtom a2,
-			Order order, IBond.Stereo stereo) {
+	public static IBond newBond(IChemObjectBuilder builder, IAtom a1, IAtom a2, Order order, IBond.Stereo stereo) {
 		return builder.newInstance(IBond.class, a1, a2, order, stereo);
 	}
 
-	public static IBond newBond(IChemObjectBuilder builder, IAtom a1, IAtom a2,
-			Order order) {
+	public static IBond newBond(IChemObjectBuilder builder, IAtom a1, IAtom a2, Order order) {
 		return builder.newInstance(IBond.class, a1, a2, order);
 	}
 
@@ -322,13 +325,11 @@ public class MoleculeTools {
 		return builder.newInstance(IAtomContainer.class);
 	}
 
-	public static IAtomContainer newAtomContainer(IChemObjectBuilder builder,
-			IAtomContainer molecule) {
+	public static IAtomContainer newAtomContainer(IChemObjectBuilder builder, IAtomContainer molecule) {
 		return builder.newInstance(IAtomContainer.class, molecule);
 	}
 
-	public static ISingleElectron newSingleElectron(IChemObjectBuilder builder,
-			IAtom atom) {
+	public static ISingleElectron newSingleElectron(IChemObjectBuilder builder, IAtom atom) {
 		return builder.newInstance(ISingleElectron.class, atom);
 	}
 
@@ -336,8 +337,7 @@ public class MoleculeTools {
 		return builder.newInstance(IAtomContainerSet.class);
 	}
 
-	public static IAtomContainerSet newAtomContainerSet(
-			IChemObjectBuilder builder) {
+	public static IAtomContainerSet newAtomContainerSet(IChemObjectBuilder builder) {
 		return builder.newInstance(IAtomContainerSet.class);
 	}
 
@@ -418,8 +418,7 @@ public class MoleculeTools {
 	 * Just copy atoms and bonds, discard all the flags, they will be
 	 * recalculated later
 	 */
-	public static IAtomContainer copyChangeBuilders(IAtomContainer molecule,
-			IChemObjectBuilder newBuilder) {
+	public static IAtomContainer copyChangeBuilders(IAtomContainer molecule, IChemObjectBuilder newBuilder) {
 		final String no = "_NO";
 		// atoms
 		IAtomContainer newMol = newBuilder.newInstance(IAtomContainer.class);
@@ -434,14 +433,12 @@ public class MoleculeTools {
 		for (int i = 0; i < molecule.getAtomCount(); i++) {
 			IAtom atom = molecule.getAtom(i);
 			molecule.getAtom(i).setProperty(no, i);
-			IAtom newAtom = newBuilder.newInstance(IAtom.class, molecule
-					.getAtom(i).getSymbol());
+			IAtom newAtom = newBuilder.newInstance(IAtom.class, molecule.getAtom(i).getSymbol());
 			newAtom.setCharge(atom.getCharge());
 			newAtom.setFormalCharge(atom.getFormalCharge());
 			newAtom.setStereoParity(atom.getStereoParity());
 			if (atom.getPoint2d() != null) {
-				newAtom.setPoint2d(new Point2d(atom.getPoint2d().x, atom
-						.getPoint2d().y));
+				newAtom.setPoint2d(new Point2d(atom.getPoint2d().x, atom.getPoint2d().y));
 			}
 			for (int k = 0; k < atom.getFlags().length; k++)
 				newAtom.setFlag(k, atom.getFlag(k));
@@ -455,8 +452,7 @@ public class MoleculeTools {
 		for (int i = 0; i < molecule.getBondCount(); i++) {
 			IAtom[] newAtoms = new IAtom[molecule.getBond(i).getAtomCount()];
 			for (int j = 0; j < molecule.getBond(i).getAtomCount(); j++) {
-				Integer index = (Integer) molecule.getBond(i).getAtom(j)
-						.getProperty(no);
+				Integer index = (Integer) molecule.getBond(i).getAtom(j).getProperty(no);
 				newAtoms[j] = newMol.getAtom(index);
 			}
 			IBond newBond = newBuilder.newInstance(IBond.class);
@@ -469,22 +465,17 @@ public class MoleculeTools {
 
 		// single electrons
 		for (int i = 0; i < molecule.getSingleElectronCount(); i++) {
-			ISingleElectron singleElectron = newBuilder
-					.newInstance(ISingleElectron.class);
-			singleElectron.setElectronCount(molecule.getSingleElectron(i)
-					.getElectronCount());
-			Integer index = (Integer) molecule.getSingleElectron(i).getAtom()
-					.getProperty(no);
+			ISingleElectron singleElectron = newBuilder.newInstance(ISingleElectron.class);
+			singleElectron.setElectronCount(molecule.getSingleElectron(i).getElectronCount());
+			Integer index = (Integer) molecule.getSingleElectron(i).getAtom().getProperty(no);
 			singleElectron.setAtom(newMol.getAtom(index));
 			newMol.addSingleElectron(singleElectron);
 		}
 		// Lone pairs
 		for (int i = 0; i < molecule.getLonePairCount(); i++) {
 			ILonePair lonePair = newBuilder.newInstance(ILonePair.class);
-			lonePair.setElectronCount(molecule.getLonePair(i)
-					.getElectronCount());
-			Integer index = (Integer) molecule.getLonePair(i).getAtom()
-					.getProperty(no);
+			lonePair.setElectronCount(molecule.getLonePair(i).getElectronCount());
+			Integer index = (Integer) molecule.getLonePair(i).getAtom().getProperty(no);
 			lonePair.setAtom(newMol.getAtom(index));
 			newMol.addElectronContainer(lonePair);
 		}
@@ -500,8 +491,7 @@ public class MoleculeTools {
 		 * dbt.fixAromaticBondOrders(newMol); } catch (Exception x)
 		 * {x.printStackTrace();}
 		 */
-		return AtomContainerManipulator
-				.removeHydrogensPreserveMultiplyBonded(newMol);
+		return AtomContainerManipulator.removeHydrogensPreserveMultiplyBonded(newMol);
 		// return newMol;
 	}
 }

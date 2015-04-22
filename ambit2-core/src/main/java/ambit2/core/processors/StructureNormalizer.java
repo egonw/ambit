@@ -124,7 +124,7 @@ public class StructureNormalizer extends DefaultAmbitProcessor<IStructureRecord,
 				if ("".equals(structure.getSmiles())) structure.setSmiles(null);
 			}
 		} catch (Exception x) {
-			logger.log(Level.SEVERE,x.getMessage(),x);
+			logger.log(Level.SEVERE,x.getMessage());
 			structure.setSmiles(null);
 		}		
 
