@@ -136,11 +136,14 @@ public abstract class StructureQueryResource<Q extends IQueryRetrieval<IStructur
 		return null;// return
 		// String.format("riap://application%s/All/Identifiers/view/tree",OntologyResource.resource);
 	}
-
+	protected String[] getDefaultGroupProperties() {
+		return null;
+	}
 	protected void setGroupProperties(Context context, Request request,
 			Response response) throws ResourceException {
 		Form form = getParams();
 		String[] gp = OpenTox.params.sameas.getValuesArray(form);
+		if (gp==null) gp = getDefaultGroupProperties();
 		if (gp != null) {
 			groupProperties = new Profile();
 			for (String g : gp) {
