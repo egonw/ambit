@@ -33,7 +33,6 @@ import org.restlet.representation.Representation;
 
 import ambit2.base.config.Preferences;
 import ambit2.base.data.Property;
-import ambit2.mopac.MopacShell;
 import ambit2.rest.OpenTox;
 import ambit2.rest.rdf.RDFPropertyIterator;
 import ambit2.rest.test.ResourceTest;
