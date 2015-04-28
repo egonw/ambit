@@ -37,7 +37,7 @@ import ambit2.tautomers.TautomerUtils.TautomerPair;
 public class TautomerAnalysis 
 {
 	public static enum Task {
-		PRINT_SMILES, GEN_RULE_PAIR;
+		PRINT_SMILES, GEN_RULE_PAIR, CALC_TAUTOMERS_ALL_RANKS;
 	}
 	
 	private final static Logger logger = Logger.getLogger(TautomerAnalysis.class.getName());
@@ -46,6 +46,7 @@ public class TautomerAnalysis
 	public String filePath = "";
 	public String outFilePath = null; //If null it is treated as filePath
 	public String inputFileName = null;
+	public String outputFileName = null;
 	public String outFilePrefix = "out";
 	public String outFileType = "csv";
 	public String molFilterString = null;
@@ -65,7 +66,7 @@ public class TautomerAnalysis
 	
 	
 	protected ArrayList<String> fileRuleNames = new ArrayList<String>();
-	String sep = ",";
+	public String sep = ",";
 	
 	/**
 	 * 
@@ -229,6 +230,10 @@ public class TautomerAnalysis
 		case GEN_RULE_PAIR:
 			createRulePairsWriters();
 			break;
+			
+		case CALC_TAUTOMERS_ALL_RANKS:
+			createOutWriter();
+			break;
 		}
 	}
 	
@@ -265,6 +270,19 @@ public class TautomerAnalysis
 		}
 	}
 	
+	protected void createOutWriter() throws Exception
+	{
+		String path = outFilePath;
+		if (path == null)
+			path = filePath;
+		
+		outWriters = new FileWriter[1];
+		outFiles = new File[1];
+		
+		outFiles[0] = new File(path + outputFileName);
+		outWriters[0] = createWriter(outFiles[0].getName());
+	}
+	
 	
 	protected void closeWriters()
 	{
@@ -292,6 +310,10 @@ public class TautomerAnalysis
 			
 		case GEN_RULE_PAIR:
 			generateRulePairs(mol);
+			break;
+			
+		case CALC_TAUTOMERS_ALL_RANKS:
+			calcAllTautomersAndAllRanks(mol);
 			break;
 		}
 	}
@@ -341,6 +363,13 @@ public class TautomerAnalysis
 		catch (Exception x){
 			System.out.println("outputTautomerPair Error: " + x.getMessage());
 		};
+	}
+	
+	protected void calcAllTautomersAndAllRanks(IAtomContainer mol) throws Exception
+	{
+		String smiles = SmartsHelper.moleculeToSMILES(mol, false);
+		//TODO		
+		System.out.println("#" + records_read + "  " + smiles);
 	}
 	
 	protected String getFileRuleName(String rname)
