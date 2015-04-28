@@ -99,9 +99,9 @@ public class TestUtilities {
 	boolean FlagPrintTransformationData = false;
 
 	boolean FlagProductPreprocessing = true;
-	boolean FlagClearImlicitHAtomsBeforeProductPreProcess = true;
+	boolean FlagClearImplicitHAtomsBeforeProductPreProcess = true;
 	boolean FlagClearHybridizationOnProductPreProcess = true;
-	boolean FlagAddImlicitHAtomsOnProductPreProcess = false;
+	boolean FlagAddImplicitHAtomsOnProductPreProcess = false;
 	boolean FlagImplicitHToExplicitOnProductPreProcess = false;
 	boolean FlagExplicitHToImplicitOnProductPreProcess = false;
 
@@ -156,7 +156,7 @@ public class TestUtilities {
 
 		for (IAtom atom : mol.atoms()) {
 			atom.setHybridization((IAtomType.Hybridization) CDKConstants.UNSET);
-			if (FlagClearImlicitHAtomsBeforeProductPreProcess)
+			if (FlagClearImplicitHAtomsBeforeProductPreProcess)
 				atom.setImplicitHydrogenCount(null);
 		}
 
@@ -180,7 +180,7 @@ public class TestUtilities {
 
 		AtomContainerManipulator.percieveAtomTypesAndConfigureAtoms(mol);
 
-		if (FlagAddImlicitHAtomsOnProductPreProcess) {
+		if (FlagAddImplicitHAtomsOnProductPreProcess) {
 			CDKHydrogenAdder adder = CDKHydrogenAdder
 					.getInstance(SilentChemObjectBuilder.getInstance());
 			adder.addImplicitHydrogens(mol);
@@ -1442,16 +1442,16 @@ public class TestUtilities {
 		System.out.println("Testing SMIRKS: " + smirks);
 		SMIRKSManager smrkMan = new SMIRKSManager(
 				SilentChemObjectBuilder.getInstance());
-		smrkMan.FlagSSMode = FlagSSMode;
+		smrkMan.setFlagSSMode(FlagSSMode);
 
 		// Product processing flags
-		smrkMan.FlagProcessResultStructures = FlagProductPreprocessing;
-		smrkMan.FlagClearHybridizationBeforeResultProcess = FlagClearHybridizationOnProductPreProcess;
-		smrkMan.FlagClearImlicitHAtomsBeforeResultProcess = this.FlagClearImlicitHAtomsBeforeProductPreProcess;
-		smrkMan.FlagClearAromaticityBeforeResultProcess = this.FlagClearAromaticityBeforePreProcess;
-		smrkMan.FlagAddImlicitHAtomsOnResultProcess = this.FlagAddImlicitHAtomsOnProductPreProcess;
-		smrkMan.FlagConvertAddedImlicitHToExplicitOnResultProcess = this.FlagImplicitHToExplicitOnProductPreProcess;
-		smrkMan.FlagConvertExplicitHToImplicitOnResultProcess = this.FlagExplicitHToImplicitOnProductPreProcess;
+		smrkMan.setFlagProcessResultStructures(FlagProductPreprocessing);
+		smrkMan.setFlagClearHybridizationBeforeResultProcess(FlagClearHybridizationOnProductPreProcess);
+		smrkMan.setFlagClearImplicitHAtomsBeforeResultProcess(this.FlagClearImplicitHAtomsBeforeProductPreProcess);
+		smrkMan.setFlagClearAromaticityBeforeResultProcess(this.FlagClearAromaticityBeforePreProcess);
+		smrkMan.setFlagAddImplicitHAtomsOnResultProcess(this.FlagAddImplicitHAtomsOnProductPreProcess);
+		smrkMan.setFlagConvertAddedImplicitHToExplicitOnResultProcess(this.FlagImplicitHToExplicitOnProductPreProcess);
+		smrkMan.setFlagConvertExplicitHToImplicitOnResultProcess(this.FlagExplicitHToImplicitOnProductPreProcess);
 
 		smrkMan.getSmartsParser().mSupportDoubleBondAromaticityNotSpecified = FlagDoubleBondAromaticityNotSpecified;
 
@@ -1547,7 +1547,7 @@ public class TestUtilities {
 		System.out.println("Testing SMIRKS: " + smirks);
 		SMIRKSManager smrkMan = new SMIRKSManager(
 				SilentChemObjectBuilder.getInstance());
-		smrkMan.FlagSSMode = FlagSSMode;
+		smrkMan.setFlagSSMode(FlagSSMode);
 		smrkMan.getSmartsParser().mSupportDoubleBondAromaticityNotSpecified = FlagDoubleBondAromaticityNotSpecified;
 		SMIRKSReaction reaction = smrkMan.parse(smirks);
 		if (!smrkMan.getErrors().equals("")) {
@@ -1934,7 +1934,7 @@ public class TestUtilities {
 				.parse("[c:1]1[c:2][c:3][c:4][c:5][c:6]1>>[c:1]1[c:2]([O])[c:3]([O])[c:4][c:5][c:6]1");
 		// SMIRKSReaction smr = smrkMan.parse("[c:1][c:2]>>[c:2][c:1]Cl");
 
-		smrkMan.FlagProcessResultStructures = true;
+		smrkMan.setFlagProcessResultStructures(true);
 
 		/*
 		 * smrkMan.applyTransformation(m, smr); myValidation(m);
