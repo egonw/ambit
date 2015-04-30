@@ -245,16 +245,25 @@ public abstract class StructureQueryResource<Q extends IQueryRetrieval<IStructur
 				String.format("%s%s", getRequest().getRootRef(),
 						getCompoundInDatasetPrefix()));
 		csvreporter.setSeparator("\t");
-		csvreporter.setNumberofHeaderLines(0);
 		csvreporter.setWriteCompoundURI(false);
+		csvreporter.setNumberofHeaderLines(0);
 		return csvreporter;
 	}
+	
+
 
 	protected CSVReporter createCSVReporter() {
-		return new CSVReporter(getRequest().getRootRef().toString(),
+		CSVReporter csvreporter = new CSVReporter(getRequest().getRootRef().toString(),
 				getTemplate(), groupProperties,
 				String.format("%s%s", getRequest().getRootRef(),
 						getCompoundInDatasetPrefix()));
+		Form form = getParams();
+		try {
+		    csvreporter.setNumberofHeaderLines(Integer.parseInt(form.getFirstValue("headerlines")));
+		} catch (Exception x) {
+			csvreporter.setNumberofHeaderLines(1);
+		}
+		return csvreporter;
 	}
 
 	@Override
