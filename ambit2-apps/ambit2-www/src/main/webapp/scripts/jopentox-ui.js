@@ -996,6 +996,50 @@ function datasetAutocomplete(id,datasetroot,maxhits) {
 	        */		        		
 	});
 }
+/**
+ * Autocomplete for dataset URI field
+ * @param id
+ */
+function userAutocomplete(id,datasetroot,maxhits) {
+	$( id ).autocomplete({
+	      source: function( request, response ) {
+	          $.ajax({
+	            url: datasetroot,
+	            dataType: "json",
+	            data: {
+	              media:"application/json",	            	
+	              max: maxhits,
+	              search: request.term
+	            },
+	            success: function( data ) {
+	              response( $.map( data, function( item ) {
+	                return {
+	                  label: item.name,
+	                  value: item.id
+	                }
+	              }));
+	            }
+	          });
+	        },
+	        minLength: 2,
+	        open: function() {
+		        $('.ui-autocomplete').css('width', '450px');
+		    } 	        
+	        /*
+	        select: function( event, ui ) {
+	          console.log( ui.item ?
+	            "Selected: " + ui.item.label :
+	            "Nothing selected, input was " + this.value);
+	        },
+	        open: function() {
+	          $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
+	        },
+	        close: function() {
+	          $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
+	        }	
+	        */		        		
+	});
+}
 
 /**
  * Autocomplete for feature URI field
@@ -1980,7 +2024,7 @@ function defineBundlesTable_lri(root,url,deleteVisible,copyVisible) {
      	  			  },  
      	  			  {  
       				  "bSortable" : true,
-       	              "mDataProp":"maintainer",
+       	              "mDataProp":"owner",
        	              "aTargets": [ 5 ],
        	              "sWidth" : "15%",
        	              "bUseRendered" : false,	
