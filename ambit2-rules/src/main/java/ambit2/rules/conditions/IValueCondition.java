@@ -5,5 +5,5 @@ import ambit2.rules.conditions.value.IValue;
 public interface IValueCondition extends ICondition
 {
 	public boolean isTrue(Double target);
-	public IValue getConditionValue();
+	public IValue getValue();
 }
