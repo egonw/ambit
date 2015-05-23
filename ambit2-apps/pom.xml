@@ -25,14 +25,14 @@
     </site>
   </distributionManagement>
   <properties>
-    <net.idea.loom.version>1.0.8</net.idea.loom.version>
+    <net.idea.loom.version>1.0.9</net.idea.loom.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <toxtree.version>3.0.0-SNAPSHOT</toxtree.version>
     <ambit.version>3.0.0-SNAPSHOT</ambit.version>
     <junit.version>4.8.1</junit.version>
     <!-- https://github.com/ideaconsult/i5 -->
-    <i5.version>1.0.3</i5.version>
-    <restnet.version>1.0.8-SNAPSHOT</restnet.version>
+    <i5.version>1.0.4</i5.version>
+    <restnet.version>1.0.9-SNAPSHOT</restnet.version>
     <dbunit.version>2.4.9</dbunit.version>
   </properties>
   <description>AMBIT applications</description>
