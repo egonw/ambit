@@ -507,8 +507,10 @@ CREATE TABLE `structure` (
   CONSTRAINT `fk_idchemical` FOREIGN KEY (`idchemical`) REFERENCES `chemicals` (`idchemical`) ON UPDATE CASCADE
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
-delimiter $$
-
+-- -----------------------------------------------------
+-- Table `ontobucket`
+-- Freetext search with query expansion support
+-- -----------------------------------------------------
 DROP TABLE IF EXISTS `ontobucket` ;
 CREATE TABLE `ontobucket` (
   `s_source` varchar(16) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -524,6 +526,7 @@ CREATE TABLE `ontobucket` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
+delimiter $$
 
 -- DELIMITER $
 -- CREATE TRIGGER copy_history BEFORE UPDATE ON structure

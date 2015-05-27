@@ -108,6 +108,11 @@
       <artifactId>modbcum-q</artifactId>
       <version>${modbcum.version}</version>
     </dependency>
+    <dependency>
+      <groupId>net.idea</groupId>
+      <artifactId>modbcum-c</artifactId>
+      <version>${modbcum.version}</version>
+    </dependency>    
   </dependencies>
   <licenses>
     <license>
