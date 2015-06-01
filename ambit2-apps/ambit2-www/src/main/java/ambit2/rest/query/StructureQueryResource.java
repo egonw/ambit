@@ -180,13 +180,13 @@ public abstract class StructureQueryResource<Q extends IQueryRetrieval<IStructur
 			license.setValue(id_srcdataset);
 
 			ResultSet rs = null;
-			QueryExecutor ex = new QueryExecutor();
+	    QueryExecutor ex = new QueryExecutor();
 
-			DBConnection dbc = new DBConnection(getContext());
-			Connection conn = dbc.getConnection();
+	    DBConnection dbc = new DBConnection(getContext());
+	    Connection conn = dbc.getConnection(30,true,5);
 
-			try {
-				ex.setConnection(conn);
+	    try {
+		ex.setConnection(conn);
 				rs = ex.process(license);
 				while (rs.next()) {
 					licenseURI = license.getObject(rs);

@@ -1408,7 +1408,6 @@ DROP trigger IF EXISTS update_string_ci;
 DROP trigger IF EXISTS summary_chemical_prop_insert;
 DROP trigger IF EXISTS summary_chemical_prop_update;
 
-DELIMITER $
 
 CREATE DEFINER = CURRENT_USER TRIGGER insert_string_ci AFTER INSERT ON property_string
  FOR EACH ROW BEGIN
