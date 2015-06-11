@@ -1525,7 +1525,10 @@ public class Protocol {
 	    public String getTopCategory() {
 		return "TOX";
 	    }
-
+	    @Override
+	    public int getSortingOrder() {
+	    	return 1001;
+	    }
 	},
 	CELL_DEATH {
 	    // obo:GO:0008219
@@ -1537,6 +1540,10 @@ public class Protocol {
 	    @Override
 	    public String getTopCategory() {
 		return "TOX";
+	    }
+	    @Override
+	    public int getSortingOrder() {
+	    	return 1002;
 	    }
 
 	},
@@ -1550,6 +1557,10 @@ public class Protocol {
 	    @Override
 	    public String getTopCategory() {
 		return "TOX";
+	    }
+	    @Override
+	    public int getSortingOrder() {
+	    	return 1003;
 	    }
 
 	},
@@ -1565,6 +1576,10 @@ public class Protocol {
 	    public String getTopCategory() {
 		return "TOX";
 	    }
+	    @Override
+	    public int getSortingOrder() {
+	    	return 1004;
+	    }
 
 	},
 	MITOCHONDRIAL_DEPOLARIZATION {
@@ -1578,6 +1593,10 @@ public class Protocol {
 	    public String getTopCategory() {
 		return "TOX";
 	    }
+	    @Override
+	    public int getSortingOrder() {
+	    	return 1005;
+	    }
 
 	},
 	OXIDATIVE_PHOSPHORYLATION {
@@ -1590,7 +1609,10 @@ public class Protocol {
 	    public String getTopCategory() {
 		return "TOX";
 	    }
-
+	    @Override
+	    public int getSortingOrder() {
+	    	return 1006;
+	    }
 	},
 	PROTEIN_STABILIZATION {
 	    // obo:GO:0050821
@@ -1602,6 +1624,10 @@ public class Protocol {
 	    @Override
 	    public String getTopCategory() {
 		return "TOX";
+	    }
+	    @Override
+	    public int getSortingOrder() {
+	    	return 1007;
 	    }
 
 	},
@@ -1616,7 +1642,10 @@ public class Protocol {
 	    public String getTopCategory() {
 		return "TOX";
 	    }
-
+	    @Override
+	    public int getSortingOrder() {
+	    	return 1008;
+	    }
 	},
 	REGULATION_OF_CATALYTIC_ACTIVITY {
 	    // BAO_0002737
@@ -1629,7 +1658,10 @@ public class Protocol {
 	    public String getTopCategory() {
 		return "TOX";
 	    }
-
+	    @Override
+	    public int getSortingOrder() {
+	    	return 1009;
+	    }
 	},
 	REGULATION_OF_GENE_EXPRESSION {
 	    // obo:GO:0010468
@@ -1642,7 +1674,10 @@ public class Protocol {
 	    public String getTopCategory() {
 		return "TOX";
 	    }
-
+	    @Override
+	    public int getSortingOrder() {
+	    	return 1010;
+	    }
 	},
 	REGULATION_OF_TRANSCRIPTION_FACTOR_ACTIVITY {
 	    // obo:GO:0006355
@@ -1655,9 +1690,12 @@ public class Protocol {
 	    public String getTopCategory() {
 		return "TOX";
 	    }
-
+	    @Override
+	    public int getSortingOrder() {
+	    	return 1011;
+	    }
 	},
-	NA {
+	AUTOFLUORESCENCE {
 
 	    @Override
 	    public String getNumber() {
@@ -1667,6 +1705,10 @@ public class Protocol {
 	    @Override
 	    public String getTopCategory() {
 		return "TOX";
+	    }
+	    @Override
+	    public int getSortingOrder() {
+	    	return 1012;
 	    }
 	};
 
