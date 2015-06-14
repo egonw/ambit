@@ -38,6 +38,7 @@ import org.restlet.engine.util.Base64;
 import org.restlet.representation.Variant;
 import org.restlet.resource.ResourceException;
 
+import uk.ac.cam.ch.wwmm.opsin.NameToStructure;
 import ambit2.base.data.Profile;
 import ambit2.base.data.Property;
 import ambit2.base.data.Template;
@@ -644,16 +645,15 @@ public abstract class StructureQueryResource<Q extends IQueryRetrieval<IStructur
 
 				} else {
 
-					IAtomContainer molecule = null;
 					try {
 						return MoleculeTools.getMolecule(query_smiles);
 					} catch (InvalidSmilesException x) {
-						Name2StructureProcessor processor = new Name2StructureProcessor();
+						NameToStructure nameToStructure = NameToStructure.getInstance();
+						
 						try {
-							molecule = processor.process(query_smiles);
-							return molecule;
+							String smiles = nameToStructure.parseToSmiles(query_smiles);
+							return MoleculeTools.getMolecule(smiles);
 						} catch (Exception xx) {
-							molecule = null;
 							throw new ResourceException(
 									Status.CLIENT_ERROR_BAD_REQUEST,
 									String.format("Invalid smiles %s",
