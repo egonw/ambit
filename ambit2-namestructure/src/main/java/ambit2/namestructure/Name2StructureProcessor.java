@@ -9,11 +9,13 @@ import nu.xom.Element;
 import nu.xom.Serializer;
 
 import org.openscience.cdk.interfaces.IAtomContainer;
+import org.openscience.cdk.tools.manipulator.AtomContainerManipulator;
 
 import uk.ac.cam.ch.wwmm.opsin.NameToStructure;
 import uk.ac.cam.ch.wwmm.opsin.OpsinResult;
 import ambit2.base.data.Property;
 import ambit2.core.data.MoleculeTools;
+import ambit2.core.helper.CDKHueckelAromaticityDetector;
 
 /**
  * Name to structure convertor, based on OPSIN package
@@ -101,6 +103,8 @@ public class Name2StructureProcessor extends
 						Property.opentox_IupacName, 
 						"http://www-ucc.ch.cam.ac.uk/products/software/opsin-0"),
 						result.getChemicalName());
+				AtomContainerManipulator.percieveAtomTypesAndConfigureAtoms(mol);
+				CDKHueckelAromaticityDetector.detectAromaticity(mol);
 				return mol;
 			}
 		} catch (Exception x) {
