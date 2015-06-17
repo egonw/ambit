@@ -518,15 +518,13 @@ CREATE TABLE `ontobucket` (
   `o_source` varchar(16) COLLATE utf8_unicode_ci DEFAULT NULL,
   `o_id` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
   `label` text COLLATE utf8_unicode_ci,
-  `relation` enum('label','subclass','db','endpoint','endpointhash','hash','protocol') COLLATE utf8_unicode_ci DEFAULT 'subclass',
+  `relation` enum('label','subclass','db','endpoint','endpointhash','hash','protocol','target','reference') COLLATE utf8_unicode_ci DEFAULT 'subclass',
   `uuid` varbinary(20) DEFAULT NULL,
   KEY `s_id` (`s_id`),
   KEY `o_id` (`o_id`,`relation`),
   FULLTEXT KEY `fulltext` (`s_id`,`o_id`,`label`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-
-delimiter $$
 
 -- DELIMITER $
 -- CREATE TRIGGER copy_history BEFORE UPDATE ON structure
@@ -1408,6 +1406,7 @@ DROP trigger IF EXISTS update_string_ci;
 DROP trigger IF EXISTS summary_chemical_prop_insert;
 DROP trigger IF EXISTS summary_chemical_prop_update;
 
+DELIMITER $
 
 CREATE DEFINER = CURRENT_USER TRIGGER insert_string_ci AFTER INSERT ON property_string
  FOR EACH ROW BEGIN
