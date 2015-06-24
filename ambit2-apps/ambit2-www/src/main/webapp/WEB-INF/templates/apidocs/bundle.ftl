@@ -519,7 +519,7 @@
 			    "operations": [
 			        {
 			            "method": "GET",
-			            "summary": "Get a list of all substances in a dataset",
+			            "summary": "Get a list of all substances in a bundle",
 			            "notes": "List of substance uris ",
 			            "type": "Substance",
 			            "nickname": "getBundleSubstances",
