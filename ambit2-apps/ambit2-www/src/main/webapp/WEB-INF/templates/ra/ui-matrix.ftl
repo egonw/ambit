@@ -42,6 +42,8 @@
     	jQuery("#breadCrumb ul").append('<li><a href="${ambit_root}/ui/assessment?bundle_uri=${ambit_root}/bundle/${bundleid}" title="Assessment">This assessment</a></li>');        
         <#if assessment_report??>
         	jQuery("#breadCrumb ul").append('<li><a href="${ambit_root}/ui/assessment_report?bundle_uri=${ambit_root}/bundle/${bundleid}" title="Report">Report</a></li>');
+				<#else
+	 	    jQuery("#breadCrumb ul").append('<li><a href="${ambit_root}/bundle/${bundleid}/version" title="Assessment versions">Versions</a></li>');        	
         </#if>
         </#if>
         loadHelp("${ambit_root}","ra");
