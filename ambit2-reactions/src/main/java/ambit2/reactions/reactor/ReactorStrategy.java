@@ -47,10 +47,12 @@ public class ReactorStrategy
 	public boolean FlagProcessSingleReagentInNode = true; 
 	
 	//if true this means that allowed product will not continue reacting
-	public boolean FlagRemoveReagentIfAllowedProduct = true;      
+	public boolean FlagRemoveReagentIfAllowedProduct = true;
 	
 	public boolean FlagRemoveReagentIfForbiddenProduct = false;
 	
+	//Logging
+	public boolean FlagLogMainReactionFlow = false;
 	
 	public ReactorStrategy(){
 	}

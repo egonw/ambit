@@ -81,6 +81,7 @@ public class ReactionTestUtils
 		
 		System.out.println("Configuring reactor strategy ...");
 		ReactorStrategy strategy = new ReactorStrategy(new File(reactionDBFile));  //strategy is in the same file
+		strategy.FlagLogMainReactionFlow = true;
 		strategy.FlagStoreFailedNodes = true;
 		strategy.FlagStoreSuccessNodes = true;
 		strategy.maxNumOfSuccessNodes = 0;  //if 0 then the reactor will stop after the first success node
@@ -113,7 +114,7 @@ public class ReactionTestUtils
 		
 		IAtomContainer mol = SmartsHelper.getMoleculeFromSmiles(smiles, true);
 		System.out.println();
-		System.out.println("Reactort on target: " + smiles);
+		System.out.println("Reactor on target: " + smiles);
 		System.out.println();
 		
 		ReactorResult result = reactor.react(mol);

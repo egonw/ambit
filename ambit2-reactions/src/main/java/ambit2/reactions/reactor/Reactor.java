@@ -3,6 +3,10 @@ package ambit2.reactions.reactor;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.Formatter;
+import java.util.logging.Handler;
+import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 
 import net.sf.jniinchi.INCHI_OPTION;
@@ -40,6 +44,7 @@ public class Reactor
 	public Reactor() throws Exception
 	{
 		setupInchiGenerator();
+		setupLogger(logger);
 	}
 	
 	protected void setupInchiGenerator() throws Exception
@@ -107,7 +112,8 @@ public class Reactor
 		if (strategy.FlagProcessRemainingStackNodes)
 			processRemainingStackNodes();
 		
-		System.out.println("\nFinal status: " + reactorResult.getStatusInfo());
+		if (strategy.FlagLogMainReactionFlow)
+			logger.info("\nFinal status: " + reactorResult.getStatusInfo());
 		
 		return reactorResult;
 	}
@@ -125,9 +131,10 @@ public class Reactor
 	{
 		ReactorNode.State state = getNodeState(node);
 		
-		System.out.println("Reactor stack = " + reactorNodes.size() + " nodes");
-		System.out.println("Current status: " + reactorResult.getStatusInfo());
-		System.out.print("Processing " + node.toString());
+		if (strategy.FlagLogMainReactionFlow)
+			logger.info("Reactor stack = " + reactorNodes.size() + " nodes\n"
+					+"Current status: " + reactorResult.getStatusInfo()
+					+"Processing " + node.toString());
 		
 		//Result is updated on node processing (not on node creating/pushing in the stack)
 		updateResult(node, state);
@@ -142,7 +149,8 @@ public class Reactor
 			node.reagents.removeAtomContainer(reagent);
 			int nNodes = generateChildrenNodes(node, reagent);
 			
-			System.out.println("Generated " + nNodes + " nodes\n");
+			if (strategy.FlagLogMainReactionFlow)
+				logger.info("Generated " + nNodes + " nodes\n");
 		}
 		else
 		{
@@ -406,6 +414,28 @@ public class Reactor
 		};
 		return smi;
 	}
+	
+	private void setupLogger(Logger log)
+	{
+		log.setUseParentHandlers(false);
+		Handler conHdlr = new ConsoleHandler();
+
+		conHdlr.setFormatter(new Formatter() {
+			public String format(LogRecord record) {
+				return
+						/*
+                    record.getLevel() + "  :  "
+                	+ record.getSourceClassName() + " -:- "
+                	+ record.getSourceMethodName() + " -:- "
+						 */
+				record.getMessage() + "\n";
+			}
+		});
+
+		log.addHandler(conHdlr);
+	}
+	
+	
 	
 	
 	
