@@ -1828,28 +1828,31 @@ var config_study = {
 					"sTitle" : "Remarks",
 					"iOrder" : -15,
 					"bVisible" : false
-				},
-				"medium" : {
-					"sTitle" : "Medium",
-					"iOrder" : -16
-				},
-				"ph" : {
-					"iOrder" : -17
+                },
+                "medium": {
+                    "sTitle": "Medium",
+                    "iOrder": -16,
+                    "inMatrix" : true
+                },
+                "ph": {
+                    "iOrder": -17
 				},
 				"seq_num" : {
 					"iOrder" : -21,
 					"sTitle" : "Seq. num."
 				}
-			},
-			"effects" : {
-				"endpoint" : {
-					"iOrder" : -20
-				},
-				"result" : {
-					"iOrder" : -19
-				}
-			},
-			"protocol" : {
+            },
+            "effects": {
+                "endpoint": {
+                    "iOrder": -20,
+                    "inMatrix" : true
+                },
+                "result": {
+                    "iOrder": -19,
+                    "inMatrix" : true
+                }
+            },
+            "protocol": {
 				"guideline" : {
 					"iOrder" : -10
 				},
@@ -1872,56 +1875,63 @@ var config_study = {
 					"iOrder" : -7,
 					"bVisible" : false
 				}
-			}
-		},
-		"ASPECT_RATIO_SHAPE_SECTION" : {
-			"parameters" : {
-				"type of method" : {
-					"iOrder" : -22
-				},
-				"method details" : {
-					"iOrder" : -11,
-					"bVisible" : false
-				},
-				"sampling" : {
-					"iOrder" : -9,
-					"bVisible" : false
-				},
-				"data_gathering_instruments" : {
-					"sTitle" : "Instruments",
-					"iOrder" : -8,
-					"bVisible" : false
-				}
-			},
-			"conditions" : {
-				"shape_descriptive" : {
-					"sTitle" : "Shape",
-					"iOrder" : -19
-				},
-				"x" : {
-					"iOrder" : -16
-				},
-				"y" : {
-					"iOrder" : -15
-				},
-				"z" : {
-					"iOrder" : -14
-				}
-			},
-			"effects" : {
-				"endpoint" : {
-					"iOrder" : -20
-				},
-				"result" : {
-					"iOrder" : -18
-				}
-			},
-			"protocol" : {
-				"guideline" : {
-					"iOrder" : -10
-				},
-				"citation" : {
-					"bVisible" : true,
+            }
+        },
+        "ASPECT_RATIO_SHAPE_SECTION": {
+        	 "parameters": {
+                 "type of method": {
+                     "iOrder": -22
+                 },
+                 "method details": {
+                     "iOrder": -11,
+                     "bVisible": false
+                 },
+                 "sampling": {
+                     "iOrder": -9,
+                     "bVisible": false
+                 },
+                 "data_gathering_instruments": {
+                     "sTitle": "Instruments",
+                     "iOrder": -8,
+                     "bVisible": false
+                 }
+             },
+             "conditions": {
+                 "shape_descriptive": {
+                     "sTitle": "Shape",
+                     "iOrder": -19,
+                     "inMatrix" : true
+                 },
+                 "x": {
+                     "iOrder": -16,
+                     "inMatrix" : true
+                 },
+                 "y": {
+                     "iOrder": -15,
+                     "inMatrix" : true
+                 },
+                 "z": {
+                     "iOrder": -14,
+                     "inMatrix" : true                    
+                 }
+             },
+             "effects": {
+                 "endpoint": {
+                     "iOrder": -20,
+                     "inMatrix" : true
+                 },
+                 "result": {
+                     "iOrder": -18,
+                     "inMatrix" : true
+                 }
+             },
+            "protocol": {
+                "guideline": {
+                    "iOrder": -10,
+                    "inMatrix" : true
+                },
+                "citation": {
+                    "bVisible": true,
 					"sTitle" : "Reference",
 					"iOrder" : -11,
 					"mRender" : function(data, type, full) {
@@ -1938,65 +1948,68 @@ var config_study = {
 					"sTitle" : "Conclusions",
 					"bVisible" : false
 				}
-			}
-		},
-		"ZETA_POTENTIAL_SECTION" : {
-			"parameters" : {
-				"type of method" : {
-					"iOrder" : -22
-				},
-				"method details" : {
-					"iOrder" : -10,
-					"bVisible" : false
-				},
-				"sampling" : {
-					"iOrder" : -8,
-					"bVisible" : false
-				},
-				"data_gathering_instruments" : {
-					"sTitle" : "Instruments",
-					"iOrder" : -7,
-					"bVisible" : false
-				},
-				"testmat_form" : {
-					"sTitle" : "Test Material Form",
-					"bVisible" : true,
-					"iOrder" : -21
-				}
-			},
-			"conditions" : {
-				"medium" : {
-					"sTitle" : "Medium",
-					"iOrder" : -15,
-					"bVisible" : true,
-					"inMatrix" : true
-				},
-				"n" : {
-					"iOrder" : -17
-				},
-				"ph" : {
-					"iOrder" : -16,
-					"inMatrix" : true
-				},
-				"remark" : {
-					"sTitle" : "Remarks",
-					"iOrder" : -19
-				}
-			},
-			"effects" : {
-				"endpoint" : {
-					"iOrder" : -21
-				},
-				"result" : {
-					"iOrder" : -20
-				}
-			},
-			"protocol" : {
-				"guideline" : {
-					"iOrder" : -9
-				},
-				"citation" : {
-					"bVisible" : true,
+            }
+        },
+        "ZETA_POTENTIAL_SECTION": {
+        	   "parameters": {
+                   "type of method": {
+                       "iOrder": -22
+                   },
+                   "method details": {
+                       "iOrder": -10,
+                       "bVisible": false
+                   },
+                   "sampling": {
+                       "iOrder": -8,
+                       "bVisible": false
+                   },
+                   "data_gathering_instruments": {
+                       "sTitle": "Instruments",
+                       "iOrder": -7,
+                       "bVisible": false
+                   },
+                   "testmat_form": {
+                       "sTitle": "Test Material Form",
+                       "bVisible": true,
+                       "iOrder": -21
+                   }
+               },
+               "conditions": {
+                   "medium": {
+                       "sTitle": "Medium",
+                       "iOrder": -15,
+                       "bVisible": true,
+                       "inMatrix": true
+                   },
+                   "n": {
+                       "iOrder": -17
+                   },                
+                   "ph": {
+                       "iOrder": -16,
+                       "inMatrix" : true
+                   },
+                   "remark": {
+                       "sTitle": "Remarks",
+                       "iOrder": -19
+                   }
+               },
+               "effects": {
+                   "endpoint": {
+                       "iOrder": -21,
+                       "inMatrix": true
+                   },
+                   "result": {
+                       "iOrder": -20,
+                       "inMatrix": true
+                   }
+               },
+            "protocol": {
+                "guideline": {
+                    "iOrder": -9,
+                    "inMatrix": true
+                 },
+                "citation": {
+                    "bVisible": true,
 					"sTitle" : "Reference",
 					"iOrder" : -11,
 					"mRender" : function(data, type, full) {
@@ -2014,81 +2027,87 @@ var config_study = {
 					"iOrder" : -10,
 					"bVisible" : false
 				}
-			}
-		},
-		"SURFACE_CHEMISTRY_SECTION" : {
-			"parameters" : {
-				"type of method" : {
-					"iOrder" : -25
-				},
-				"method details" : {
-					"iOrder" : -11,
-					"bVisible" : false
-				},
-				"sampling" : {
-					"sTitle" : "Sampling",
-					"iOrder" : -9,
-					"bVisible" : false
-				},
-				"functionalization" : {
-					"bVisible" : false
-				},
-				"coating" : {
-					"bVisible" : false
-				},
-				"data_gathering_instruments" : {
-					"sTitle" : "Instruments",
-					"iOrder" : -8,
-					"bVisible" : false
-				}
-			},
-			"conditions" : {
-				"type" : {
-					"sTitle" : "",
-					"iOrder" : -23
-				},
-				"description" : {
-					"sTitle" : "Type",
-					"iOrder" : -22
-				},
-				"coating_description" : {
-					"sTitle" : "Coating description",
-					"iOrder" : -21,
-					"bVisible" : false
-				},
-				"remark" : {
-					"sTitle" : "Remarks",
-					"iOrder" : -15,
-					"bVisible" : false
-				},
-				"element_or_group" : {
-					"sTitle" : "Element / Func. group",
-					"iOrder" : -19,
-					"bVisible" : false
-				}
-			},
-			"effects" : {
-				"endpoint" : {
-					"iOrder" : -20,
-					"bVisible" : false
-				},
-				"result" : {
-					"sTitle" : "Fraction",
-					"iOrder" : -18
-				},
-				"text" : {
-					"sTitle" : "Element / Func. group",
-					"iOrder" : -19,
-					"bVisible" : true
-				}
-
-			},
-			"protocol" : {
-				"guideline" : {
-					"iOrder" : -10
-				},
-				"citation" : {
-					"bVisible" : true,
+            }
+        },
+        "SURFACE_CHEMISTRY_SECTION": {
+        	 "parameters": {
+                 "type of method": {
+                     "iOrder": -25
+                 },
+                 "method details": {
+                     "iOrder": -11,
+                     "bVisible": false
+                 },
+                 "sampling": {
+                     "sTitle": "Sampling",
+                     "iOrder": -9,
+                     "bVisible": false
+                 },
+                 "functionalization": {
+                     "bVisible": false
+                 },
+                 "coating": {
+                     "bVisible": false
+                 },
+                 "data_gathering_instruments": {
+                     "sTitle": "Instruments",
+                     "iOrder": -8,
+                     "bVisible": false
+                 }
+             },
+             "conditions": {
+                 "type": {
+                     "sTitle": "",
+                     "iOrder": -23
+                 },
+                 "description": {
+                     "sTitle": "Type",
+                     "iOrder": -22,
+                     "inMatrix": true
+                 },
+                 "coating_description": {
+                     "sTitle": "Coating description",
+                     "iOrder": -21,
+                     "bVisible": false,
+                     "inMatrix": true
+                 },
+                 "remark": {
+                     "sTitle": "Remarks",
+                     "iOrder": -15,
+                     "bVisible": false
+                 },
+                 "element_or_group": {
+                     "sTitle": "Element / Func. group",
+                     "iOrder": -19,
+                     "bVisible": false,
+                     "inMatrix": true
+                 }
+             },
+             "effects": {
+                 "endpoint": {
+                     "iOrder": -20,
+                     "bVisible": false
+                 },
+                 "result": {
+                     "sTitle": "Fraction",
+                     "iOrder": -18,
+                     "inMatrix": true
+                 },
+                 "text" : {
+                 	"sTitle": "Element / Func. group",
+                 	"iOrder": -19,
+                 	"bVisible": true,
+                 	"inMatrix": true
+                 }
+                 
+             },
+            "protocol": {
+                "guideline": {
+                    "iOrder": -10,
+                	"inMatrix": true
+                },
+                "citation": {
+                    "bVisible":true,
 					"iOrder" : -11,
 					"sTitle" : "Reference",
 					"mRender" : function(data, type, full) {
@@ -2840,17 +2859,39 @@ var config_study = {
 					"bVisible" : false
 				}
 			}
-		},
-		"UNKNOWN_TOXICITY_SECTION" : {
-			"effects" : {
-				"text" : {
-					"bVisible" : true,
-					"inMatrix" : true
-				}
-			}
-		},
-		"UNKNOWN_TOXICITY_SECTION_SUMMARY" : {
-			"effects" : {
+        },
+        "UNKNOWN_TOXICITY_SECTION" : {
+            "effects": {
+                "endpoint": {
+                    "bVisible": true,
+                    "inMatrix": true
+                },            	
+                "text": {
+                    "bVisible": true,
+                    "inMatrix": true
+                },
+                "result": {
+                    "bVisible": true,
+                    "inMatrix": true
+                }                
+            },
+            "interpretation": {
+                "result": {
+                    "bVisible": true,
+                    "inMatrix": true
+                },
+                "criteria": {
+                    "bVisible": false
+                }
+            },
+            "protocol": {
+                "guideline": {
+                    "inMatrix": true
+                }            
+            }            
+        },
+        "UNKNOWN_TOXICITY_SECTION_SUMMARY" : {
+            "effects": {
 				"text" : {
 					"bVisible" : true,
 					"inMatrix" : true
