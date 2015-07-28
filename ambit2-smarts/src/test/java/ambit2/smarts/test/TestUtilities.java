@@ -2606,7 +2606,8 @@ public class TestUtilities {
 
 		// tu.testExpliticHToImplicit("CCC=C");
 		
-		tu.testSmartsManagerBoolSearch("(CC.O.N)","NCCO.Cl.NCO");
+		//tu.testSmartsManagerBoolSearch("(CC.O.N)","NCCO.Cl.NCO");
+		tu.testSmartsManagerBoolSearch("*/C=C/C","CC=CC");
 
 	}
 

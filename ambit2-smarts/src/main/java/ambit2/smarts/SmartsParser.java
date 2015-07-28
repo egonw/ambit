@@ -1722,6 +1722,10 @@ public class SmartsParser {
 	boolean isAtomForStereoDoubleBond(IAtom atom) {
 		// Following elements could participate in a stereo double bond: C, N,
 		// P, Si
+		
+		if (atom.getSymbol() == null)
+			return false;  //This is a temporary code
+		
 		if (atom.getSymbol().equals("C"))
 			return true;
 		if (atom.getSymbol().equals("N"))
