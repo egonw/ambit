@@ -138,6 +138,15 @@ public class SMIRKSManager {
 	public void setFlagConvertExplicitHToImplicitOnResultProcess(boolean flagConvertExplicitHToImplicitOnResultProcess) {
 		FlagConvertExplicitHToImplicitOnResultProcess = flagConvertExplicitHToImplicitOnResultProcess;
 	}
+	
+	public boolean isFlagClearExcplicitHAtomsBeforeResultProcess() {
+		return FlagClearExcplicitHAtomsBeforeResultProcess;
+	}
+
+	public void setFlagClearExcplicitHAtomsBeforeResultProcess(
+			boolean flagClearExcplicitHAtomsBeforeResultProcess) {
+		FlagClearExcplicitHAtomsBeforeResultProcess = flagClearExcplicitHAtomsBeforeResultProcess;
+	}
 
 	protected boolean FlagFilterEquivalentMappings = false;
 
@@ -148,7 +157,8 @@ public class SMIRKSManager {
 	protected boolean FlagProcessResultStructures = false; 
 	protected boolean FlagClearHybridizationBeforeResultProcess = true;
 	protected boolean FlagClearAromaticityBeforeResultProcess = true;
-	protected boolean FlagClearImplicitHAtomsBeforeResultProcess = true; 
+	protected boolean FlagClearImplicitHAtomsBeforeResultProcess = true;
+	protected boolean FlagClearExcplicitHAtomsBeforeResultProcess = false;
 	protected boolean FlagAddImplicitHAtomsOnResultProcess = false;
 	protected boolean FlagConvertAddedImplicitHToExplicitOnResultProcess = false; 
 	protected boolean FlagCheckAromaticityOnResultProcess = true;
@@ -1098,7 +1108,12 @@ public class SMIRKSManager {
 
 	if (FlagClearImplicitHAtomsBeforeResultProcess)
 	    for (IAtom atom : mol.atoms())
-		atom.setImplicitHydrogenCount(null);
+	    	atom.setImplicitHydrogenCount(null);
+	
+	if (FlagClearExcplicitHAtomsBeforeResultProcess)
+	{
+		//TODO
+	}
 
 	AtomContainerManipulator.percieveAtomTypesAndConfigureAtoms(mol);
 
@@ -1108,6 +1123,13 @@ public class SMIRKSManager {
 
 	    if (FlagConvertAddedImplicitHToExplicitOnResultProcess)
 		AtomContainerManipulator.convertImplicitToExplicitHydrogens(mol);
+	}
+	
+	//The newly added atoms may stay with unset implicit H count 
+	for (IAtom atom : mol.atoms())
+	{	
+		if (atom.getImplicitHydrogenCount() == null)
+			atom.setImplicitHydrogenCount(new Integer(0));
 	}
 
 	if (FlagCheckAromaticityOnResultProcess)
