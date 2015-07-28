@@ -132,9 +132,9 @@ public class Reactor
 		ReactorNode.State state = getNodeState(node);
 		
 		if (strategy.FlagLogMainReactionFlow)
-			logger.info("Reactor stack = " + reactorNodes.size() + " nodes\n"
-					+"Current status: " + reactorResult.getStatusInfo()
-					+"Processing " + node.toString());
+			logger.info("Reactor stack = " + reactorNodes.size() + " nodes"
+					+"\nCurrent status: " + reactorResult.getStatusInfo()
+					+"\nProcessing " + node.toString());
 		
 		//Result is updated on node processing (not on node creating/pushing in the stack)
 		updateResult(node, state);
