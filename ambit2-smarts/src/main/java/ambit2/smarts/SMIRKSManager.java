@@ -1091,52 +1091,53 @@ public class SMIRKSManager {
 	}
     }
 
-    protected void processProduct(IAtomContainer mol) throws Exception {
+    public void processProduct(IAtomContainer mol) throws Exception 
+    {
 
-	if (FlagClearHybridizationBeforeResultProcess)
-	    for (IAtom atom : mol.atoms())
-		atom.setHybridization((IAtomType.Hybridization) CDKConstants.UNSET);
+    	if (FlagClearHybridizationBeforeResultProcess)
+    		for (IAtom atom : mol.atoms())
+    			atom.setHybridization((IAtomType.Hybridization) CDKConstants.UNSET);
 
-	if (FlagClearAromaticityBeforeResultProcess) {
-	    for (IAtom atom : mol.atoms())
-		if (atom.getFlag(CDKConstants.ISAROMATIC))
-		    atom.setFlag(CDKConstants.ISAROMATIC, false);
-	    for (IBond bond : mol.bonds())
-		if (bond.getFlag(CDKConstants.ISAROMATIC))
-		    bond.setFlag(CDKConstants.ISAROMATIC, false);
-	}
+    	if (FlagClearAromaticityBeforeResultProcess) {
+    		for (IAtom atom : mol.atoms())
+    			if (atom.getFlag(CDKConstants.ISAROMATIC))
+    				atom.setFlag(CDKConstants.ISAROMATIC, false);
+    		for (IBond bond : mol.bonds())
+    			if (bond.getFlag(CDKConstants.ISAROMATIC))
+    				bond.setFlag(CDKConstants.ISAROMATIC, false);
+    	}
 
-	if (FlagClearImplicitHAtomsBeforeResultProcess)
-	    for (IAtom atom : mol.atoms())
-	    	atom.setImplicitHydrogenCount(null);
-	
-	if (FlagClearExcplicitHAtomsBeforeResultProcess)
-	{
-		//TODO
-	}
+    	if (FlagClearImplicitHAtomsBeforeResultProcess)
+    		for (IAtom atom : mol.atoms())
+    			atom.setImplicitHydrogenCount(null);
 
-	AtomContainerManipulator.percieveAtomTypesAndConfigureAtoms(mol);
+    	if (FlagClearExcplicitHAtomsBeforeResultProcess)
+    	{
+    		//TODO
+    	}
 
-	if (isFlagAddImplicitHAtomsOnResultProcess()) {
-	    CDKHydrogenAdder adder = CDKHydrogenAdder.getInstance(SilentChemObjectBuilder.getInstance());
-	    adder.addImplicitHydrogens(mol);
+    	AtomContainerManipulator.percieveAtomTypesAndConfigureAtoms(mol);
 
-	    if (FlagConvertAddedImplicitHToExplicitOnResultProcess)
-		AtomContainerManipulator.convertImplicitToExplicitHydrogens(mol);
-	}
-	
-	//The newly added atoms may stay with unset implicit H count 
-	for (IAtom atom : mol.atoms())
-	{	
-		if (atom.getImplicitHydrogenCount() == null)
-			atom.setImplicitHydrogenCount(new Integer(0));
-	}
+    	if (isFlagAddImplicitHAtomsOnResultProcess()) {
+    		CDKHydrogenAdder adder = CDKHydrogenAdder.getInstance(SilentChemObjectBuilder.getInstance());
+    		adder.addImplicitHydrogens(mol);
 
-	if (FlagCheckAromaticityOnResultProcess)
-	    CDKHueckelAromaticityDetector.detectAromaticity(mol);
+    		if (FlagConvertAddedImplicitHToExplicitOnResultProcess)
+    			AtomContainerManipulator.convertImplicitToExplicitHydrogens(mol);
+    	}
 
-	if (FlagConvertExplicitHToImplicitOnResultProcess)
-	    SmartsHelper.convertExcplicitHAtomsToImplicit(mol);
+    	//The newly added atoms may stay with unset implicit H count 
+    	for (IAtom atom : mol.atoms())
+    	{	
+    		if (atom.getImplicitHydrogenCount() == null)
+    			atom.setImplicitHydrogenCount(new Integer(0));
+    	}
+
+    	if (FlagCheckAromaticityOnResultProcess)
+    		CDKHueckelAromaticityDetector.detectAromaticity(mol);
+
+    	if (FlagConvertExplicitHToImplicitOnResultProcess)
+    		SmartsHelper.convertExcplicitHAtomsToImplicit(mol);
     }
 
 }
