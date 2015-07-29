@@ -234,7 +234,7 @@
         <plugin>
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>buildnumber-maven-plugin</artifactId>
-          <version>1.2</version>
+          <version>1.3</version>
           <executions>
             <execution>
               <phase>validate</phase>
@@ -244,7 +244,7 @@
             </execution>
           </executions>
           <configuration>
-            <revisionOnScmFailure>-SNAPSHOT</revisionOnScmFailure>
+            <revisionOnScmFailure>-${maven.build.timestamp}</revisionOnScmFailure>
             <doCheck>false</doCheck>
             <doUpdate>false</doUpdate>
             <getRevisionOnlyOnce>true</getRevisionOnlyOnce>

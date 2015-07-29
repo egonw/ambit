@@ -211,7 +211,7 @@
             </execution>
           </executions>
           <configuration>
-            <revisionOnScmFailure>-SNAPSHOT</revisionOnScmFailure>
+            <revisionOnScmFailure>-${maven.build.timestamp}</revisionOnScmFailure>
             <doCheck>false</doCheck>
             <doUpdate>false</doUpdate>
             <getRevisionOnlyOnce>true</getRevisionOnlyOnce>
