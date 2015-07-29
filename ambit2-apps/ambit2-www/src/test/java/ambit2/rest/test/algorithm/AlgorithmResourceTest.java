@@ -44,7 +44,7 @@ public class AlgorithmResourceTest extends ResourceTest {
     }
 	@Override
 	protected void setDatabase() throws Exception {
-		setUpDatabase("src/test/resources/nmdataset.xml");
+		setUpDatabase("src/test/resources/num-datasets.xml");
 	}
 	@Override
 	public String getTestURI() {
