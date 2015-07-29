@@ -57,7 +57,6 @@ import ambit2.db.reporters.SmilesReporter.Mode;
 import ambit2.db.search.QueryExecutor;
 import ambit2.db.search.structure.QueryStructureByID;
 import ambit2.db.update.dataset.ReadDatasetLicense;
-import ambit2.namestructure.Name2StructureProcessor;
 import ambit2.rest.ChemicalMediaType;
 import ambit2.rest.DBConnection;
 import ambit2.rest.DisplayMode;
@@ -137,14 +136,17 @@ public abstract class StructureQueryResource<Q extends IQueryRetrieval<IStructur
 		return null;// return
 		// String.format("riap://application%s/All/Identifiers/view/tree",OntologyResource.resource);
 	}
+
 	protected String[] getDefaultGroupProperties() {
 		return null;
 	}
+
 	protected void setGroupProperties(Context context, Request request,
 			Response response) throws ResourceException {
 		Form form = getParams();
 		String[] gp = OpenTox.params.sameas.getValuesArray(form);
-		if (gp==null) gp = getDefaultGroupProperties();
+		if (gp == null || gp.length == 0)
+			gp = getDefaultGroupProperties();
 		if (gp != null) {
 			groupProperties = new Profile();
 			for (String g : gp) {
@@ -181,13 +183,13 @@ public abstract class StructureQueryResource<Q extends IQueryRetrieval<IStructur
 			license.setValue(id_srcdataset);
 
 			ResultSet rs = null;
-	    QueryExecutor ex = new QueryExecutor();
+			QueryExecutor ex = new QueryExecutor();
 
-	    DBConnection dbc = new DBConnection(getContext());
-	    Connection conn = dbc.getConnection(30,true,5);
+			DBConnection dbc = new DBConnection(getContext());
+			Connection conn = dbc.getConnection(30, true, 5);
 
-	    try {
-		ex.setConnection(conn);
+			try {
+				ex.setConnection(conn);
 				rs = ex.process(license);
 				while (rs.next()) {
 					licenseURI = license.getObject(rs);
@@ -246,21 +248,20 @@ public abstract class StructureQueryResource<Q extends IQueryRetrieval<IStructur
 				String.format("%s%s", getRequest().getRootRef(),
 						getCompoundInDatasetPrefix()));
 		csvreporter.setSeparator("\t");
-		csvreporter.setWriteCompoundURI(false);
 		csvreporter.setNumberofHeaderLines(0);
+		csvreporter.setWriteCompoundURI(false);
 		return csvreporter;
 	}
-	
-
 
 	protected CSVReporter createCSVReporter() {
-		CSVReporter csvreporter = new CSVReporter(getRequest().getRootRef().toString(),
-				getTemplate(), groupProperties,
+		Form form = getParams();
+		CSVReporter csvreporter = new CSVReporter(getRequest().getRootRef()
+				.toString(), getTemplate(), groupProperties,
 				String.format("%s%s", getRequest().getRootRef(),
 						getCompoundInDatasetPrefix()));
-		Form form = getParams();
 		try {
-		    csvreporter.setNumberofHeaderLines(Integer.parseInt(form.getFirstValue("headerlines")));
+			csvreporter.setNumberofHeaderLines(Integer.parseInt(form
+					.getFirstValue("headerlines")));
 		} catch (Exception x) {
 			csvreporter.setNumberofHeaderLines(1);
 		}
