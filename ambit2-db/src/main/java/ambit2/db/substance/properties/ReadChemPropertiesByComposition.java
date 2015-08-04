@@ -15,11 +15,8 @@ import ambit2.base.data.LiteratureEntry;
 import ambit2.base.data.Property;
 import ambit2.base.data.StructureRecord;
 import ambit2.base.data.SubstanceRecord;
-import ambit2.base.data.study.IValue;
-import ambit2.base.data.study.MultiValue;
 import ambit2.base.data.study.Protocol;
 import ambit2.base.data.study.ReliabilityParams._r_flags;
-import ambit2.base.data.study.Value;
 import ambit2.base.data.substance.SubstanceProperty;
 import ambit2.base.interfaces.IStructureRecord;
 import ambit2.base.relation.composition.CompositionRelation;
@@ -58,6 +55,16 @@ public class ReadChemPropertiesByComposition
 		return _sql;
 	}
 
+	protected boolean isAllowed(CompositionRelation r) {
+		switch (r.getRelationType()) {
+		case HAS_ADDITIVE:
+			return false;
+		case HAS_IMPURITY:
+			return false;
+		}
+		return true;
+	}
+
 	@Override
 	public String getSQL() throws AmbitException {
 		StringBuilder params = null;
@@ -65,12 +72,8 @@ public class ReadChemPropertiesByComposition
 		if (getFieldname() != null
 				&& getFieldname().getRelatedStructures() != null)
 			for (CompositionRelation r : getFieldname().getRelatedStructures()) {
-				switch (r.getRelationType()) {
-				case HAS_ADDITIVE:
+				if (!isAllowed(r))
 					continue;
-				case HAS_IMPURITY:
-					continue;
-				}
 				if (r.getSecondStructure() != null
 						&& r.getSecondStructure().getIdchemical() > 0) {
 					if (params == null) {
@@ -92,12 +95,8 @@ public class ReadChemPropertiesByComposition
 		if (getFieldname() != null
 				&& getFieldname().getRelatedStructures() != null)
 			for (CompositionRelation r : getFieldname().getRelatedStructures()) {
-				switch (r.getRelationType()) {
-				case HAS_ADDITIVE:
+				if (!isAllowed(r))
 					continue;
-				case HAS_IMPURITY:
-					continue;
-				}
 				if (r.getSecondStructure() != null
 						&& r.getSecondStructure().getIdchemical() > 0) {
 					if (params == null)
@@ -194,7 +193,7 @@ public class ReadChemPropertiesByComposition
 			else if (p.getName().indexOf("Error") >= 0)
 				continue;
 			else if (p.getName().indexOf("Alert for") == 0)
-				continue;			
+				continue;
 			else if (p.getName().indexOf("For a better assessment") >= 0)
 				continue;
 
@@ -205,7 +204,8 @@ public class ReadChemPropertiesByComposition
 				category = Protocol._categories.TO_GENETIC_IN_VITRO_SECTION;
 			else if (p.getLabel().endsWith("Dissociation_constant_pKa"))
 				category = Protocol._categories.PC_DISSOCIATION_SECTION;
-			else if (p.getLabel().endsWith("Octanol-water_partition_coefficient_Kow"))
+			else if (p.getLabel().endsWith(
+					"Octanol-water_partition_coefficient_Kow"))
 				category = Protocol._categories.PC_PARTITION_SECTION;
 			else if (p.getLabel().endsWith("Acute_toxicity_to_fish_lethality"))
 				category = Protocol._categories.EC_FISHTOX_SECTION;
@@ -214,7 +214,7 @@ public class ReadChemPropertiesByComposition
 			else if (p.getLabel().endsWith("SkinIrritationCorrosion"))
 				category = Protocol._categories.TO_SKIN_IRRITATION_SECTION;
 			else if (p.getLabel().endsWith("SkinSensitisation"))
-				category = Protocol._categories.TO_SENSITIZATION_SECTION;				
+				category = Protocol._categories.TO_SENSITIZATION_SECTION;
 			else if (p.getLabel().endsWith("PersistenceBiodegradation"))
 				category = Protocol._categories.TO_BIODEG_WATER_SCREEN_SECTION;
 			else if (p.getLabel().endsWith("Genotoxicity"))
@@ -228,13 +228,9 @@ public class ReadChemPropertiesByComposition
 			else if (p.getLabel().endsWith("Respiratory_sensitisation"))
 				category = Protocol._categories.TO_REPEATED_INHAL_SECTION;
 
-			
-			
-			
-			
-
-			SubstanceProperty sp = new SubstanceProperty("TOX", category.name().replace("_SECTION",""),
-					p.getName(), p.getUnits(), p.getReference());
+			SubstanceProperty sp = new SubstanceProperty("TOX", category.name()
+					.replace("_SECTION", ""), p.getName(), p.getUnits(),
+					p.getReference());
 			sp.setEnabled(true);
 			if (p.getReference().getType().equals(_type.Dataset))
 				sp.setStudyResultType(_r_flags.experimentalresult);
@@ -243,25 +239,18 @@ public class ReadChemPropertiesByComposition
 
 			if (detail.getProperty(p) != null) {
 				target.setProperty(sp, detail.getProperty(p));
-/*
-				Object value = target.getProperty(sp);
-				if (value == null)
-					target.setProperty(sp, detail.getProperty(p));
-				else {
-					if (value instanceof MultiValue) {
-						IValue v = new Value(detail.getProperty(p));
-						((MultiValue) value).add(v);
-					} else {
-						MultiValue v = new MultiValue();
-						IValue vo = new Value(value);
-						v.add(vo);
-						vo = new Value(detail.getProperty(p));
-						v.add(vo);
-						target.setProperty(sp, v);
-					}
-
-				}
-*/				
+				/*
+				 * Object value = target.getProperty(sp); if (value == null)
+				 * target.setProperty(sp, detail.getProperty(p)); else { if
+				 * (value instanceof MultiValue) { IValue v = new
+				 * Value(detail.getProperty(p)); ((MultiValue) value).add(v); }
+				 * else { MultiValue v = new MultiValue(); IValue vo = new
+				 * Value(value); v.add(vo); vo = new
+				 * Value(detail.getProperty(p)); v.add(vo);
+				 * target.setProperty(sp, v); }
+				 * 
+				 * }
+				 */
 			}
 
 		}

@@ -39,6 +39,10 @@ public class ReadChemIdentifiersByComposition extends
 	}
 
 	@Override
+	protected boolean isAllowed(CompositionRelation r) {
+		return true;
+	}
+	@Override
 	public IStructureRecord getObject(ResultSet rs) throws AmbitException {
 		try {
 			IStructureRecord record = getRecord();
@@ -85,6 +89,7 @@ public class ReadChemIdentifiersByComposition extends
 			throw new AmbitException(x);
 		}
 	}
+
 	@Override
 	public SubstanceRecord processDetail(SubstanceRecord target,
 			IStructureRecord detail) throws Exception {
