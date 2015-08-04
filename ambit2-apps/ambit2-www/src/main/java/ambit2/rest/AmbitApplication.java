@@ -355,7 +355,6 @@ public class AmbitApplication extends FreeMarkerApplication<String> {
 		super.handle(request, response);
 	    };
 	};
-	router.attach("/help", AmbitResource.class);
 
 	router.attach("/api-docs", new APIDocsRouter(getContext()));
 

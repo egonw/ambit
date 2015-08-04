@@ -43,6 +43,7 @@ import ambit2.rest.structure.tautomers.TautomersDepict;
  * @author nina
  *
  */
+@Deprecated
 public class AmbitResource extends FreeMarkerResource {
 	protected static String sparqlEndpoint = null;
 	protected static String jsGoogleAnalytics = null;
@@ -534,7 +535,7 @@ public class AmbitResource extends FreeMarkerResource {
 
 
 
-		w.write(String.format("&nbsp;<a href='%s/help'>Help</a>&nbsp;",baseReference));
+		w.write(String.format("&nbsp;<a href='http://ideaconsult.github.io/examples-ambit/apidocs/' target=_blank>Help</a>&nbsp;",baseReference));
 
 
 		w.write("</div>");
