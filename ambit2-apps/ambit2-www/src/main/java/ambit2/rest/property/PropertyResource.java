@@ -43,6 +43,7 @@ import ambit2.rest.OpenTox;
 import ambit2.rest.RDFJenaConvertor;
 import ambit2.rest.StringConvertor;
 import ambit2.rest.error.InvalidResourceIDException;
+import ambit2.rest.propertyvalue.PropertyValueResource;
 import ambit2.rest.query.QueryResource;
 import ambit2.rest.rdf.RDFObjectIterator;
 import ambit2.rest.rdf.RDFPropertyIterator;

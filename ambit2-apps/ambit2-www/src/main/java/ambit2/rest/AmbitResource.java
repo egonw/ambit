@@ -34,7 +34,6 @@ import ambit2.rest.structure.CompoundResource;
 import ambit2.rest.structure.ConformerResource;
 import ambit2.rest.structure.smirks.ReactionDepict;
 import ambit2.rest.structure.tautomers.TautomersDepict;
-import ambit2.rest.template.OntologyResource;
 
 /**
  * window.setInterval(function() {
@@ -521,9 +520,8 @@ public class AmbitResource extends FreeMarkerResource {
 		w.write(String.format("<a href='%s/dataset?max=25'>Datasets</a>&nbsp;",baseReference));
 		w.write(String.format("<a href='%s/algorithm' title='Predictive algorithms'>Algorithms</a>&nbsp;",baseReference));
 		w.write(String.format("<a href='%s/model?page=0&pagesize=10' title='Models'>Models</a>&nbsp;",baseReference));
-		//w.write(String.format("<a href='%s%s'>References</a>&nbsp;",baseReference,ReferenceResource.reference));
+
 		w.write(String.format("<a href='%s%s?page=0&pagesize=10' title='Compound properties'>Features</a>&nbsp;",baseReference,PropertyResource.featuredef));
-		w.write(String.format("<a href='%s%s/Taxonomy' title='Features grouped in several categories'>Templates</a>&nbsp;",baseReference,OntologyResource.resource));
 
 		w.write(String.format("<a href='%s/query/similarity?search=c1ccccc1Oc2ccccc2&threshold=0.9' title='Search for similar structures'>Similarity</a>&nbsp;",baseReference));
 		w.write(String.format("<a href='%s/query/smarts?text=\"\"' title='Substructure search by SMARTS patterns'>Substructure</a>&nbsp;",baseReference));

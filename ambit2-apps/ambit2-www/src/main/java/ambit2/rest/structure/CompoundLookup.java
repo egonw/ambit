@@ -567,10 +567,7 @@ public class CompoundLookup extends StructureQueryResource<IQueryRetrieval<IStru
 	}
     }
 
-    protected QueryAbstractReporter createHTMLReporter(Dimension d) {
-	return new CompoundHTMLReporter(getCompoundInDatasetPrefix(), getRequest(), DisplayMode.properties, null,
-		getTemplate(), getGroupProperties(), d, headless);
-    }
+
     /*
      * @Override protected void processNotFound(NotFoundException x, int retry)
      * throws Exception { if (retry>0) super.processNotFound(x, retry); else if

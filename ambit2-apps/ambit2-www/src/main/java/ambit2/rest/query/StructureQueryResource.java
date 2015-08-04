@@ -134,7 +134,6 @@ public abstract class StructureQueryResource<Q extends IQueryRetrieval<IStructur
 	protected String getDefaultTemplateURI(Context context, Request request,
 			Response response) {
 		return null;// return
-		// String.format("riap://application%s/All/Identifiers/view/tree",OntologyResource.resource);
 	}
 
 	protected String[] getDefaultGroupProperties() {
@@ -429,13 +428,7 @@ public abstract class StructureQueryResource<Q extends IQueryRetrieval<IStructur
 				getRequest(), DisplayMode.table, null, getTemplate(),
 				getGroupProperties(), d, getRequest().getRootRef().toString()
 						+ getCompoundInDatasetPrefix());
-		/*
-		 * return new
-		 * CompoundHTMLReporter(getCompoundInDatasetPrefix(),getRequest
-		 * (),getDocumentation(),
-		 * DisplayMode.table,null,getTemplate(),getGroupProperties
-		 * (),d,headless);
-		 */
+
 	}
 
 	protected String getMediaParameter(Request request) {
@@ -578,9 +571,11 @@ public abstract class StructureQueryResource<Q extends IQueryRetrieval<IStructur
 				IAtomContainer mol = getFromURI(query_smiles.trim());
 				AtomConfigurator c = new AtomConfigurator();
 				mol = c.process(mol);
-				ambit2.core.helper.CDKHueckelAromaticityDetector.detectAromaticity(mol);
+				ambit2.core.helper.CDKHueckelAromaticityDetector
+						.detectAromaticity(mol);
 				SmilesGenerator g = SmilesGenerator.generic();
-				if (aromatic) g = g.aromatic();
+				if (aromatic)
+					g = g.aromatic();
 				return g.create(mol);
 			} catch (Exception x) {
 				throw new ResourceException(Status.CLIENT_ERROR_BAD_REQUEST,
@@ -649,10 +644,12 @@ public abstract class StructureQueryResource<Q extends IQueryRetrieval<IStructur
 					try {
 						return MoleculeTools.getMolecule(query_smiles);
 					} catch (InvalidSmilesException x) {
-						NameToStructure nameToStructure = NameToStructure.getInstance();
-						
+						NameToStructure nameToStructure = NameToStructure
+								.getInstance();
+
 						try {
-							String smiles = nameToStructure.parseToSmiles(query_smiles);
+							String smiles = nameToStructure
+									.parseToSmiles(query_smiles);
 							return MoleculeTools.getMolecule(smiles);
 						} catch (Exception xx) {
 							throw new ResourceException(
