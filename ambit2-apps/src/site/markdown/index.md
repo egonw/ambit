@@ -92,15 +92,15 @@ User guide
 
 Chemical structures, chemical substances and endpoint data in AMBIT    
 
--   [**Structure search**](https://apps.ideaconsult.net/opentox/ui/_search)
+-   [**Structure search**](https://apps.ideaconsult.net/ambit3/ui/_search)
 
--   [**Substance online**](https://apps.ideaconsult.net/opentox/substance)
+-   [**Substance online**](https://apps.ideaconsult.net/ambit3/substance)
 
--   [**Endpoint search**](https://apps.ideaconsult.net/opentox/query/study)
+-   [**Endpoint search**](https://apps.ideaconsult.net/ambit3/query/study)
 
--   [**Run Toxtree predictions**](https://apps.ideaconsult.net/opentox/ui/toxtree)
+-   [**Run Toxtree predictions**](https://apps.ideaconsult.net/ambit3/ui/toxtree)
 
--   [**Provide feedback**](https://docs.google.com/forms/d/1ncsW59uGAJfEUgSv8tvfbiU0XRXIik9RuRJ376WnkB0/viewform) for the [**Read across workflow support** (under development)](https://apps.ideaconsult.net/opentox/ui/assessment)   
+-   [**Provide feedback**](https://docs.google.com/forms/d/1ncsW59uGAJfEUgSv8tvfbiU0XRXIik9RuRJ376WnkB0/viewform) for the [**Read across workflow support** (beta test)](https://apps.ideaconsult.net/ambit3/ui/assessment)   
 
 ---
 
