@@ -122,7 +122,7 @@ public class ReadChemIdentifiersByComposition extends
 						}
 					}
 				}
-				break;
+				//break;
 			}
 		return target;
 	}
