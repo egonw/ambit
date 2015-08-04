@@ -67,7 +67,7 @@ public class Name2StructureProcessorTest {
 
 		Assert.assertEquals(OPSIN_RESULT_STATUS.SUCCESS, result.getStatus());
 
-		System.out.println(result.getCml().toXML());
+		System.out.println(result.getCml());
 
 	}
 
