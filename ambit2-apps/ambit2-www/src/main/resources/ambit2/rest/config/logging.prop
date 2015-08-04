@@ -29,3 +29,4 @@ mutant.level = WARNING
 org.openscience.cdk.level = WARNING
 #c3p0
 #com.mchange.level = DEBUG
+uk.ac.cam.ch.wwmm.opsin.level = SEVERE
