@@ -13,7 +13,7 @@
 			<a href="${ambit_root}">Search</a>
 			<ul>
 				<li><a href="${ambit_root}/query/similarity?search=c1ccccc1Oc2ccccc2&threshold=0.9">Similarity</a></li>
-				<li><a href="${ambit_root}/query/smarts?text=%22%22">Substructure</a></li>
+				<li><a href="${ambit_root}/query/smarts?search=[Ag]">Substructure</a></li>
 			
 			</ul>
 		</li>
