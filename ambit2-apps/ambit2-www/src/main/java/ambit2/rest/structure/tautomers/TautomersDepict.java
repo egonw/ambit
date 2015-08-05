@@ -144,7 +144,7 @@ public class TautomersDepict extends AbstractDepict {
 			b.append("<div class='tabs' style='padding-left:0;margin-left:0px;border-width:0px'><ul style='padding-left:0;margin-left:0px'>");
 			for (_method m : _method.values()) {
 				b.append(String
-						.format("<li  style='padding-left:0;margin-left:0px'><a href='%s/depict%s/%s?search=%s&headless=true'>%s tautomers</a></li>",
+						.format("<li  style='padding-left:0;margin-left:0px'><a href='%s/demo%s/%s?search=%s&headless=true'>%s tautomers</a></li>",
 								getRequest().getRootRef(),
 								TautomersDepict.resource, m,
 								Reference.encode(visibleSmiles), m));
@@ -174,8 +174,9 @@ public class TautomersDepict extends AbstractDepict {
 				smiles[0] = "C3=C(C(C1=C(OC2=C(C1=O)C=CC=C2)O)CC(=O)C)C=CC=C3";
 			mol = getAtomContainer(smiles[0]);
 			b.append("<td>");
-			String url = String.format("%s/depict/cdk/any?search=%s",
-					getRequest().getRootRef(), Reference.encode(smiles[0]),
+			String url = String.format(
+					"%s/depict/cdk?search=%s&media=image/png", getRequest()
+							.getRootRef(), Reference.encode(smiles[0]),
 					smarts == null ? "" : "&smarts=", smarts == null ? ""
 							: Reference.encode(smarts));
 
@@ -191,8 +192,9 @@ public class TautomersDepict extends AbstractDepict {
 		}
 		case cactvs: {
 			b.append("<td>");
-			String url = String.format("%s/depict/cactvs?search=%s",
-					getRequest().getRootRef(), Reference.encode(smiles[0]),
+			String url = String.format(
+					"%s/depict/cactvs?search=%s&media=image/png", getRequest()
+							.getRootRef(), Reference.encode(smiles[0]),
 					smarts == null ? "" : "&smarts=", smarts == null ? ""
 							: Reference.encode(smarts));
 
@@ -224,8 +226,9 @@ public class TautomersDepict extends AbstractDepict {
 			if ("warfarin".equals(smiles))
 				smiles[0] = "C3=C(C(C1=C(OC2=C(C1=O)C=CC=C2)O)CC(=O)C)C=CC=C3";
 			b.append("<td>");
-			String url = String.format("%s/depict/cdk/any?search=%s",
-					getRequest().getRootRef(), Reference.encode(smiles[0]),
+			String url = String.format(
+					"%s/depict/cdk?search=%s&media=image/png", getRequest()
+							.getRootRef(), Reference.encode(smiles[0]),
 					smarts == null ? "" : "&smarts=", smarts == null ? ""
 							: Reference.encode(smarts));
 
@@ -246,8 +249,9 @@ public class TautomersDepict extends AbstractDepict {
 	}
 
 	protected String getWidget(String tautomerSmiles, int index) {
-		String url = String.format("%s/depict/cdk/any?search=%s%s%s",
-				getRequest().getRootRef(), Reference.encode(tautomerSmiles),
+		String url = String.format(
+				"%s/depict/cdk?search=%s%s%s&media=image/png", getRequest()
+						.getRootRef(), Reference.encode(tautomerSmiles),
 				smarts == null ? "" : "&smarts=", smarts == null ? ""
 						: Reference.encode(smarts));
 

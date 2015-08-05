@@ -11,8 +11,8 @@
 	    <a class='topLinks' href='http://ambit.sf.net/' class='qxternal' >AMBIT@sf.net</a><br>
 <div style='font-weight:bold;'>Demos:</div> 
 <a href='${ambit_root}/depict?search=c1ccccc1' target='_blank'>2D depiction</a> |
-<a href='${ambit_root}/depict/reaction?search=c1ccccc1' target='_blank'>Reactions (SMIRKS)</a> |
-<a href='${ambit_root}/depict/tautomer?search=NC%3D1N%3DCN%3DC2N%3DCNC2%3D1' target='_blank'>Tautomers</a>
+<a href='${ambit_root}/demo/reaction?search=c1ccccc1' target='_blank'>Reactions (SMIRKS)</a> |
+<a href='${ambit_root}/demo/tautomer?search=NC%3D1N%3DCN%3DC2N%3DCNC2%3D1' target='_blank'>Tautomers</a>
 <div style='font-weight:bold;'>More:</div>		
 Query API<a href='#' class='chelp queryapi'>?</a> 
 Statistics<a href='#' class='chelp stats'>?</a>   
@@ -51,8 +51,8 @@ Admin<a href='#' class='chelp admin'>?</a>
 	</div>
 	<div id='demos'>		
 		<a href='${ambit_root}/depict?search=c1ccccc1' target='_blank'>2D depiction</a> |
-		<a href='${ambit_root}/depict/reaction?search=c1ccccc1' target='_blank'>Reactions (SMIRKS)</a> |
-		<a href='${ambit_root}/depict/tautomer?search=NC%3D1N%3DCN%3DC2N%3DCNC2%3D1' target='_blank'>Tautomers</a>		
+		<a href='${ambit_root}/demo/reaction?search=c1ccccc1' target='_blank'>Reactions (SMIRKS)</a> |
+		<a href='${ambit_root}/demo/tautomer?search=NC%3D1N%3DCN%3DC2N%3DCNC2%3D1' target='_blank'>Tautomers</a>		
 	</div>
 	<div id="stats">
 		<a href='${ambit_root}/admin/stats/datasets' target='_blank'>Number of datasets</a> |

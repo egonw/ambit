@@ -135,6 +135,7 @@ import ambit2.rest.sparqlendpoint.SPARQLPointerResource;
 import ambit2.rest.structure.CompoundLookup;
 import ambit2.rest.structure.CompoundResource;
 import ambit2.rest.structure.diagram.AbstractDepict;
+import ambit2.rest.structure.diagram.DepictionResource;
 import ambit2.rest.structure.tautomers.QueryStructureRelationResource;
 import ambit2.rest.structure.tautomers.QueryTautomersResource;
 import ambit2.rest.substance.SubstanceDatasetResource;
@@ -573,9 +574,12 @@ public class AmbitApplication extends FreeMarkerApplication<String> {
 	 */
 	if (attachDepictRouter()) {
 	    Router depict = new DepictDemoRouter(getContext());
-	    router.attach(AbstractDepict.resource, depict);
+	    router.attach("/demo", depict);
+	    
+	    router.attach(DepictionResource.resource,DepictionResource.class);
+	    router.attach(String.format("%s/{%s}",DepictionResource.resource,DepictionResource.resourceKey),DepictionResource.class);	    
 	}
-	router.attach("/name2structure", Name2StructureResource.class);
+	//router.attach("/name2structure", Name2StructureResource.class);
 
 	/**
 	 * Images, styles, favicons, applets
