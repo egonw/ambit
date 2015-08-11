@@ -3,6 +3,7 @@ package ambit2.reactions.reactor;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
+import java.util.TreeSet;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Formatter;
 import java.util.logging.Handler;
@@ -34,7 +35,8 @@ public class Reactor
 	protected ReactionDataBase reactionDataBase = null;
 	protected ReactorStrategy strategy = null;
 	protected SMIRKSManager smrkMan = new SMIRKSManager(SilentChemObjectBuilder.getInstance());
-	protected Stack<ReactorNode> reactorNodes = new Stack<ReactorNode>(); 
+	protected Stack<ReactorNode> reactorNodes = new Stack<ReactorNode>();
+	protected TreeSet<String> nodeHashCodes = new TreeSet<String>();
 	protected InChIGeneratorFactory igf = null;
 	List<INCHI_OPTION> igf_options = null;
 	
@@ -88,6 +90,7 @@ public class Reactor
 		this.strategy = strategy;
 	}
 	
+	
 	public ReactorResult react(IAtomContainer target) throws Exception
 	{	
 		if (target == null)
@@ -101,6 +104,8 @@ public class Reactor
 		
 		reactorResult = new ReactorResult();
 		reactorNodes.clear();
+		nodeHashCodes.clear();
+		
 		generateInitialNodes(target);
 		
 		//Iterate stack
@@ -126,6 +131,9 @@ public class Reactor
 		addReagent(node0, mol);
 		//updateNodeState(node0);
 		reactorNodes.push(node0);
+		
+		if (strategy.FlagCheckNodeDuplicationOnPush)
+			nodeHashCodes.add(node0.calcNodeHash());
 	}
 	
 	void processNode(ReactorNode node)
@@ -213,7 +221,18 @@ public class Reactor
 				
 				addReagents(newNode, productsSet);
 				//updateNodeState(newNode);
-				reactorNodes.push(newNode);
+				
+				if (strategy.FlagCheckNodeDuplicationOnPush)
+				{
+					String hash = newNode.calcNodeHash();
+					if (!nodeHashCodes.contains(hash))
+					{
+						nodeHashCodes.add(hash);
+						reactorNodes.push(newNode);
+					}
+				}
+				else
+					reactorNodes.push(newNode);
 			}
 		}
 		

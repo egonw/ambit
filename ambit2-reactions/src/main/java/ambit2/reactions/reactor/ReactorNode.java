@@ -1,5 +1,9 @@
 package ambit2.reactions.reactor;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import org.openscience.cdk.AtomContainerSet;
 import org.openscience.cdk.interfaces.IAtomContainer;
 import org.openscience.cdk.interfaces.IAtomContainerSet;
@@ -72,7 +76,56 @@ public class ReactorNode
 		return c_node;
 	}
 	
-	
+	public String calcNodeHash()
+	{
+		StringBuffer sb = new StringBuffer();
+		List<String> list = new ArrayList<String>();
+		
+		//Hashing finalizedProducts
+		for (int i = 0; i < finalizedProducts.getAtomContainerCount(); i++)
+		{
+			Object inchiKey = finalizedProducts.getAtomContainer(i).getProperty(Reactor.PropertyInchiKey);
+			list.add(inchiKey.toString());
+		}
+		Collections.sort(list);		
+		for (int i = 0; i < list.size(); i++)
+			sb.append(list.get(i));
+		
+		//Hashing allowedProducts
+		list.clear();
+		for (int i = 0; i < allowedProducts.getAtomContainerCount(); i++)
+		{
+			Object inchiKey = allowedProducts.getAtomContainer(i).getProperty(Reactor.PropertyInchiKey);
+			list.add(inchiKey.toString());
+		}
+		Collections.sort(list);		
+		for (int i = 0; i < list.size(); i++)
+			sb.append(list.get(i));
+		
+		//Hashing forbiddenProducts
+		list.clear();
+		for (int i = 0; i < forbiddenProducts.getAtomContainerCount(); i++)
+		{
+			Object inchiKey = forbiddenProducts.getAtomContainer(i).getProperty(Reactor.PropertyInchiKey);
+			list.add(inchiKey.toString());
+		}
+		Collections.sort(list);		
+		for (int i = 0; i < list.size(); i++)
+			sb.append(list.get(i));
+		
+		//Hashing reagents
+		list.clear();
+		for (int i = 0; i < reagents.getAtomContainerCount(); i++)
+		{
+			Object inchiKey = reagents.getAtomContainer(i).getProperty(Reactor.PropertyInchiKey);
+			list.add(inchiKey.toString());
+		}
+		Collections.sort(list);		
+		for (int i = 0; i < list.size(); i++)
+			sb.append(list.get(i));
+		
+		return sb.toString();
+	}
 	
 	public String toString(Reactor reactor)
 	{
