@@ -28,7 +28,8 @@ import ambit2.smarts.SmartsHelper;
 public class Reactor 
 {	
 	protected static Logger logger = Logger.getLogger(Reactor.class.getName());
-	public static final String InchiKeyProperty = "INCHI_KEY";
+	public static final String PropertyInchiKey = "INCHI_KEY";
+	public static final String PropertyReactionIds = "REACTION_IDS";
 	
 	protected ReactionDataBase reactionDataBase = null;
 	protected ReactorStrategy strategy = null;
@@ -134,7 +135,7 @@ public class Reactor
 		if (strategy.FlagLogMainReactionFlow)
 			logger.info("Reactor stack = " + reactorNodes.size() + " nodes"
 					+"\nCurrent status: " + reactorResult.getStatusInfo()
-					+"\nProcessing " + node.toString());
+					+"\nProcessing " + node.toString(this));
 		
 		//Result is updated on node processing (not on node creating/pushing in the stack)
 		updateResult(node, state);
@@ -207,6 +208,9 @@ public class Reactor
 				if (strategy.FlagTraceParentNodes)
 					newNode.parentNode = node;
 				
+				if (strategy.FlagTraceReactionPath)
+					setReactionPath(productsSet, reagent, reaction);
+				
 				addReagents(newNode, productsSet);
 				//updateNodeState(newNode);
 				reactorNodes.push(newNode);
@@ -228,7 +232,7 @@ public class Reactor
 	
 	void finalizeProduct(ReactorNode node, IAtomContainer mol)
 	{
-		String reagentInchiKey  =  mol.getProperty(InchiKeyProperty);
+		String reagentInchiKey  =  mol.getProperty(PropertyInchiKey);
 		if (isForbiddenProduct(reagentInchiKey))
 		{
 			if (strategy.FlagStoreProducts)
@@ -265,7 +269,7 @@ public class Reactor
 		{
 			try{
 				InChIGenerator ig = igf.getInChIGenerator(mol, igf_options);
-				mol.setProperty(InchiKeyProperty, ig.getInchiKey());
+				mol.setProperty(PropertyInchiKey, ig.getInchiKey());
 			}
 			catch(Exception e){};
 		}
@@ -340,7 +344,6 @@ public class Reactor
 	void updateNodeState(ReactorNode node)
 	{	
 		//Check for forbidden reagents and products...
-		//TODO
 		
 	}
 	*/
@@ -401,6 +404,31 @@ public class Reactor
 		return false;
 	}
 	
+	void setReactionPath(IAtomContainerSet productsSet, IAtomContainer reagent, Reaction reaction)
+	{
+		Object reagent_rids = reagent.getProperty(PropertyReactionIds);
+		int rids[] = null;
+		if (reagent_rids == null)
+		{	
+			rids = new int[1];
+			rids[0] = reaction.getId();
+		}
+		else
+		{
+			int i_reagent_rids[] = (int[]) reagent_rids;
+			int n = i_reagent_rids.length;
+			rids = new int[n+1];
+			
+			for (int k = 0; k < n; k++)
+				rids[k] = i_reagent_rids[k];
+			
+			rids[n] = reaction.getId();
+		}
+		
+		for (IAtomContainer ac : productsSet.atomContainers())
+			ac.setProperty(PropertyReactionIds, rids);
+	};
+	
 	
 	//debug helper
 	private String molToSmiles(IAtomContainer mol)
@@ -413,6 +441,27 @@ public class Reactor
 			logger.info(e.getMessage());
 		};
 		return smi;
+	}
+	
+	public String reactionPathToString(IAtomContainer mol, boolean printName)
+	{
+		StringBuffer sb = new StringBuffer();
+		Object obj = mol.getProperty(PropertyReactionIds);
+		if (obj != null)
+		{
+			int rids[] = (int[]) obj;
+			for (int i = 0; i < rids.length; i++)
+			{	
+				sb.append(" " + rids[i]);
+				if (printName)
+				{
+					Reaction r = reactionDataBase.getReactionByID(rids[i]);
+					if (r != null)
+						sb.append(" " + r.getName());
+				}
+			}	
+		}
+		return sb.toString();
 	}
 	
 	private void setupLogger(Logger log)

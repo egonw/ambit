@@ -35,6 +35,8 @@ public class ReactorStrategy
 	public boolean FlagStoreFailedNodes = false;
 	public boolean FlagTraceParentNodes = false;
 	public boolean FlagStoreProducts = true;
+	public boolean FlagTraceReactionPath = false;
+	public boolean FlagCheckNodeDuplicationOnPush = true;
 	
 	//Reactor Node flags	
 	public List<StructureRecord> allowedProducts = null;
@@ -53,6 +55,8 @@ public class ReactorStrategy
 	
 	//Logging
 	public boolean FlagLogMainReactionFlow = false;
+	public boolean FlagLogReactionPath = false;
+	public boolean FlagLogNameInReactionPath = false;
 	
 	public ReactorStrategy(){
 	}

@@ -59,6 +59,7 @@ public class ReactionDataBase
 		{
 			try{
 				Reaction reaction = Reaction.getReactionFromJsonNode(reactionsNode.get(i));
+				reaction.setId(i+1);
 				if (reaction.isFlagUse())
 					reactions.add(reaction);
 			}
@@ -76,6 +77,18 @@ public class ReactionDataBase
 		
 		for (Reaction reaction : reactions)
 			reaction.configure(smrkMan);
+	}
+	
+	public Reaction getReactionByID(int id)
+	{
+		if (reactions != null)
+			for (Reaction r : reactions)
+			{	
+				if (r.getId() == id)
+					return r;
+			}	
+		
+		return null;
 	}
 	
 }

@@ -17,10 +17,20 @@ public class Reaction
 {
 	protected boolean FlagUse = true;
 	protected String smirks = null;
+	protected int id = 0;
 	protected String name = null;
 	protected String reactionClass = null;
 	protected SMIRKSReaction smirksReaction = null;
 	
+	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public boolean isFlagUse() {
 		return FlagUse;
 	}

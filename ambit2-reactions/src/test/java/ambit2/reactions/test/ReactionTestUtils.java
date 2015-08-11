@@ -81,10 +81,16 @@ public class ReactionTestUtils
 		
 		System.out.println("Configuring reactor strategy ...");
 		ReactorStrategy strategy = new ReactorStrategy(new File(reactionDBFile));  //strategy is in the same file
-		strategy.FlagLogMainReactionFlow = true;
+		
 		strategy.FlagStoreFailedNodes = true;
 		strategy.FlagStoreSuccessNodes = true;
 		strategy.maxNumOfSuccessNodes = 0;  //if 0 then the reactor will stop after the first success node
+		
+		strategy.FlagTraceReactionPath = true;
+		strategy.FlagLogMainReactionFlow = true;
+		strategy.FlagLogReactionPath = true;
+		strategy.FlagLogNameInReactionPath = false;
+		
 		reactor.setStrategy(strategy);
 		
 		//Setup Smirks manager

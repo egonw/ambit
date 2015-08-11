@@ -72,7 +72,9 @@ public class ReactorNode
 		return c_node;
 	}
 	
-	public String toString()
+	
+	
+	public String toString(Reactor reactor)
 	{
 		StringBuffer sb = new StringBuffer();
 		sb.append("Node\n");		
@@ -85,6 +87,12 @@ public class ReactorNode
 			catch(Exception x){};			
 			sb.append("  " + smi 
 					/*+ " ("+ finalizedProducts.getAtomContainer(i).getProperty("INCHI_KEY") + ")"*/ );
+			
+			if (reactor.strategy.FlagLogReactionPath)
+				sb.append("<" + reactor.reactionPathToString(
+						finalizedProducts.getAtomContainer(i), 
+						reactor.strategy.FlagLogNameInReactionPath) + ">");
+			
 		}
 		sb.append("\n");
 		
@@ -95,6 +103,11 @@ public class ReactorNode
 			try {smi = SmartsHelper.moleculeToSMILES(allowedProducts.getAtomContainer(i), true);}
 			catch(Exception x){};			
 			sb.append("  " + smi);
+			
+			if (reactor.strategy.FlagLogReactionPath)
+				sb.append("<" + reactor.reactionPathToString(
+						allowedProducts.getAtomContainer(i), 
+						reactor.strategy.FlagLogNameInReactionPath) + ">");
 		}
 		sb.append("\n");
 		
@@ -105,6 +118,11 @@ public class ReactorNode
 			try {smi = SmartsHelper.moleculeToSMILES(forbiddenProducts.getAtomContainer(i), true);}
 			catch(Exception x){};			
 			sb.append("  " + smi);
+			
+			if (reactor.strategy.FlagLogReactionPath)
+				sb.append("<" + reactor.reactionPathToString(
+						forbiddenProducts.getAtomContainer(i), 
+						reactor.strategy.FlagLogNameInReactionPath) + ">");
 		}
 		sb.append("\n");
 		
@@ -115,6 +133,12 @@ public class ReactorNode
 			try {smi = SmartsHelper.moleculeToSMILES(reagents.getAtomContainer(i), true);}
 			catch(Exception x){};			
 			sb.append("  " + smi);
+			
+			if (reactor.strategy.FlagLogReactionPath)
+				sb.append("<" + reactor.reactionPathToString(
+						reagents.getAtomContainer(i), 
+						reactor.strategy.FlagLogNameInReactionPath) + ">");
+			
 		}
 		sb.append("\n");
 		
