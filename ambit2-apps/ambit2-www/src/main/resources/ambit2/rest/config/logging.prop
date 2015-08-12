@@ -30,3 +30,9 @@ org.openscience.cdk.level = WARNING
 #c3p0
 #com.mchange.level = DEBUG
 uk.ac.cam.ch.wwmm.opsin.level = SEVERE
+#http
+org.apache.http.level = SEVERE
+#i5 client
+java.net.idea.i5.cli.level = SEVERE
+net.idea.i5.level = SEVERE
+net.idea.opentox.level = SEVERE 
