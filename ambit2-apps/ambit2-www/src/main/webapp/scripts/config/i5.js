@@ -1274,7 +1274,9 @@ var config_i5 = {
 		                    "bVisible" : false
 		                },
 		                "species": {
-		                    "iOrder": -3
+		                    "iOrder": -3,
+		                    "bVisible" : true,
+		                    "inMatrix": false
 		                }
 		            },
 		            "conditions": {
@@ -1311,7 +1313,8 @@ var config_i5 = {
 		        "EN_BIOACCU_TERR_SECTION": {
 		            "parameters": {
 		                "species": {
-		                    "iOrder": -4
+		                    "iOrder": -4,
+		                    "bVisible": true
 		                }
 		            },
 		            "conditions": {
