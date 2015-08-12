@@ -12,6 +12,8 @@ import java.util.logging.Level;
 
 import junit.framework.Assert;
 import net.idea.opentox.cli.OTClient;
+import net.idea.opentox.cli.id.IIdentifier;
+import net.idea.opentox.cli.id.Identifier;
 import net.idea.opentox.cli.structure.Compound;
 import net.idea.opentox.cli.structure.CompoundClient;
 import net.idea.restnet.c.task.ClientResourceWrapper;
@@ -349,7 +351,7 @@ public class AlgorithmResourceTest extends ResourceTest {
 		Assert.assertEquals(9,table.getRowCount());
 		c.close();
 		
-		List list = cli.listURI(new URL(expected));
+		List<IIdentifier> list = cli.listURI(new Identifier(expected));
 		Assert.assertEquals(9,list.size());
 
 		//now try it again
