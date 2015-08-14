@@ -97,8 +97,14 @@ public class Reaction
 	
 	public List<List<IAtom>> findReactionInstances(IAtomContainer target, SMIRKSManager smrkMan, int SSMode)
 	{	
-		smrkMan.getIsomorphismTester().setQuery(smirksReaction.reactant);
 		SmartsParser.prepareTargetForSMARTSSearch(smirksReaction.reactantFlags, target);
+		if (smirksReaction.reactantFlags.hasRecursiveSmarts)
+			smrkMan.mapRecursiveAtomsAgainstTarget(smirksReaction.reactantRecursiveAtoms, target);
+		
+		// It is absolutely needed that setQuery() function is called after
+		// recursive atom mapping
+		// because the recursive mapping calls setQuery() as well
+		smrkMan.getIsomorphismTester().setQuery(smirksReaction.reactant);
 		
 		switch (SSMode)
 		{
