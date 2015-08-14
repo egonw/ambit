@@ -292,6 +292,27 @@ public class Reactor
 			}
 			catch(Exception e){};
 		}
+		
+		if (strategy.FlagRemoveReagentIfAllowedProduct)
+		{
+			String inchiKey = mol.getProperty(PropertyInchiKey);
+			if (isAllowedProduct(inchiKey))
+			{
+				node.allowedProducts.addAtomContainer(mol);
+				return;
+			}
+		}
+		
+		if (strategy.FlagRemoveReagentIfForbiddenProduct)
+		{
+			String inchiKey = mol.getProperty(PropertyInchiKey);
+			if (isForbiddenProduct(inchiKey))
+			{
+				node.forbiddenProducts.addAtomContainer(mol);
+				return;
+			}
+		}
+		
 		node.reagents.addAtomContainer(mol);
 	}
 	
