@@ -471,11 +471,18 @@ public class Reactor
 	
 	
 	//debug helper
-	private String molToSmiles(IAtomContainer mol)
+	public String molToSmiles(IAtomContainer mol)
 	{
 		String smi = null;
 		try {
-			smi = SmartsHelper.moleculeToSMILES(mol, true);
+			if (strategy.FlagLogExplicitHToImplicit)
+			{
+				IAtomContainer mol1 = mol.clone();
+				SmartsHelper.convertExcplicitHAtomsToImplicit(mol1);
+				smi = SmartsHelper.moleculeToSMILES(mol1, true);
+			}
+			else
+				smi = SmartsHelper.moleculeToSMILES(mol, true);
 		} 
 		catch (Exception e){
 			logger.info(e.getMessage());

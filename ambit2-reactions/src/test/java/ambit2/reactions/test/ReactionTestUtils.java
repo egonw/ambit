@@ -136,6 +136,8 @@ public class ReactionTestUtils
 		strategy.FlagLogMainReactionFlow = true;
 		strategy.FlagLogReactionPath = true;
 		strategy.FlagLogNameInReactionPath = false;
+		strategy.FlagLogExplicitHToImplicit = true;
+		
 		
 		reactor.setStrategy(strategy);
 		

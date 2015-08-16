@@ -57,6 +57,7 @@ public class ReactorStrategy
 	public boolean FlagLogMainReactionFlow = false;
 	public boolean FlagLogReactionPath = false;
 	public boolean FlagLogNameInReactionPath = false;
+	public boolean FlagLogExplicitHToImplicit = false;
 	
 	public ReactorStrategy(){
 	}

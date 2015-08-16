@@ -136,8 +136,10 @@ public class ReactorNode
 		for (int i = 0; i < finalizedProducts.getAtomContainerCount(); i++)
 		{	
 			String smi = null;
-			try {smi = SmartsHelper.moleculeToSMILES(finalizedProducts.getAtomContainer(i), true);}
-			catch(Exception x){};			
+			
+			smi = reactor.molToSmiles(finalizedProducts.getAtomContainer(i));
+			//try {smi = SmartsHelper.moleculeToSMILES(finalizedProducts.getAtomContainer(i), true);}
+			//catch(Exception x){};			
 			sb.append("  " + smi 
 					/*+ " ("+ finalizedProducts.getAtomContainer(i).getProperty("INCHI_KEY") + ")"*/ );
 			
@@ -153,8 +155,9 @@ public class ReactorNode
 		for (int i = 0; i < allowedProducts.getAtomContainerCount(); i++)
 		{	
 			String smi = null;
-			try {smi = SmartsHelper.moleculeToSMILES(allowedProducts.getAtomContainer(i), true);}
-			catch(Exception x){};			
+			smi = reactor.molToSmiles(allowedProducts.getAtomContainer(i));
+			//try {smi = SmartsHelper.moleculeToSMILES(allowedProducts.getAtomContainer(i), true);}
+			//catch(Exception x){};			
 			sb.append("  " + smi);
 			
 			if (reactor.strategy.FlagLogReactionPath)
@@ -168,8 +171,9 @@ public class ReactorNode
 		for (int i = 0; i < forbiddenProducts.getAtomContainerCount(); i++)
 		{	
 			String smi = null;
-			try {smi = SmartsHelper.moleculeToSMILES(forbiddenProducts.getAtomContainer(i), true);}
-			catch(Exception x){};			
+			smi = reactor.molToSmiles(forbiddenProducts.getAtomContainer(i));
+			//try {smi = SmartsHelper.moleculeToSMILES(forbiddenProducts.getAtomContainer(i), true);}
+			//catch(Exception x){};			
 			sb.append("  " + smi);
 			
 			if (reactor.strategy.FlagLogReactionPath)
@@ -183,8 +187,9 @@ public class ReactorNode
 		for (int i = 0; i < reagents.getAtomContainerCount(); i++)
 		{	
 			String smi = null;
-			try {smi = SmartsHelper.moleculeToSMILES(reagents.getAtomContainer(i), true);}
-			catch(Exception x){};			
+			smi = reactor.molToSmiles(reagents.getAtomContainer(i));
+			//try {smi = SmartsHelper.moleculeToSMILES(reagents.getAtomContainer(i), true);}
+			//catch(Exception x){};			
 			sb.append("  " + smi);
 			
 			if (reactor.strategy.FlagLogReactionPath)
