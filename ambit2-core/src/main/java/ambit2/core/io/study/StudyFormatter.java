@@ -171,7 +171,7 @@ public class StudyFormatter {
 					else
 						b.append(" ,");
 
-					if (titleInMatrix != null && titleInMatrix.asBoolean(true)) {
+					if (titleInMatrix == null || titleInMatrix.asBoolean(true)) {
 						b.append(pa.getPredicate());
 						b.append("=");
 					}

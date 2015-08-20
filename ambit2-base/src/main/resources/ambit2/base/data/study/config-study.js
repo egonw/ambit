@@ -471,6 +471,7 @@
                 "type of method": {
                     "iOrder": -9,
                     "sTitle": "Method type",
+                    "titleInMatrix" : false,
                     "inMatrix": true
                 },
                 "species": {
@@ -509,6 +510,7 @@
                 "type of method": {
                     "iOrder": -7,
                     "sTitle": "Method type",
+                    "titleInMatrix" : false,
                     "inMatrix": true
                 },
                 "species": {
@@ -551,6 +553,7 @@
                 "type of study": {
                     "iOrder": -11,
                     "sTitle": "Study type",
+                    "titleInMatrix" : false,
                     "inMatrix": true
                 },
                 "type of method": {
@@ -1653,6 +1656,7 @@
                 },
                 "effect": {
                     "iOrder": -2,
+                    "titleInMatrix" : false,
                     "inMatrix": true
                 },
                 "measured concentration": {
