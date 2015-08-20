@@ -1092,7 +1092,7 @@
                 },
                 "effect type": {
                     "iOrder": -7,
-                    "titleInMatrix" : true,
+                    "titleInMatrix" : false,
                     "inMatrix": true
                 }
             },

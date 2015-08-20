@@ -363,7 +363,7 @@ public class TestStudyExportFormatting {
 				}
 				case TO_DEVELOPMENTAL_SECTION: {
 					Assert.assertEquals(c.name(),
-							"endpoint =textValue [Guideline] (effect type=  20  UNIT ,paramvalue)",
+							"endpoint =textValue [Guideline] (  20  UNIT ,paramvalue)",
 							result);
 					break;
 				}
@@ -757,7 +757,7 @@ public class TestStudyExportFormatting {
 				}
 				case TO_DEVELOPMENTAL_SECTION: {
 					Assert.assertEquals(c.name(),
-							"endpoint =ca. 3.14  mg [Guideline] (effect type=  20  UNIT ,paramvalue)",
+							"endpoint =ca. 3.14  mg [Guideline] (  20  UNIT ,paramvalue)",
 							result);
 					break;
 				}
