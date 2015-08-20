@@ -106,9 +106,9 @@
 	            <th class="right size-third">Status <a href='#' class='chelp a_published'>?</a>:</th>
 	            <td>
 	            
-	            <input type="radio" name="status" value="draft" id="status-draft"><label for="status-draft">Draft</label>
-	            <input type="radio" name="status" value="published" id="status-published"><label for="status-published">Published</label>
-	            <input type="radio" name="status" value="archived" id="status-archived"><label for="status-archived">Archived</label>
+	            <input type="radio" name="status" value="draft" id="status-draft"><label for="status-draft">Draft version</label>
+	            <input type="radio" name="status" value="published" id="status-published"><label for="status-published">Final assessment</label>
+	            <input type="radio" name="status" value="archived" id="status-archived"><label for="status-archived">Archived version</label>
 	                
 	            </td>
 	            </tr>
@@ -142,6 +142,14 @@
                 </td>
               </tr>
               
+ 		  </thead>
+	      </table>
+	      <div class="actions">
+		      <button name="assStart" type="button">Start</button>
+		      <button name="assFinalize" type="button">Finalize assessment</button>
+		      <button name="assNewVersion" type="button">Generate new version</button>
+	      </div>
+	                    
 	       	<#break>
 	       	<#default>
 	          <tr><th class="right size-third">Title <a href='#' class='chelp a_name'>?</a>:</th><td><input class="data-field first-time validate" data-field="title" name="title"/></td></tr>
@@ -168,18 +176,20 @@
 	       		<tr><th class="right size-third">Rights holder<a href='#' class='chelp a_rightsholder'>?</a>:</th><td><input class="data-field first-time validate" data-field="rightsHolder" name="rightsHolder"/></td></tr>
 	       		<tr><th class="right size-third">Rating <a href='#' class='chelp a_rating'>?</a>:</th><td class="data-stars-field"><input type="hidden" name="stars" value="0"/></td></tr>
 	            <tr><th class="right size-third">Identifier <a href='#' class='chelp assessment'>?</a>:</th><td class="data-field" data-field="number"></td></tr>
-	       	</#switch>
-		   </#if>       
-
-            
-          
-	        </thead>
+	            
+		 </thead>
 	      </table>
 	      <div class="actions">
 		      <button name="assStart" type="button">Start</button>
 		      <button name="assFinalize" type="button">Finalize</button>
 		      <button name="assNewVersion" type="button">Generate new version</button>
-	      </div>
+	      </div>	            
+	       	</#switch>
+		   </#if>       
+
+            
+          
+	       
 	      </div>
 	      <div class="three columns remove-bottom">
 				<div class='row half-bottom chelp' style='padding:0;margin:0;' id='pagehelp'></div>
