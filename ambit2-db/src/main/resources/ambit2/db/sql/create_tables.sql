@@ -275,13 +275,13 @@ CREATE TABLE `bundle_substance` (
   `substance_prefix` varchar(6) COLLATE utf8_bin DEFAULT NULL,
   `substance_uuid` varbinary(16) DEFAULT NULL,
   `tag` varchar(10) COLLATE utf8_bin DEFAULT NULL,
-  `remarks` varchar(45) COLLATE utf8_bin DEFAULT NULL,
+  `remarks` text COLLATE utf8_bin,
   PRIMARY KEY (`idsubstance`,`idbundle`),
   UNIQUE KEY `u_sunstance_idx` (`substance_prefix`,`substance_uuid`,`idbundle`),
   KEY `s_bundle` (`idbundle`),
   KEY `a_substance_idx` (`idsubstance`),
-  CONSTRAINT `a_metadata` FOREIGN KEY (`idbundle`) REFERENCES `bundle` (`idbundle`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `a_substance` FOREIGN KEY (`idsubstance`) REFERENCES `substance` (`idsubstance`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `bs_metadata` FOREIGN KEY (`idbundle`) REFERENCES `bundle` (`idbundle`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `bs_substance` FOREIGN KEY (`idsubstance`) REFERENCES `substance` (`idsubstance`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- -----------------------------------------------------
@@ -308,13 +308,14 @@ CREATE TABLE `bundle_chemicals` (
   `idchemical` int(11) unsigned NOT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `tag` varchar(10) COLLATE utf8_bin DEFAULT NULL,
-  `remarks` varchar(45) COLLATE utf8_bin DEFAULT NULL,
+  `remarks` text COLLATE utf8_bin,
   PRIMARY KEY (`idchemical`,`idbundle`),
   KEY `k_bundle` (`idbundle`),
   KEY `k_substance_idx` (`idchemical`),
   CONSTRAINT `c_chemical` FOREIGN KEY (`idchemical`) REFERENCES `chemicals` (`idchemical`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `c_metadata` FOREIGN KEY (`idbundle`) REFERENCES `bundle` (`idbundle`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
 
 -- -----------------------------------------------------
 -- Table `bundle_substance_protocolapplication` 
@@ -1474,7 +1475,7 @@ CREATE TABLE  `version` (
   `comment` varchar(45),
   PRIMARY KEY  (`idmajor`,`idminor`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-insert into version (idmajor,idminor,comment) values (8,11,"AMBIT2 schema");
+insert into version (idmajor,idminor,comment) values (8,12,"AMBIT2 schema");
 
 -- -----------------------------------------------------
 -- Sorts comma separated strings
