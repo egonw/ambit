@@ -61,7 +61,7 @@ public class ReliabilityParams<VALUE> extends Params<VALUE> {
 		}
 		@Override
 		public String getIdentifier() {
-		    return "Calc";
+		    return "Calculated";
 		}
 	    },
 	    readacrossbasedongroupingofsubstancescategoryapproach {
@@ -75,7 +75,7 @@ public class ReliabilityParams<VALUE> extends Params<VALUE> {
 		}
 		@Override
 		public String getIdentifier() {
-		    return "CategoryRA";
+		    return "Read-across(category)";
 		}
 	    },
 	    readacrossfromsupportingsubstancestructuralanalogueorsurrogate {
@@ -89,7 +89,7 @@ public class ReliabilityParams<VALUE> extends Params<VALUE> {
 		}
 		@Override
 		public String getIdentifier() {
-		    return "RA";
+		    return "Read-across";
 		}
 	    },
 	    QSAR {
@@ -109,7 +109,7 @@ public class ReliabilityParams<VALUE> extends Params<VALUE> {
 	    other {
 		@Override
 		public String toString() {
-		    return "other:";
+		    return "other";
 		}
 		@Override
 		public String getCode() {

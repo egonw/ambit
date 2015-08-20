@@ -18,16 +18,22 @@ import net.idea.modbcum.i.exceptions.DbAmbitException;
 import net.idea.modbcum.p.DefaultAmbitProcessor;
 
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFRichTextString;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.ClientAnchor;
 import org.apache.poi.ss.usermodel.Drawing;
+import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.ss.usermodel.IndexedColors;
+import org.apache.poi.ss.usermodel.RichTextString;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.ss.util.CellReference;
+import org.apache.poi.xssf.usermodel.XSSFFont;
+import org.apache.poi.xssf.usermodel.XSSFRichTextString;
 import org.restlet.Request;
 import org.restlet.data.MediaType;
 
@@ -68,7 +74,8 @@ public class StructureRecordXLSXReporter<Q extends IQueryRetrieval<IStructureRec
 	protected int rowIndex = 0;
 	protected StudyFormatter formatter;
 	protected Map<String, Integer> mergedProperties = new HashMap<String, Integer>();
-	protected CellStyle style, hstyle;
+	protected CellStyle style, hstyle, blueStyle;
+	protected Font blueFont, redFont;
 
 	protected AddDimensionedImage imgHelper = new AddDimensionedImage();
 
@@ -94,6 +101,16 @@ public class StructureRecordXLSXReporter<Q extends IQueryRetrieval<IStructureRec
 		style.setAlignment(CellStyle.ALIGN_LEFT);
 		style.setVerticalAlignment(CellStyle.VERTICAL_TOP);
 
+		blueStyle = workbook.createCellStyle();
+		blueStyle.setWrapText(true);
+		blueStyle.setAlignment(CellStyle.ALIGN_LEFT);
+		blueStyle.setVerticalAlignment(CellStyle.VERTICAL_TOP);
+		blueFont = workbook.createFont();
+		blueFont.setColor(IndexedColors.BLUE.getIndex());
+		blueStyle.setFont(blueFont);
+		redFont = workbook.createFont();
+		redFont.setColor(IndexedColors.RED.getIndex());
+
 		hstyle = workbook.createCellStyle();
 		hstyle.setWrapText(true);
 		hstyle.setAlignment(CellStyle.ALIGN_LEFT);
@@ -102,6 +119,9 @@ public class StructureRecordXLSXReporter<Q extends IQueryRetrieval<IStructureRec
 		hstyle.setBorderLeft(HSSFCellStyle.BORDER_THICK);
 		hstyle.setBorderRight(HSSFCellStyle.BORDER_THICK);
 		hstyle.setBorderTop(HSSFCellStyle.BORDER_THICK);
+		Font headerFont = workbook.createFont();
+		headerFont.setBoldweight(Font.BOLDWEIGHT_BOLD);
+		hstyle.setFont(headerFont);
 	}
 
 	@Override
@@ -209,6 +229,17 @@ public class StructureRecordXLSXReporter<Q extends IQueryRetrieval<IStructureRec
 
 	private static final String prefix = "http://www.opentox.org/echaEndpoints.owl#";
 
+	protected RichTextString createRichTextString(String value,Font font) {
+		RichTextString rts;
+		if (sheet instanceof HSSFSheet) {
+			rts =  new HSSFRichTextString(value);
+		} else {
+			rts = new XSSFRichTextString(value);
+		}
+		rts.applyFont(font);
+		return rts;
+	}
+
 	@Override
 	public Object processItem(IStructureRecord item) throws Exception {
 		Row row = sheet.createRow(rowIndex);
@@ -248,7 +279,7 @@ public class StructureRecordXLSXReporter<Q extends IQueryRetrieval<IStructureRec
 						pcell = row.createCell(colIndex
 								+ _columns.component.ordinal() + 1);
 
-						pcell.setCellStyle(style);
+						pcell.setCellStyle(blueStyle);
 						pcell.setCellType(Cell.CELL_TYPE_STRING);
 						sheet.autoSizeColumn(pcell.getColumnIndex(), true);
 
@@ -278,20 +309,38 @@ public class StructureRecordXLSXReporter<Q extends IQueryRetrieval<IStructureRec
 						} else {
 							_r_flags studyResultType = ((SubstanceProperty) p)
 									.getStudyResultType();
-							String flag = (studyResultType == null) ? ""
-									: (_r_flags.experimentalresult
-											.equals(studyResultType)) ? ""
-											: (" ["
-													+ studyResultType
-															.getIdentifier() + "]");
+							String flag = "";
+							Font font = blueFont;
+							if (studyResultType != null)
+								switch (studyResultType) {
+								case experimentalresult: {
+									break;
+								}
+								default: {
+									font = redFont;
+									flag = studyResultType.getIdentifier()
+											+ ": ";
+								}
+								}
 
-							if (pcell.getStringCellValue() == null
-									|| "".equals(pcell.getStringCellValue()
-											.trim()))
-								pcell.setCellValue(cellvalue + flag);
-							else
-								pcell.setCellValue(pcell.getStringCellValue()
-										+ "\n" + cellvalue + flag);
+							RichTextString rtvalue = pcell
+									.getRichStringCellValue();
+							if (rtvalue == null || rtvalue.length() == 0
+									|| "".equals(rtvalue.getString().trim())) {
+								pcell.setCellValue(createRichTextString(flag
+										+ cellvalue,font));
+							} else {
+								if (rtvalue instanceof XSSFRichTextString) {
+									((XSSFRichTextString) rtvalue).append("\n"
+											+ flag + cellvalue,(XSSFFont)font);
+								} else {
+									pcell.setCellValue(createRichTextString(pcell
+											.getStringCellValue()
+											+ "\n"
+											+ flag
+											+ cellvalue,font));
+								}
+							}
 						}
 					} catch (Exception x) {
 						if (value instanceof IValue) {
