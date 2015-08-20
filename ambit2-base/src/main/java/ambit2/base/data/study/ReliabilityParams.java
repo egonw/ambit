@@ -43,7 +43,7 @@ public class ReliabilityParams<VALUE> extends Params<VALUE> {
 		}
 		@Override
 		public String getIdentifier() {
-		    return "P";
+		    return "Planned";
 		}
 		@Override
 		public boolean isPredicted() {
@@ -61,7 +61,7 @@ public class ReliabilityParams<VALUE> extends Params<VALUE> {
 		}
 		@Override
 		public String getIdentifier() {
-		    return "C";
+		    return "Calc";
 		}
 	    },
 	    readacrossbasedongroupingofsubstancescategoryapproach {
@@ -75,7 +75,7 @@ public class ReliabilityParams<VALUE> extends Params<VALUE> {
 		}
 		@Override
 		public String getIdentifier() {
-		    return "RAcat";
+		    return "CategoryRA";
 		}
 	    },
 	    readacrossfromsupportingsubstancestructuralanalogueorsurrogate {

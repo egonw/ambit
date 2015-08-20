@@ -281,9 +281,9 @@ public class StructureRecordXLSXReporter<Q extends IQueryRetrieval<IStructureRec
 							String flag = (studyResultType == null) ? ""
 									: (_r_flags.experimentalresult
 											.equals(studyResultType)) ? ""
-											: (" ("
+											: (" ["
 													+ studyResultType
-															.getIdentifier() + ")");
+															.getIdentifier() + "]");
 
 							if (pcell.getStringCellValue() == null
 									|| "".equals(pcell.getStringCellValue()
