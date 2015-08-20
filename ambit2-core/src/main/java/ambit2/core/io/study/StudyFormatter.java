@@ -160,14 +160,21 @@ public class StudyFormatter {
 								.toString().toLowerCase());
 				JsonNode conditionInMatrix = condition == null ? null
 						: condition.get("inMatrix");
+
+				JsonNode titleInMatrix = condition == null ? null : condition
+						.get("titleInMatrix");
+
 				if (conditionInMatrix != null
 						&& conditionInMatrix.asBoolean(false)) {
 					if (!hasConditions)
 						b.append(" (");
 					else
 						b.append(" ,");
-					b.append(pa.getPredicate());
-					b.append("=");
+
+					if (titleInMatrix != null && titleInMatrix.asBoolean(true)) {
+						b.append(pa.getPredicate());
+						b.append("=");
+					}
 					b.append(pa.getObject());
 					hasConditions = true;
 				}

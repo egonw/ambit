@@ -75,7 +75,8 @@
             "conditions": {
                 "atm. pressure": {
                     "sTitle": "Pressure",
-                    "inMatrix": true
+                    "inMatrix": true,
+                    "titleInMatrix" : true
                 }
             },
             "effects": {
@@ -85,6 +86,7 @@
                 "result": {
                     "sTitle": "Value",
                     "iOrder": -1,
+                    "titleInMatrix" : true,
                     "inMatrix": true
                 }
             },
@@ -98,6 +100,7 @@
             "conditions": {
                 "temperature": {
                     "iOrder": -2,
+                    "titleInMatrix" : true,
                     "inMatrix": true
                 },
                 "decomposition": {
@@ -129,11 +132,13 @@
             "conditions": {
                 "temperature": {
                     "iOrder": -2,
+                    "titleInMatrix" : true,
                     "inMatrix": true
                 },
                 "ph": {
                     "sTitle": "pH",
                     "iOrder": -1,
+                    "titleInMatrix" : true,
                     "inMatrix": true
                 }
             },
@@ -162,11 +167,13 @@
             "conditions": {
                 "temperature": {
                     "iOrder": -3,
+                    "titleInMatrix" : true,
                     "inMatrix": true
                 },
                 "ph": {
                     "sTitle": "pH",
                     "iOrder": -2,
+                    "titleInMatrix" : true,
                     "inMatrix": true
                 },
                 "remark": {
@@ -193,10 +200,12 @@
             "conditions": {
                 "solvent": {
                     "iOrder": -4,
+                    "titleInMatrix" : true,
                     "inMatrix": true
                 },
                 "temperature": {
                     "iOrder": -2,
+                    "titleInMatrix" : true,
                     "inMatrix": true
                 },
                 "remark": {
@@ -228,6 +237,7 @@
             "conditions": {
                 "temperature": {
                     "iOrder": -2,
+                    "titleInMatrix" : true,
                     "inMatrix": true
                 },
                 "doses/concentrations": {
@@ -259,6 +269,7 @@
                 },
                 "temperature": {
                     "iOrder": -4,
+                    "titleInMatrix" : true,
                     "inMatrix": true
                 }
             },
@@ -316,6 +327,7 @@
                 },
                 "species": {
                     "iOrder": -7,
+                    "titleInMatrix" : false,
                     "inMatrix": true
                 }                
             },
@@ -367,6 +379,7 @@
                 },
                 "species": {
                     "iOrder": -7,
+                    "titleInMatrix" : false,
                     "inMatrix": true
                 }                
             },
@@ -414,7 +427,8 @@
             "conditions": {
                 "species": {
                     "iOrder": -8,
-                    "inMatrix": true
+                    "inMatrix": true,
+                    "titleInMatrix": false
                 },            	
                 "sex": {
                     "iOrder": -4
@@ -603,10 +617,12 @@
             "conditions": {
                 "test type": {
                     "iOrder": -9,
+                    "titleInMatrix" : false,
                     "inMatrix": true
                 },
             	"species": {
                     "iOrder": -10,
+                    "titleInMatrix" : false,
                     "inMatrix": true
                 },            	
                 "sex": {
@@ -663,10 +679,12 @@
             "conditions": {
                 "test type": {
                     "iOrder": -9,
+                    "titleInMatrix" : false,
                     "inMatrix": true
                 },            	
                 "species": {
                     "iOrder": -10,
+                    "titleInMatrix" : false,
                     "inMatrix": true
                 },
             	
@@ -728,11 +746,13 @@
             "conditions": {
                 "test type": {
                     "iOrder": -9,
+                    "titleInMatrix" : false,
                     "inMatrix": true
                 },                
             	
                 "species": {
                     "iOrder": -11,
+                    "titleInMatrix" : false,
                     "inMatrix" : true
                 },
             	
@@ -791,6 +811,7 @@
                     "iOrder": -8,
                     "sTitle": "Study type",
                     "inMatrix": true,
+                    "titleInMatrix" : false,
                     "bVisible" : true
                 },            	
                 "metabolic activation system": {
@@ -866,6 +887,7 @@
                 "type of study": {
                     "iOrder": -8,
                     "sTitle": "Study type",
+                    "titleInMatrix" : false,
                     "inMatrix": true
                 },            	
                 "sex": {
@@ -936,10 +958,12 @@
             "conditions": {
                 "species": {
                     "iOrder": -10,
+                    "titleInMatrix" : false,
                     "inMatrix": true
                 },
                 "effect type": {
                     "iOrder": -6,
+                    "titleInMatrix" : true,
                     "inMatrix": true
                 },
                 "sex": {
@@ -999,10 +1023,12 @@
             "conditions": {
                 "species": {
                     "iOrder": -10,
+                    "titleInMatrix" : false,
                     "inMatrix": true
                 },
                 "generation": {
                     "iOrder": -7,
+                    "titleInMatrix" : true,
                     "inMatrix": true
                 },
                 "sex": {
@@ -1055,6 +1081,7 @@
             "conditions": {
                 "species": {
                     "iOrder": -10,
+                    "titleInMatrix" : false,
                     "inMatrix": true
                 },            	
                 "sex": {
@@ -1062,6 +1089,7 @@
                 },
                 "effect type": {
                     "iOrder": -7,
+                    "titleInMatrix" : true,
                     "inMatrix": true
                 }
             },
@@ -1103,10 +1131,12 @@
             "conditions": {
                 "reactant": {
                     "iOrder": -9,
+                    "titleInMatrix" : true,
                     "inMatrix": true
                 },            	
                 "test condition": {
                     "iOrder": -8,
+                    "titleInMatrix" : true,
                     "inMatrix": true
                 }
             },
@@ -1130,10 +1160,12 @@
             "conditions": {
                 "ph": {
                     "iOrder": -3,
+                    "titleInMatrix" : true,
                     "inMatrix": true
                 },
                 "temperature": {
                     "iOrder": -2,
+                    "titleInMatrix" : true,
                     "inMatrix": true
                 }
             },
@@ -1206,6 +1238,7 @@
             "conditions": {
                 "test type": {
                     "iOrder": -9,
+                    "titleInMatrix" : false,
                     "inMatrix": true,
                     "bVisible" : true
                 },            	
@@ -1225,15 +1258,18 @@
             "effects": {
                 "test type": {
                     "iOrder": -9,
+                    "titleInMatrix" : false,
                     "inMatrix": true
                 },            	
                 "endpoint": {
                     "sTitle": "Half-life",
                     "inMatrix": true,
+                    "titleInMatrix" : true,
                     "iOrder": -4
                 },
                 "result": {
                     "sTitle": "",
+                    "titleInMatrix" : false,
                     "inMatrix": true,
                     "iOrder": -3
                 }
@@ -1256,6 +1292,7 @@
             "conditions": {
                 "test type": {
                     "iOrder": -9,
+                    "titleInMatrix" : false,
                     "inMatrix": true,
                     "bVisible" : true
                 },
@@ -1303,6 +1340,7 @@
             "conditions": {
                 "route": {
                     "iOrder": -5,
+                    "titleInMatrix" : true,
                     "inMatrix": true
                 },
                 "doses/concentrations": {
@@ -1436,6 +1474,7 @@
             "conditions": {
                 "exposure": {
                     "iOrder": -5,
+                    "titleInMatrix" : true,
                     "inMatrix": true
                 },
                 "effect": {
@@ -1479,6 +1518,7 @@
             "conditions": {
                 "exposure": {
                     "iOrder": -5,
+                    "titleInMatrix" : true,
                     "inMatrix": true
                 },
                 "effect": {
@@ -1522,6 +1562,7 @@
             "conditions": {
                 "exposure": {
                     "iOrder": -5,
+                    "titleInMatrix" : true,
                     "inMatrix": true
                 },
                 "effect": {
@@ -1607,6 +1648,7 @@
             "conditions": {
                 "exposure": {
                     "iOrder": -5,
+                    "titleInMatrix" : true,
                     "inMatrix": true
                 },
                 "effect": {
@@ -1651,10 +1693,12 @@
             "conditions": {
                 "exposure": {
                     "iOrder": -5,
+                    "titleInMatrix" : true,
                     "inMatrix": true
                 },
                 "effect": {
                     "iOrder": -2,
+                    "titleInMatrix" : true,
                     "inMatrix": true
                 },
                 "measured concentration": {
@@ -1695,10 +1739,12 @@
             "conditions": {
                 "exposure": {
                     "iOrder": -5,
+                    "titleInMatrix" : true,
                     "inMatrix": true
                 },
                 "effect": {
                     "iOrder": -2,
+                    "titleInMatrix" : true,
                     "inMatrix": true
                 },
                 "measured concentration": {
@@ -1739,10 +1785,12 @@
                 },
                 "exposure": {
                     "iOrder": -6,
+                    "titleInMatrix" : true,
                     "inMatrix": true
                 },
                 "effect": {
                     "iOrder": -3,
+                    "titleInMatrix" : true,
                     "inMatrix": true
                 },
                 "measured concentration": {
@@ -1783,10 +1831,12 @@
             "conditions": {
                 "exposure": {
                     "iOrder": -5,
+                    "titleInMatrix" : true,
                     "inMatrix": true
                 },
                 "effect": {
                     "iOrder": -2,
+                    "titleInMatrix" : true,
                     "inMatrix": true
                 },
                 "measured concentration": {
@@ -1827,10 +1877,12 @@
             "conditions": {
                 "exposure": {
                     "iOrder": -5,
+                    "titleInMatrix" : true,
                     "inMatrix": true
                 },
                 "effect": {
                     "iOrder": -2,
+                    "titleInMatrix" : true,
                     "inMatrix": true
                 },
                 "measured concentration": {
@@ -1871,10 +1923,12 @@
             "conditions": {
                 "exposure": {
                     "iOrder": -5,
+                    "titleInMatrix" : true,
                     "inMatrix": true
                 },
                 "effect": {
                     "iOrder": -2,
+                    "titleInMatrix" : true,
                     "inMatrix": true
                 },
                 "measured concentration": {
@@ -1933,6 +1987,7 @@
                 "medium": {
                     "sTitle": "Medium",
                     "iOrder": -16,
+                    "titleInMatrix" : true,
                     "inMatrix": true
                 },
                 "ph": {
@@ -1995,18 +2050,22 @@
                 "shape_descriptive": {
                     "sTitle": "Shape",
                     "iOrder": -19,
+                    "titleInMatrix" : true,
                     "inMatrix": true
                 },
                 "x": {
                     "iOrder": -16,
+                    "titleInMatrix" : true,
                     "inMatrix": true
                 },
                 "y": {
                     "iOrder": -15,
+                    "titleInMatrix" : true,
                     "inMatrix": true
                 },
                 "z": {
                     "iOrder": -14,
+                    "titleInMatrix" : true,
                     "inMatrix": true
                 }
             },
@@ -2067,6 +2126,7 @@
                     "sTitle": "Medium",
                     "iOrder": -15,
                     "bVisible": true,
+                    "titleInMatrix" : true,
                     "inMatrix": true
                 },
                 "n": {
@@ -2074,6 +2134,7 @@
                 },
                 "ph": {
                     "iOrder": -16,
+                    "titleInMatrix" : true,
                     "inMatrix": true
                 },
                 "remark": {
@@ -2144,12 +2205,14 @@
                 "description": {
                     "sTitle": "Type",
                     "iOrder": -22,
+                    "titleInMatrix" : true,
                     "inMatrix": true
                 },
                 "coating_description": {
                     "sTitle": "Coating description",
                     "iOrder": -21,
                     "bVisible": false,
+                    "titleInMatrix" : true,
                     "inMatrix": true
                 },
                 "remark": {
@@ -2161,6 +2224,7 @@
                     "sTitle": "Element / Func. group",
                     "iOrder": -19,
                     "bVisible": false,
+                    "titleInMatrix" : true,
                     "inMatrix": true
                 }
             },
@@ -2229,6 +2293,7 @@
                     "sTitle": "Medium",
                     "iOrder": -14,
                     "bVisible": true,
+                    "titleInMatrix" : true,
                     "inMatrix": true
                 },
                 "remark": {
@@ -2316,6 +2381,7 @@
                 "medium": {
                     "sTitle": "Medium",
                     "iOrder": -15,
+                    "titleInMatrix" : true,
                     "inMatrix": true
                 }
             },
@@ -2567,6 +2633,7 @@
                 "endpoint": {
                     "iOrder": -17,
                     "bVisible": false,
+                    
                     "inMatrix": true
                 },
                 "result": {
@@ -2745,6 +2812,7 @@
                 "crystal system": {
                     "sTitle": "Crystal system",
                     "iOrder": -18,
+                    "titleInMatrix" : true,
                     "inMatrix": true
                 },
                 "common name": {
@@ -2962,6 +3030,7 @@
                 "doses/concentrations": {
                     "bVisible": true,
                     "sTitle": "Concentration",
+                    "titleInMatrix" : true,
                     "inMatrix": true
                 },
                 "emission wavelength": {

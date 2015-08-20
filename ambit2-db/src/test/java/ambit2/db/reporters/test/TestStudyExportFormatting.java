@@ -133,31 +133,31 @@ public class TestStudyExportFormatting {
 
 				case TO_SKIN_IRRITATION_SECTION: {
 					Assert.assertEquals(
-							"interpretationResult (type of method=paramvalue)",
+							"interpretationResult (paramvalue)",
 							result);
 					break;
 				}
 				case TO_EYE_IRRITATION_SECTION: {
 					Assert.assertEquals(
-							"interpretationResult (type of method=paramvalue)",
+							"interpretationResult (paramvalue)",
 							result);
 					break;
 				}
 				case TO_SENSITIZATION_SECTION: {
 					Assert.assertEquals(
-							"interpretationResult (type of study=paramvalue)",
+							"interpretationResult (paramvalue)",
 							result);
 					break;
 				}
 				case TO_GENETIC_IN_VITRO_SECTION: {
 					Assert.assertEquals(
-							"interpretationResult [Guideline] (type of study=paramvalue)",
+							"interpretationResult [Guideline] (paramvalue)",
 							result);
 					break;
 				}
 				case TO_GENETIC_IN_VIVO_SECTION: {
 					Assert.assertEquals(
-							"interpretationResult [Guideline] (type of study=paramvalue)",
+							"interpretationResult [Guideline] (paramvalue)",
 							result);
 					break;
 				}
@@ -274,13 +274,13 @@ public class TestStudyExportFormatting {
 
 				case TO_BIODEG_WATER_SIM_SECTION: {
 					Assert.assertEquals(c.name(),
-							"Half-life =textValue (test type=paramvalue)",
+							"Half-life =textValue (paramvalue)",
 							result);
 					break;
 				}
 				case EN_STABILITY_IN_SOIL_SECTION: {
 					Assert.assertEquals(c.name(),
-							"Half-life =textValue (test type=paramvalue)",
+							"Half-life =textValue (paramvalue)",
 							result);
 					break;
 				}
@@ -304,66 +304,66 @@ public class TestStudyExportFormatting {
 				}
 				case TO_ACUTE_ORAL_SECTION: {
 					Assert.assertEquals(c.name(),
-							"endpoint =textValue (species=paramvalue)", result);
+							"endpoint =textValue (paramvalue)", result);
 					break;
 				}
 				case TO_ACUTE_INHAL_SECTION: {
 					Assert.assertEquals(c.name(),
-							"endpoint =textValue (species=paramvalue)", result);
+							"endpoint =textValue (paramvalue)", result);
 					break;
 				}
 				case TO_ACUTE_DERMAL_SECTION: {
 					Assert.assertEquals(c.name(),
-							"endpoint =textValue (species=paramvalue)", result);
+							"endpoint =textValue (paramvalue)", result);
 					break;
 				}
 				case TO_SKIN_IRRITATION_SECTION: {
 					// <<<<<<<<<<<<<
-					Assert.assertEquals(c.name()," (type of method=paramvalue)", result);
+					Assert.assertEquals(c.name()," (paramvalue)", result);
 					break;
 				}
 				case TO_EYE_IRRITATION_SECTION: {
 					// <<<<<<<<
-					Assert.assertEquals(c.name()," (type of method=paramvalue)", result);
+					Assert.assertEquals(c.name()," (paramvalue)", result);
 					break;
 				}
 				case TO_SENSITIZATION_SECTION: {
-					Assert.assertEquals(c.name()," (type of study=paramvalue)", result);
+					Assert.assertEquals(c.name()," (paramvalue)", result);
 					break;
 				}
 				case TO_REPEATED_ORAL_SECTION: {
 					Assert.assertEquals(c.name(),
-							"endpoint =textValue (species=paramvalue ,test type=paramvalue)",
+							"endpoint =textValue (paramvalue ,paramvalue)",
 							result);
 					break;
 				}
 				case TO_REPEATED_INHAL_SECTION: {
 					Assert.assertEquals(c.name(),
-							"endpoint =textValue (species=paramvalue ,test type=paramvalue)",
+							"endpoint =textValue (paramvalue ,paramvalue)",
 							result);
 					break;
 				}
 				case TO_REPEATED_DERMAL_SECTION: {
 					Assert.assertEquals(c.name(),
-							"endpoint =textValue (species=paramvalue ,test type=paramvalue)",
+							"endpoint =textValue (paramvalue ,paramvalue)",
 							result);
 					break;
 				}
 				case TO_CARCINOGENICITY_SECTION: {
 					Assert.assertEquals(c.name(),
-							"endpoint =textValue (effect type=  20  UNIT ,species=paramvalue)",
+							"endpoint =textValue (effect type=  20  UNIT ,paramvalue)",
 							result);
 					break;
 				}
 				case TO_REPRODUCTION_SECTION: {
 					Assert.assertEquals(c.name(),
-							"endpoint =textValue [Guideline] (generation=  20  UNIT ,species=paramvalue)",
+							"endpoint =textValue [Guideline] (generation=  20  UNIT ,paramvalue)",
 							result);
 					break;
 				}
 				case TO_DEVELOPMENTAL_SECTION: {
 					Assert.assertEquals(c.name(),
-							"endpoint =textValue [Guideline] (effect type=  20  UNIT ,species=paramvalue)",
+							"endpoint =textValue [Guideline] (effect type=  20  UNIT ,paramvalue)",
 							result);
 					break;
 				}
@@ -390,7 +390,7 @@ public class TestStudyExportFormatting {
 				}
 				case EC_ALGAETOX_SECTION: {
 					Assert.assertEquals(c.name(),
-							"endpoint =textValue (effect=  20  UNIT ,exposure=  20  UNIT)",
+							"endpoint =textValue (  20  UNIT ,exposure=  20  UNIT)",
 							result);
 					break;
 				}
@@ -474,13 +474,13 @@ public class TestStudyExportFormatting {
 				}
 				case TO_GENETIC_IN_VITRO_SECTION: {
 					Assert.assertEquals(c.name(),
-							"textValue [Guideline] (type of study=paramvalue)",
+							"textValue [Guideline] (paramvalue)",
 							result);
 					break;
 				}
 				case TO_GENETIC_IN_VIVO_SECTION: {
 					Assert.assertEquals(c.name(),
-							"textValue [Guideline] (type of study=paramvalue)",
+							"textValue [Guideline] (paramvalue)",
 							result);
 					break;
 				}
@@ -539,7 +539,7 @@ public class TestStudyExportFormatting {
 		logger.log(Level.INFO, String.format(
 				"case %s: { Assert.assertEquals(\"%s\",result); break; }",
 				c.name(), result));
-		Assert.assertEquals("negative [Guideline] (type of study=paramvalue)",
+		Assert.assertEquals("negative [Guideline] (paramvalue)",
 				result);
 	}
 
@@ -646,13 +646,13 @@ public class TestStudyExportFormatting {
 
 				case TO_BIODEG_WATER_SIM_SECTION: {
 					Assert.assertEquals(c.name(),
-							"Half-life =ca. 3.14  mg (test type=paramvalue)",
+							"Half-life =ca. 3.14  mg (paramvalue)",
 							result);
 					break;
 				}
 				case EN_STABILITY_IN_SOIL_SECTION: {
 					Assert.assertEquals(c.name(),
-							"Half-life =ca. 3.14  mg (test type=paramvalue)",
+							"Half-life =ca. 3.14  mg (paramvalue)",
 							result);
 					break;
 				}
@@ -672,36 +672,36 @@ public class TestStudyExportFormatting {
 				}
 				case TO_ACUTE_ORAL_SECTION: {
 					Assert.assertEquals(c.name(),
-							"endpoint =ca. 3.14  mg (species=paramvalue)",
+							"endpoint =ca. 3.14  mg (paramvalue)",
 							result);
 					break;
 				}
 				case TO_ACUTE_INHAL_SECTION: {
 					Assert.assertEquals(c.name(),
-							"endpoint =ca. 3.14  mg (species=paramvalue)",
+							"endpoint =ca. 3.14  mg (paramvalue)",
 							result);
 					break;
 				}
 				case TO_ACUTE_DERMAL_SECTION: {
 					Assert.assertEquals(c.name(),
-							"endpoint =ca. 3.14  mg (species=paramvalue)",
+							"endpoint =ca. 3.14  mg (paramvalue)",
 							result);
 					break;
 				}
 				case TO_SKIN_IRRITATION_SECTION: {
 					// OK, it assumes interpretation result is displayed only
 					// and not even the guideline
-					Assert.assertEquals(c.name()," (type of method=paramvalue)", result);
+					Assert.assertEquals(c.name()," (paramvalue)", result);
 					break;
 				}
 				case TO_EYE_IRRITATION_SECTION: {
 					// OK, it assumes interpretation result is displayed only
-					Assert.assertEquals(c.name()," (type of method=paramvalue)", result);
+					Assert.assertEquals(c.name()," (paramvalue)", result);
 					break;
 				}
 				case TO_SENSITIZATION_SECTION: {
 					// OK, it assumes interpretation result is displayed only
-					Assert.assertEquals(c.name()," (type of study=paramvalue)", result);
+					Assert.assertEquals(c.name()," (paramvalue)", result);
 					break;
 				}
 				case TO_SENSITIZATION_INVITRO_SECTION: {
@@ -729,35 +729,35 @@ public class TestStudyExportFormatting {
 				}
 				case TO_REPEATED_ORAL_SECTION: {
 					Assert.assertEquals(c.name(),
-							"endpoint =ca. 3.14  mg (species=paramvalue ,test type=paramvalue)",
+							"endpoint =ca. 3.14  mg (paramvalue ,paramvalue)",
 							result);
 					break;
 				}
 				case TO_REPEATED_INHAL_SECTION: {
 					Assert.assertEquals(c.name(),
-							"endpoint =ca. 3.14  mg (species=paramvalue ,test type=paramvalue)",
+							"endpoint =ca. 3.14  mg (paramvalue ,paramvalue)",
 							result);
 					break;
 				}
 				case TO_REPEATED_DERMAL_SECTION: {
-					Assert.assertEquals(c.name(),"endpoint =ca. 3.14  mg (species=paramvalue ,test type=paramvalue)", result);
+					Assert.assertEquals(c.name(),"endpoint =ca. 3.14  mg (paramvalue ,paramvalue)", result);
 					break;
 				}
 				case TO_CARCINOGENICITY_SECTION: {
 					Assert.assertEquals(c.name(),
-							"endpoint =ca. 3.14  mg (effect type=  20  UNIT ,species=paramvalue)",
+							"endpoint =ca. 3.14  mg (effect type=  20  UNIT ,paramvalue)",
 							result);
 					break;
 				}
 				case TO_REPRODUCTION_SECTION: {
 					Assert.assertEquals(c.name(),
-							"endpoint =ca. 3.14  mg [Guideline] (generation=  20  UNIT ,species=paramvalue)",
+							"endpoint =ca. 3.14  mg [Guideline] (generation=  20  UNIT ,paramvalue)",
 							result);
 					break;
 				}
 				case TO_DEVELOPMENTAL_SECTION: {
 					Assert.assertEquals(c.name(),
-							"endpoint =ca. 3.14  mg [Guideline] (effect type=  20  UNIT ,species=paramvalue)",
+							"endpoint =ca. 3.14  mg [Guideline] (effect type=  20  UNIT ,paramvalue)",
 							result);
 					break;
 				}
@@ -785,7 +785,7 @@ public class TestStudyExportFormatting {
 				}
 				case EC_ALGAETOX_SECTION: {
 					Assert.assertEquals(c.name(),
-							"endpoint =ca. 3.14  mg (effect=  20  UNIT ,exposure=  20  UNIT)",
+							"endpoint =ca. 3.14  mg (  20  UNIT ,exposure=  20  UNIT)",
 							result);
 					break;
 				}
@@ -899,13 +899,13 @@ public class TestStudyExportFormatting {
 				}
 				case TO_GENETIC_IN_VITRO_SECTION: {
 					Assert.assertEquals(c.name(),
-							"ca. 3.14  [Guideline] (type of study=paramvalue)",
+							"ca. 3.14  [Guideline] (paramvalue)",
 							result);
 					break;
 				}
 				case TO_GENETIC_IN_VIVO_SECTION: {
 					Assert.assertEquals(c.name(),
-							"ca. 3.14  [Guideline] (type of study=paramvalue)",
+							"ca. 3.14  [Guideline] (paramvalue)",
 							result);
 					break;
 				}
