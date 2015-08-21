@@ -1,4 +1,4 @@
-package ambit2.rest.substance;
+package ambit2.db.reporters.xlsx;
 
 import java.io.OutputStream;
 
@@ -10,7 +10,6 @@ import org.apache.poi.ss.usermodel.DataFormat;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.restlet.Request;
 
 import ambit2.base.data.Profile;
 import ambit2.base.data.Template;
@@ -32,7 +31,7 @@ public abstract class AbstractXLSXReporter<Q extends IQueryRetrieval<IStructureR
 	 */
 	private static final long serialVersionUID = -6627313415375827936L;
 
-	public AbstractXLSXReporter(Request request,boolean hssf, Template template, Profile groupedProperties,
+	public AbstractXLSXReporter(String baseRef,boolean hssf, Template template, Profile groupedProperties,
 		    SubstanceEndpointsBundle[] bundles, String urlPrefix, boolean includeMol) {
 		super();
 		
@@ -43,7 +42,7 @@ public abstract class AbstractXLSXReporter<Q extends IQueryRetrieval<IStructureR
 		//this.folders = folders;
 		//this.bundles = bundles;
 		getProcessors().clear();
-		configureProcessors(request.getRootRef().toString(), includeMol);
+		configureProcessors(baseRef, includeMol);
 		
 		workbook = hssf ? new HSSFWorkbook() : new XSSFWorkbook();
 		sheet = workbook.createSheet();

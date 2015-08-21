@@ -9,6 +9,7 @@ import java.util.Locale;
 import java.util.Map.Entry;
 import java.util.logging.Level;
 
+import net.idea.i5.io.I5_ROOT_OBJECTS;
 import net.idea.modbcum.i.IQueryCondition;
 import net.idea.modbcum.i.IQueryRetrieval;
 import net.idea.modbcum.i.exceptions.AmbitException;
@@ -18,6 +19,7 @@ import net.idea.modbcum.r.QueryAbstractReporter;
 import net.idea.restnet.db.QueryURIReporter;
 import net.idea.restnet.db.convertors.OutputWriterConvertor;
 
+import org.apache.poi.ss.usermodel.Cell;
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.node.ObjectNode;
@@ -50,6 +52,7 @@ import ambit2.core.io.study.ProtocolEffectRecord2SubstanceProperty;
 import ambit2.db.processors.MasterDetailsProcessor;
 import ambit2.db.reporters.CSVReporter;
 import ambit2.db.reporters.SDFReporter;
+import ambit2.db.reporters.xlsx.StructureRecordXLSXReporter;
 import ambit2.db.search.structure.QueryStructureByID;
 import ambit2.db.substance.study.ReadEffectRecordBySubstance;
 import ambit2.rest.ChemicalMediaType;
@@ -461,13 +464,36 @@ public class SubstanceDatasetResource<Q extends IQueryRetrieval<SubstanceRecord>
 		String jsonpcallback = getParams().getFirstValue("jsonp");
 		if (jsonpcallback == null)
 			jsonpcallback = getParams().getFirstValue("callback");
+
 		return new OutputStreamConvertor(new StructureRecordXLSXReporter(
-				getRequest(), hssf, getTemplate(), getGroupProperties(),
-				getBundles(), null, true) {
+				getRequest().getRootRef().toString(), hssf, getTemplate(),
+				getGroupProperties(), getBundles(), null, true) {
 			@Override
 			protected void configurePropertyProcessors() {
 				getCompositionProcessors(getProcessors());
 				getProcessors().add(getPropertyProcessors(false, false));
+			}
+
+			@Override
+			protected void initColumns(int afterCol) {
+				for (I5_ROOT_OBJECTS section : I5_ROOT_OBJECTS.values()) {
+					if (section.isIUCLID5() && section.isScientificPart()
+							&& section.isSupported()
+							&& !section.isNanoMaterialTemplate()) {
+						int last = mergedProperties.size();
+						mergedProperties.put(
+								"http://www.opentox.org/echaEndpoints.owl#"
+										+ section.name(), last);
+						Cell hcell = sheet.getRow(0).createCell(
+								last + afterCol);
+						hcell.setCellStyle(hstyle);
+						hcell.setCellType(Cell.CELL_TYPE_STRING);
+						hcell.setCellValue(section.getNumber() + ". "
+								+ section.getTitle());
+
+						sheet.autoSizeColumn(hcell.getColumnIndex(), true);
+					}
+			}
 			}
 			/*
 			 * @Override protected void append2header(Writer writer,

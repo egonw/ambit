@@ -1,4 +1,4 @@
-package ambit2.rest.substance;
+package ambit2.db.reporters.xlsx;
 
 import java.awt.Dimension;
 import java.awt.image.BufferedImage;
@@ -11,7 +11,6 @@ import java.util.Map;
 
 import javax.imageio.ImageIO;
 
-import net.idea.i5.io.I5_ROOT_OBJECTS;
 import net.idea.modbcum.i.IQueryRetrieval;
 import net.idea.modbcum.i.exceptions.AmbitException;
 import net.idea.modbcum.i.exceptions.DbAmbitException;
@@ -34,8 +33,6 @@ import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.ss.util.CellReference;
 import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFRichTextString;
-import org.restlet.Request;
-import org.restlet.data.MediaType;
 
 import ambit2.base.data.Profile;
 import ambit2.base.data.Property;
@@ -73,17 +70,17 @@ public class StructureRecordXLSXReporter<Q extends IQueryRetrieval<IStructureRec
 	protected int offset = 0;
 	protected int rowIndex = 0;
 	protected StudyFormatter formatter;
-	protected Map<String, Integer> mergedProperties = new HashMap<String, Integer>();
+	protected Map<String, Integer> mergedProperties  = new HashMap<String, Integer>();
 	protected CellStyle style, hstyle, blueStyle;
-	protected Font blueFont, redFont;
+	protected Font blackFont, blueFont, redFont;
 
 	protected AddDimensionedImage imgHelper = new AddDimensionedImage();
 
-	public StructureRecordXLSXReporter(Request request, boolean hssf,
+	public StructureRecordXLSXReporter(String baseRef, boolean hssf,
 			Template template, Profile groupedProperties,
 			SubstanceEndpointsBundle[] bundles, String urlPrefix,
 			boolean includeMol) {
-		super(request, hssf, template, groupedProperties, bundles, urlPrefix,
+		super(baseRef, hssf, template, groupedProperties, bundles, urlPrefix,
 				includeMol);
 
 		RetrieveStructure q = new RetrieveStructure(true);
@@ -92,15 +89,17 @@ public class StructureRecordXLSXReporter<Q extends IQueryRetrieval<IStructureRec
 		q.setPageSize(1);
 		component = new ProcessorStructureRetrieval(q);
 
-		imageReporter = new ImageReporter<Q>(MediaType.IMAGE_PNG.getName(),
-				MediaType.IMAGE_PNG.getSubType(), d);
+		imageReporter = new ImageReporter<Q>("image", "png", d);
 		formatter = new StudyFormatter();
 
 		style = workbook.createCellStyle();
 		style.setWrapText(true);
 		style.setAlignment(CellStyle.ALIGN_LEFT);
 		style.setVerticalAlignment(CellStyle.VERTICAL_TOP);
-
+		blackFont = workbook.createFont();
+		blackFont.setColor(IndexedColors.BLACK.getIndex());
+		style.setFont(blackFont);
+		
 		blueStyle = workbook.createCellStyle();
 		blueStyle.setWrapText(true);
 		blueStyle.setAlignment(CellStyle.ALIGN_LEFT);
@@ -161,9 +160,12 @@ public class StructureRecordXLSXReporter<Q extends IQueryRetrieval<IStructureRec
 
 			sheet.autoSizeColumn(col.ordinal(), col.autoSize());
 		}
-		// sheet.setColumnWidth(
-		// _columns.diagram.ordinal(),(d.width+2*offset)*XSSFShape.EMU_PER_PIXEL);
+		initColumns(_columns.component.ordinal()+1);
+		rowIndex++;
+	}
 
+	protected void initColumns(int afterCol) {
+		/*
 		for (I5_ROOT_OBJECTS section : I5_ROOT_OBJECTS.values()) {
 			if (section.isIUCLID5() && section.isScientificPart()
 					&& section.isSupported()
@@ -183,9 +185,9 @@ public class StructureRecordXLSXReporter<Q extends IQueryRetrieval<IStructureRec
 			}
 			//
 		}
-		rowIndex++;
+		*/
+		
 	}
-
 	private enum _columns {
 		tag {
 			@Override
@@ -229,10 +231,10 @@ public class StructureRecordXLSXReporter<Q extends IQueryRetrieval<IStructureRec
 
 	private static final String prefix = "http://www.opentox.org/echaEndpoints.owl#";
 
-	protected RichTextString createRichTextString(String value,Font font) {
+	protected RichTextString createRichTextString(String value, Font font) {
 		RichTextString rts;
 		if (sheet instanceof HSSFSheet) {
-			rts =  new HSSFRichTextString(value);
+			rts = new HSSFRichTextString(value);
 		} else {
 			rts = new XSSFRichTextString(value);
 		}
@@ -281,7 +283,6 @@ public class StructureRecordXLSXReporter<Q extends IQueryRetrieval<IStructureRec
 
 						pcell.setCellStyle(blueStyle);
 						pcell.setCellType(Cell.CELL_TYPE_STRING);
-						sheet.autoSizeColumn(pcell.getColumnIndex(), true);
 
 						Cell hcell = sheet.getRow(0).createCell(
 								colIndex + _columns.component.ordinal() + 1);
@@ -296,6 +297,7 @@ public class StructureRecordXLSXReporter<Q extends IQueryRetrieval<IStructureRec
 						} catch (Exception x) {
 							hcell.setCellValue(h);
 						}
+						sheet.autoSizeColumn(hcell.getColumnIndex(), true);						
 					}
 					Object value = record.getProperty(p);
 
@@ -309,11 +311,29 @@ public class StructureRecordXLSXReporter<Q extends IQueryRetrieval<IStructureRec
 						} else {
 							_r_flags studyResultType = ((SubstanceProperty) p)
 									.getStudyResultType();
+							
 							String flag = "";
-							Font font = blueFont;
+							Font font = redFont;
 							if (studyResultType != null)
 								switch (studyResultType) {
 								case experimentalresult: {
+									font = blueFont;
+									break;
+								}
+								case other : {
+									font = blackFont;
+									break;
+								}
+								case unsupported: {
+									font = blackFont;
+									break;
+								}
+								case NOTSPECIFIED : {
+									font = blackFont;
+									break;
+								}
+								case nodata : {
+									font = blackFont;
 									break;
 								}
 								default: {
@@ -328,19 +348,19 @@ public class StructureRecordXLSXReporter<Q extends IQueryRetrieval<IStructureRec
 							if (rtvalue == null || rtvalue.length() == 0
 									|| "".equals(rtvalue.getString().trim())) {
 								pcell.setCellValue(createRichTextString(flag
-										+ cellvalue,font));
+										+ cellvalue, font));
 							} else {
 								if (rtvalue instanceof XSSFRichTextString) {
-									((XSSFRichTextString) rtvalue).append("\n"
-											+ flag + cellvalue,(XSSFFont)font);
+									((XSSFRichTextString) rtvalue)
+											.append("\n" + flag + cellvalue,
+													(XSSFFont) font);
 								} else {
-									pcell.setCellValue(createRichTextString(pcell
-											.getStringCellValue()
-											+ "\n"
-											+ flag
-											+ cellvalue,font));
+									pcell.setCellValue(createRichTextString(
+											pcell.getStringCellValue() + "\n"
+													+ flag + cellvalue, font));
 								}
 							}
+							sheet.autoSizeColumn(pcell.getColumnIndex(), true);
 						}
 					} catch (Exception x) {
 						if (value instanceof IValue) {
