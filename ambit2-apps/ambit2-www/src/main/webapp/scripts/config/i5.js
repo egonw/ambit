@@ -757,7 +757,7 @@ var config_i5 = {
 		                },
 		                "metabolic activation system": {
 		                    "iOrder": -7,
-		                    "sVisible": true
+		                    "bVisible": true
 		                },
 		                "target gene": {
 		                    "iOrder": -6
@@ -833,7 +833,7 @@ var config_i5 = {
 		                },
 		                "route of administration": {
 		                    "iOrder": -7,
-		                    "sVisible": true
+		                    "bVisible": true
 		                },
 		                "species": {
 		                    "iOrder": -6

@@ -4,11 +4,16 @@ import java.io.OutputStream;
 
 import net.idea.modbcum.i.IQueryRetrieval;
 
+import org.apache.poi.hssf.usermodel.HSSFRichTextString;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.DataFormat;
+import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.ss.usermodel.RichTextString;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFRichTextString;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import ambit2.base.data.Profile;
@@ -59,4 +64,15 @@ public abstract class AbstractXLSXReporter<Q extends IQueryRetrieval<IStructureR
 			x.printStackTrace();
 		}
 	}	
+	
+	protected RichTextString createRichTextString(String value, Font font) {
+		RichTextString rts;
+		if (sheet instanceof HSSFSheet) {
+			rts = new HSSFRichTextString(value);
+		} else {
+			rts = new XSSFRichTextString(value);
+		}
+		rts.applyFont(font);
+		return rts;
+	}
 }

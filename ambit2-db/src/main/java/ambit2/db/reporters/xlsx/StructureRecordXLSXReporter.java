@@ -231,16 +231,6 @@ public class StructureRecordXLSXReporter<Q extends IQueryRetrieval<IStructureRec
 
 	private static final String prefix = "http://www.opentox.org/echaEndpoints.owl#";
 
-	protected RichTextString createRichTextString(String value, Font font) {
-		RichTextString rts;
-		if (sheet instanceof HSSFSheet) {
-			rts = new HSSFRichTextString(value);
-		} else {
-			rts = new XSSFRichTextString(value);
-		}
-		rts.applyFont(font);
-		return rts;
-	}
 
 	@Override
 	public Object processItem(IStructureRecord item) throws Exception {
