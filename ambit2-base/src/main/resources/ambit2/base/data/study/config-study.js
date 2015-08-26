@@ -944,7 +944,8 @@
                     "inMatrix": true
                 },
                 "citation": {
-                    "bVisible": true
+                    "bVisible": true,
+                    "iOrder" : 10
                 }
             },
             "interpretation": {
