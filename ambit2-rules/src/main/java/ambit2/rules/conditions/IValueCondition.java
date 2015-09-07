@@ -6,4 +6,5 @@ public interface IValueCondition extends ICondition
 {
 	public boolean isTrue(Double target);
 	public IValue getValue();
+	public void setValue(IValue value);
 }

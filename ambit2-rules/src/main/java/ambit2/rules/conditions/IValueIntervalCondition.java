@@ -6,4 +6,5 @@ public interface IValueIntervalCondition extends ICondition
 {
 	public boolean isTrue(Double target);
 	public IValueInterval getValueInterval();
+	public void setValueInterval(IValueInterval valueInterval);
 }
