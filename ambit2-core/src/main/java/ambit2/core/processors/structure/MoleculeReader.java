@@ -97,12 +97,12 @@ public class MoleculeReader extends DefaultAmbitProcessor<IStructureRecord, IAto
 					/* !%&$* PubChem */
 					Object sid = ac.getProperty("PUBCHEM_SUBSTANCE_ID");
 					if (sid != null) {
-						ac.getProperties().put("PUBCHEM_SID", sid);
+						ac.setProperty("PUBCHEM_SID", sid);
 						ac.removeProperty("PUBCHEM_SUBSTANCE_ID");
 					}
 					Object cid = ac.getProperty("PUBCHEM_COMPOUND_CID");
 					if (cid != null) {
-						ac.getProperties().put("PUBCHEM_CID", cid);
+						ac.setProperty("PUBCHEM_CID", cid);
 						ac.removeProperty("PUBCHEM_COMPOUND_CID");
 					}
 
@@ -134,7 +134,7 @@ public class MoleculeReader extends DefaultAmbitProcessor<IStructureRecord, IAto
 							} else {
 								value = value.toLowerCase();
 							}
-							ac.getProperties().put(type, value);
+							ac.setProperty(type, value);
 						}
 						reader.close();
 						ac.removeProperty("PUBCHEM_SUBSTANCE_SYNONYM");

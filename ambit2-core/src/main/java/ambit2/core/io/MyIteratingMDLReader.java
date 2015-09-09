@@ -36,7 +36,6 @@ import java.util.NoSuchElementException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.openscience.cdk.annotations.TestMethod;
 import org.openscience.cdk.exception.CDKException;
 import org.openscience.cdk.interfaces.IAtomContainer;
 import org.openscience.cdk.interfaces.IChemObjectBuilder;
@@ -181,7 +180,6 @@ implements IChemObjectIOListener {
     }
 
 
-    @TestMethod("testGetFormat")
     public IResourceFormat getFormat() {
         return currentFormat;
     }
@@ -391,7 +389,6 @@ implements IChemObjectIOListener {
         return nextMolecule;
     }
     
-    @TestMethod("testClose")
     public void close() throws IOException {
         input.close();
     }
@@ -400,7 +397,6 @@ implements IChemObjectIOListener {
         throw new UnsupportedOperationException();
     }
 
-	@TestMethod("testSetReader_Reader")
     public void setReader(Reader reader) {
 		if (reader instanceof BufferedReader) {
 			input = (BufferedReader)reader;
@@ -412,7 +408,6 @@ implements IChemObjectIOListener {
         hasNext = false;
     }
 
-	@TestMethod("testSetReader_InputStream")
     public void setReader(InputStream reader) {
 	    setReader(new InputStreamReader(reader));
     }

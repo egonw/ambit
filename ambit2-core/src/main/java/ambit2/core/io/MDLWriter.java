@@ -43,8 +43,6 @@ import java.util.Map;
 import java.util.Set;
 
 import org.openscience.cdk.CDKConstants;
-import org.openscience.cdk.annotations.TestClass;
-import org.openscience.cdk.annotations.TestMethod;
 import org.openscience.cdk.config.Isotopes;
 import org.openscience.cdk.exception.CDKException;
 import org.openscience.cdk.interfaces.IAtom;
@@ -83,7 +81,7 @@ import ambit2.core.data.MoleculeTools;
  * @cdk.githash
  * @cdk.keyword file format, MDL molfile
  */
-@TestClass("org.openscience.cdk.io.MDLWriterTest")
+
 public class MDLWriter extends DefaultChemObjectWriter {
 	public Map sdFields = null;
 	private int moleculeNumber;
@@ -126,7 +124,7 @@ public class MDLWriter extends DefaultChemObjectWriter {
 		this(new StringWriter());
 	}
 
-	@TestMethod("testGetFormat")
+
 	public IResourceFormat getFormat() {
 		return MDLFormat.getInstance();
 	}
@@ -150,12 +148,10 @@ public class MDLWriter extends DefaultChemObjectWriter {
 	/**
 	 * Flushes the output and closes this object.
 	 */
-	@TestMethod("testClose")
 	public void close() throws IOException {
 		writer.close();
 	}
 
-	@TestMethod("testAccepts")
 	public boolean accepts(Class classObject) {
 		Class[] interfaces = classObject.getInterfaces();
 		for (int i = 0; i < interfaces.length; i++) {

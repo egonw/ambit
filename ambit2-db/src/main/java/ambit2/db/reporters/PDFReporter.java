@@ -169,7 +169,7 @@ public class PDFReporter<Q extends IQueryRetrieval<IStructureRecord>> extends Qu
 			
 			IAtomContainer mol = reader.process(item);
 			for (Property p : item.getProperties())
-				mol.getProperties().put(p,item.getProperty(p));
+				mol.setProperty(p,item.getProperty(p));
 			writeMolecule(mol);
 			
 			
