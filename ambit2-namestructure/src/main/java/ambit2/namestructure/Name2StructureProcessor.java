@@ -100,7 +100,7 @@ public class Name2StructureProcessor extends
 
 			if (cml != null) {
 				IAtomContainer mol = MoleculeTools.readCMLMolecule(cml);
-				mol.getProperties().clear();
+				
 				mol.setProperty(
 						Property.getInstance("Name",
 								Property.opentox_IupacName,
