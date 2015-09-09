@@ -25,6 +25,7 @@ var config_ce_inchemico = {
               	 "bVisible": false
              },                
              "citation": {
+             		"sTitle": "Data entry year",
                  "bVisible": true,
                  "iOrder": -16
              }   
@@ -92,6 +93,7 @@ var config_ce_invitro = {
               	 "bVisible": false
             },            
             "citation": {
+            		"sTitle": "Data entry year",
                 "bVisible": true,
                 "iOrder": -13
             }   
@@ -183,6 +185,7 @@ var config_ce_llna = {
            	 "bVisible": false
             },
             "owner" : {
+             "sTitle" : "Provided by",	
            	 "bVisible": false
             },
             "citation" : {
@@ -270,6 +273,7 @@ var config_ce_humandb = {
             	 "bVisible": false
              },
              "owner" : {
+             	"sTitle" : "Provided by",
             	 "bVisible": false
              },
              "citation" : {
@@ -345,6 +349,7 @@ var config_ce_insilico = {
              	 "bVisible": false
             },               
             "citation": {
+            		"sTitle": "Data entry year",
                 "bVisible": true
             }   
         },
