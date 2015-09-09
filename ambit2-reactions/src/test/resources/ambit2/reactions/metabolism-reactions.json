@@ -1,0 +1,78 @@
+{
+	"REACTIONS":
+	[
+		{
+			"NAME" : "Aliphatic hydroxylation",
+			"CLASS" : "phase1",
+			"SMIRKS" : "[C;X4:1][H:2]>>[C:1][O][H:2]",
+			"USE" : true
+		},
+		{
+			"NAME" : "Phosphorylation",
+			"CLASS" : "Glycolysis",
+			"SMIRKS" : "[CX4H2:1][OX2:2][H]>>[CX4H2:1][OX2H0:2][P]([O][H])([O][H])=[OX1]",
+			"USE" : false
+		},	
+		{
+			"NAME" : "Aromatic hydroxylation",
+			"CLASS" : "phase1",
+			"SMIRKS" : "[c:1][H:2]>>[c:1][O][H:2]",
+			"USE" : true
+		},
+		{
+			"NAME" : "O-dealkylation",
+			"CLASS" : "phase1",
+			"SMIRKS" : "[O:1][C:2]([H])>>[O:1][H].[C:2]=[O]",
+			"USE" : true
+		},
+		{
+			"NAME" : "Aldehyde oxidation",
+			"CLASS" : "phase1",
+			"SMIRKS" : "[H][C:1]=[O:2]>>[C:1](O[H])=[O:2]",
+			"USE" : false
+		},
+		{
+			"NAME" : "Alcohol oxidation",
+			"CLASS" : "phase1",
+			"SMIRKS" : "[C:1]([H])[O:2][H]>>[C:1]=[O:2]",
+			"USE" : false
+		},
+		{
+			"NAME" : "Dioxolane demethylation",
+			"CLASS" : "phase1",
+			"SMIRKS" : "[C:3]([#8:1])[#8:2]>>[#8:1].[#8:2].[C:3]=[O]",
+			"USE" : false
+		},
+		{
+			"NAME" : "Epoxidation",
+			"CLASS" : "phase1",
+			"SMIRKS" : "[C:1]=[C:2]>>[C:1]1[C:2][O]1",
+			"USE" : false
+		},
+		{
+			"NAME" : "Ester hydrolysis",
+			"CLASS" : "phase1.reduction",
+			"SMIRKS" : "[#6:1][CX3:2](=[OX1:3])[OX2H0:4][#6:5]>>[#6:1][CX3:2](=[OX1:3])[OH].[#6:5][OX2H0:4]",
+			"USE" : false
+		},
+		{
+			"NAME" : "Epoxide  hydrolysis",
+			"CLASS" : "phase1.reduction",
+			"SMIRKS" : "[C:1]([*:2])1[C:3]([*:4])[O:5]1>>([*:2])[C:1]([O])[C:3]([*:4])[O:5]",
+			"USE" : false
+		}
+	],
+	
+	
+	"REACTOR_STRATEGY":
+	{
+		"MAX_NUM_OF_REACTIONS" : -1,
+		"MAX_LEVEL" : 1,
+		
+		"ALLOWED_PRODUCTS_SMILES" :
+		[
+			"O=C=O",
+			"O"
+		]
+	}
+}
