@@ -226,7 +226,7 @@ var config_ce_llna = {
             "text": {
                 "bVisible": true,
                 "inMatrix" : true,
-                "sTitle": "",
+                "sTitle": "Sensitisation potential",
                 "iOrder": -6                    
             }
         },
