@@ -7,9 +7,12 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.Map;
 
 import org.junit.Test;
+import org.openscience.cdk.interfaces.IAtom;
 import org.openscience.cdk.interfaces.IAtomContainer;
 import org.openscience.cdk.io.iterator.IIteratingChemObjectReader;
 import org.openscience.cdk.qsar.DescriptorValue;
@@ -20,6 +23,7 @@ import org.openscience.cdk.tools.manipulator.AtomContainerManipulator;
 
 import ambit2.base.interfaces.IStructureRecord;
 import ambit2.core.helper.CDKHueckelAromaticityDetector;
+import ambit2.core.io.FileInputState;
 import ambit2.core.io.MyIteratingMDLReader;
 import ambit2.core.io.RawIteratingSDFReader;
 import ambit2.descriptors.AtomEnvironment;
@@ -170,8 +174,39 @@ public class AtomEnvironmentGeneratorTest {
 		reader.close();
 	}
 
-	public void runAtomTypeMatrixDescriptor(String root, String file)
+	protected Map<String,String> lookup(String id_tag, String activityTag, String mergeResultsFile) {
+		
+		if (mergeResultsFile == null) return null;
+		if (activityTag==null) return null;
+		if (id_tag==null) return null;
+		
+		Map<String,String> map = new HashMap<String,String>();
+		IIteratingChemObjectReader reader = null;
+		try {
+			reader = FileInputState.getReader(new FileInputStream(mergeResultsFile), mergeResultsFile);
+			while (reader.hasNext()) {
+				IAtomContainer mol = (IAtomContainer) reader.next();
+				String id = mol.getProperty(id_tag);
+				Object activity = mol.getProperty(activityTag);
+				if ((id!=null) && (activity!=null)) {
+					map.put(id, activity.toString());
+				}
+			}
+		} catch (Exception x) {
+			x.printStackTrace();
+		} finally  {
+			try {reader.close();} catch (Exception x) {}
+		}
+		return map;
+	}
+
+	public void runAtomTypeMatrixDescriptor(String root, String file,
+			String id_tag, String activityTag, String mergeResultsFile)
 			throws Exception {
+
+		Map<String, String> lookup = lookup(id_tag, activityTag,
+				mergeResultsFile);
+
 		AtomEnvironmentMatrixDescriptor gen = new AtomEnvironmentMatrixDescriptor();
 		InputStream in = new FileInputStream(new File(root, file));
 
@@ -192,21 +227,32 @@ public class AtomEnvironmentGeneratorTest {
 					".sdf", "") + set + "_AEMATRIX.csv"));
 			writers.put(set, writer);
 		}
+		int row = 0;
 		boolean header = false;
 		while (reader.hasNext()) {
-
+			row++;
 			IAtomContainer mol = reader.next();
+			Object id = id_tag == null ? row : mol.getProperty(id_tag);
+
 			String set = mol.getProperty("Set") == null ? "" : mol.getProperty(
 					"Set").toString();
-			Object activityValue = mol.getProperty("Activity") == null ? ""
-					: mol.getProperty("Activity");
+			Object activityValue = mol.getProperty(activityTag) == null ? ""
+					: mol.getProperty(activityTag);
+			
+			if (lookup!=null && (id_tag!=null)) {
+				activityValue = lookup.get(id);
+			}
+			
 			FileWriter writer = writers.get("ALL");
 			System.out.print(".");
 			try {
 				AtomContainerManipulator
 						.percieveAtomTypesAndConfigureAtoms(mol);
+				for (IAtom atom : mol.atoms()) {
+					if ("H".equals(atom.getSymbol())) atom.setImplicitHydrogenCount(0);
+				}
 			} catch (Exception x) {
-				System.err.println(x.getMessage());
+				printError(row, id_tag, id, x);
 			}
 			// if (useHydrogens) { //always, otherwise atom types are not
 			// recognised correctly
@@ -216,7 +262,7 @@ public class AtomEnvironmentGeneratorTest {
 				mol = AtomContainerManipulator.suppressHydrogens(mol);
 
 			} catch (Exception x) {
-				System.err.println(x.getMessage());
+				printError(row, id_tag, id, x);
 			}
 			try {
 				if (hAdder == null)
@@ -224,14 +270,18 @@ public class AtomEnvironmentGeneratorTest {
 							.getInstance(SilentChemObjectBuilder.getInstance());
 				hAdder.addImplicitHydrogens(mol);
 			} catch (Exception x) {
-
+				printError(row, id_tag, id, x);
 			}
+
 			try {
 				CDKHueckelAromaticityDetector.detectAromaticity(mol);
 			} catch (Exception x) {
+				printError(row, id_tag, id, x);
 			}
 			DescriptorValue value = gen.calculate(mol);
 			if (!header) {
+				writer.write(id_tag == null ? "Row" : id_tag);
+				writer.write(",");
 				for (int i = 0; i < value.getNames().length; i++) {
 					// attr.write(value.getNames()[i]);
 					// attr.write('\n');
@@ -240,13 +290,20 @@ public class AtomEnvironmentGeneratorTest {
 					writer.write('"');
 					writer.write(",");
 				}
-				writer.write("Activity,Set");
+				writer.write(",Activity,Set");
 				writer.write('\n');
 				header = true;
 				mmcols = value.getNames().length;
 				// attr.close();
 			}
 			// row
+			if (id == null)
+				writer.write(row);
+			else {
+				writer.write(id.toString());
+			}
+
+			writer.write(",");
 
 			for (int i = 0; i < value.getNames().length; i++) {
 				int count = 0;
@@ -261,9 +318,9 @@ public class AtomEnvironmentGeneratorTest {
 				try {
 					double activity = Double.parseDouble(activityValue
 							.toString());
-					writer.write(activity == 1.0 ? "Yes" : "No");
+					writer.write(activity == 1.0 ? "Active" :(activity == 0)?"Inactive":activityValue.toString());
 				} catch (Exception x) {
-					writer.write("Unknown");
+					writer.write(activityValue.toString());
 				}
 			writer.write(",");
 			writer.write(set);
@@ -310,17 +367,27 @@ public class AtomEnvironmentGeneratorTest {
 
 	}
 
+	private void printError(int row, String id_tag, Object id, Exception x) {
+		System.err.println(String.format("\nError at row %d\t%s = %s\t%s", row,
+				id_tag == null ? "ROW=" : id_tag, id, x.getMessage()));
+	}
+
 	public static void main(String[] args) {
 		AtomEnvironmentGeneratorTest test = new AtomEnvironmentGeneratorTest();
 		String root = args.length > 0 ? args[0] : null;
 		String file = args.length > 1 ? args[1] : null;
-
+		String id_tag = args.length > 2 ? args[2] : null;
+		String activityTag = args.length > 3 ? args[3] : "Activity";
+		String mergeResultsFile = args.length > 4 ? args[4] : null;
 		try {
 			if (root == null)
-				throw new Exception("Folder not specified.\nUsage: AtomEnvironmentGeneratorTest rootfolder file.sdf");
+				throw new Exception(
+						"Folder not specified.\nUsage: AtomEnvironmentGeneratorTest rootfolder file.sdf idtag activitytag mergeresultsfile");
 			if (file == null)
-				throw new Exception("SDF file not specified.\nUsage: AtomEnvironmentGeneratorTest rootfolder file.sdf");
-			test.runAtomTypeMatrixDescriptor(root, file);
+				throw new Exception(
+						"SDF file not specified.\nUsage: AtomEnvironmentGeneratorTest rootfolder file.sdf idtag activitytag mergeresultsfile");
+			test.runAtomTypeMatrixDescriptor(root, file, id_tag, activityTag,
+					mergeResultsFile);
 		} catch (Exception x) {
 			x.printStackTrace();
 		}
