@@ -233,8 +233,8 @@ var config_ce_llna = {
         "interpretation": {
             "result": {
                 "sTitle": "Potency",
-                "inMatrix" : true,
-                "bVisible": true,
+                "inMatrix" : false,
+                "bVisible": false,
                 "iOrder": -5
             },
             "criteria": {
