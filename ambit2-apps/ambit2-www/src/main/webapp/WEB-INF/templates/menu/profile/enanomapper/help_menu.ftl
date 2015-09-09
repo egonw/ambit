@@ -41,6 +41,8 @@
 			</li>
 			</ul>
 		</li>
+		<li><a href="http://www.enanomapper.net/" target=_blank title="This project has received funding from the European Union’s FP7 for research, technological development and demonstration under grant agreement no 604134.">EU FP7 #604134</a></li>
+		<li><a href="http://www.ideaconsult.net/" target=_blank title="Developed by IdeaConsult Ltd.">Developed by</a>	</li>		
 		</ul>
 	</li>
 
