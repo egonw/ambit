@@ -17,6 +17,7 @@ import org.openscience.cdk.silent.SilentChemObjectBuilder;
 import org.openscience.cdk.tools.CDKHydrogenAdder;
 import org.openscience.cdk.tools.manipulator.AtomContainerManipulator;
 
+import ambit2.base.interfaces.IStructureRecord;
 import ambit2.core.io.FileInputState;
 
 public class PDBReaderTest {
@@ -30,7 +31,7 @@ public class PDBReaderTest {
 		while (reader.hasNext()) {
 			Object o = reader.next();
 			logger.fine(o.toString());
-			Assert.assertTrue(o instanceof IAtomContainer);
+			Assert.assertTrue(o instanceof IStructureRecord);
 			count++;
 		}
 		reader.close();
