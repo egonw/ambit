@@ -31,7 +31,6 @@ import java.util.BitSet;
 import java.util.List;
 
 import org.openscience.cdk.CDKConstants;
-import org.openscience.cdk.annotations.TestClass;
 import org.openscience.cdk.exception.CDKException;
 import org.openscience.cdk.graph.Cycles;
 import org.openscience.cdk.interfaces.IAtom;
@@ -78,7 +77,7 @@ import ambit2.smarts.SmartsParser;
  * @cdk.githash
  * @cdk.threadnonsafe
  */
-@TestClass("org.openscience.cdk.fingerprint.PubchemFingerprinterTest")
+
 public class PubChemFingerprinter {
 
 	/**
