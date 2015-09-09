@@ -28,7 +28,10 @@ var config_ce_inchemico = {
              		"sTitle": "Data entry year",
                  "bVisible": true,
                  "iOrder": -16
-             }   
+             },
+            "owner" : {
+             "sTitle" : "Provided by"
+            }                   
          },
          "conditions": {
              "c_endpoint": {
@@ -96,8 +99,10 @@ var config_ce_invitro = {
             		"sTitle": "Data entry year",
                 "bVisible": true,
                 "iOrder": -13
-            }   
-            
+            }  ,
+            "owner" : {
+             "sTitle" : "Provided by"
+            }             
         },
         "conditions": {
             "target gene": {
@@ -351,7 +356,10 @@ var config_ce_insilico = {
             "citation": {
             		"sTitle": "Data entry year",
                 "bVisible": true
-            }   
+            } ,
+            "owner" : {
+             "sTitle" : "Provided by"
+            }                 
         },
         "effects": {
             "endpoint": {
