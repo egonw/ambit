@@ -22,7 +22,6 @@ import org.openscience.cdk.isomorphism.UniversalIsomorphismTester;
 import org.openscience.cdk.isomorphism.matchers.IQueryAtomContainer;
 import org.openscience.cdk.isomorphism.matchers.QueryAtomContainer;
 import org.openscience.cdk.isomorphism.matchers.smarts.LogicalOperatorAtom;
-import org.openscience.cdk.ringsearch.AllRingsFinder;
 import org.openscience.cdk.silent.SilentChemObjectBuilder;
 import org.openscience.cdk.smiles.smarts.parser.SMARTSParser;
 import org.openscience.cdk.tools.manipulator.AtomContainerManipulator;
@@ -897,13 +896,11 @@ public class AutomaticTestUtilities {
 		valencesTable.put("Co", 2);
 
 		// do all ring perception
-		AllRingsFinder arf = new AllRingsFinder();
 		IRingSet allRings;
 		try {
-			allRings = arf.findAllRings(atomContainer);
+			allRings = Cycles.all(atomContainer).toRingSet();
 		} catch (CDKException e) {
-			// logger.debug(e.toString());
-			throw new CDKException(e.toString(), e);
+			throw e;
 		}
 
 		// sets SSSR information
