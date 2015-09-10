@@ -81,26 +81,27 @@ $(document).ready(function() {
 <div class="four columns" id="sidebar" style="padding:0 2px 2px 2px 0;margin-right:0;" >
 	<input type='button' class='remove-bottom' value='Update results' onClick='facet.searchStudy();'>
 	<div id="accordion" style="padding-top:0;padding-left:1px;padding-right:1px;padding-bottom:2px;margin:0;font-size:80%">
-		<h3>P-Chem</h3>
-		  <table id='facet_pchem' class='facet .jtox-toolkit' cellpadding='0' border='0' width='100%' cellspacing='0' style="margin:0;padding:0;" >
+		<h3 id='facet_tox_hdr' >Tox</h3>
+		  <table id='facet_tox' class='facet ' cellpadding='0' border='0' width='100%' cellspacing='0' style="margin:0;padding:0;" >
 			<thead><tr><th ></th><th ></th></tr></thead>
 			<tbody></tbody>
-		   </table>
-		<h3>Env Fate</h3>
-		  <table id='facet_envfate' class='facet ' cellpadding='0' border='0' width='100%' cellspacing='0' style="margin:0;padding:0;" >
-			<thead><tr><th ></th><th ></th></tr></thead>
-			<tbody></tbody>
-		   </table>
-		<h3>Eco Tox</h3>
+		   </table>	
+		<h3 id='facet_ecotox_hdr'>Eco Tox</h3>
 		  <table id='facet_ecotox' class='facet ' cellpadding='0' border='0' width='100%' cellspacing='0' style="margin:0;padding:0;" >
 			<thead><tr><th ></th><th ></th></tr></thead>
 			<tbody></tbody>
 		   </table>
-		<h3>Tox</h3>
-		  <table id='facet_tox' class='facet ' cellpadding='0' border='0' width='100%' cellspacing='0' style="margin:0;padding:0;" >
+		<h3 id='facet_envfate_hdr'>Env Fate</h3>
+		  <table id='facet_envfate' class='facet ' cellpadding='0' border='0' width='100%' cellspacing='0' style="margin:0;padding:0;" >
 			<thead><tr><th ></th><th ></th></tr></thead>
 			<tbody></tbody>
 		   </table>
+		<h3 id='facet_pchem_hdr'>P-Chem</h3>
+		  <table id='facet_pchem' class='facet .jtox-toolkit' cellpadding='0' border='0' width='100%' cellspacing='0' style="margin:0;padding:0;" >
+			<thead><tr><th ></th><th ></th></tr></thead>
+			<tbody></tbody>
+		   </table>
+		
 		</div>
 		<input type='button' class='remove-bottom'  value='Update results' onClick='facet.searchStudy();'>
 		

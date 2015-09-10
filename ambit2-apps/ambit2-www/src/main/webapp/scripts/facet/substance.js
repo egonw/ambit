@@ -163,7 +163,52 @@ var facet = {
 						"sSearch": "Filter:",
 						"sProcessing": "<img src='"+root+"/images/24x24_ambit.gif' border='0'>",
 			            "sLoadingRecords": "No records found."
-			    }
+			    },
+			    "fnServerData" : function(sSource, aoData, fnCallback,oSettings) {
+					oSettings.jqXHR = $.ajax({
+						"type" : "GET",
+						"url" : sSource,
+						"data" : aoData,
+						"dataType" : "json",
+						"contentType" : "application/json",
+						"cache" : true,
+						"success": function(result){
+							try {
+								if (result.facet.length == 0) {
+									$(selector+"_hdr").hide();
+									$(selector).hide();
+								} else {
+									$(selector+"_hdr").show();
+									$(selector).show();
+									fnCallback(result);
+								}	
+							} catch (err) {
+								
+							}
+							
+						},
+						"error" : function(xhr, textStatus, error) {
+							switch (xhr.status) {
+							case 400: {
+								console.log("none");
+								break;
+							}
+							case 403: {
+					        	alert("Restricted access. You are not authorized to access the requested resources.");
+								break;
+							}
+							case 404: {
+								//not found
+								break;
+							}
+							default: {
+
+							}
+							}
+							oSettings.oApi._fnProcessingDisplay(oSettings, false);
+						}
+					});
+				}			    
 			} );
 			
 			$(selector + ' tbody').on('click','td.details-control span',function() {
