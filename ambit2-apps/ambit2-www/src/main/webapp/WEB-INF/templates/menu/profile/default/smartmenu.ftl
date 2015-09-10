@@ -12,15 +12,17 @@
 	<#include "/menu/profile/default/assessment_menu.ftl">
 </li>	
 
+
+<li>
+<a href="#">Enhanced functions</a>
+<ul>
 <li >
 	<a href="${ambit_root}/ui/toxtree" title="Toxtree web release">Toxtree predictions</a>
 </li>
 
 <#if username??>
 <#if openam_token??>
-	<li>
-	<a href="#">Enhanced functions</a>
-	<ul>
+
 	<li>
 		<a href="${ambit_root}/algorithm" title="Descriptor calculations, model building and data processing algorithms">Algorithms</a>
 		<#include "/menu/profile/default/algorithm_menu.ftl">
@@ -32,35 +34,48 @@
 	<li><a href="${ambit_root}/dataset?page=0&pagesize=100" title="Chemical structures and calculated properties">Chemical structures</a></li>	
 	</ul>
 	</li>
+
+	
 	<li>
 		<a href="${ambit_root}/admin">Admin</a>
 		<#include "/menu/profile/default/admin_menu.ftl">
 	</li>	
 <#else>
-		<li>
-		<a href="#">Enhanced functions</a>
-		<ul>
-		<#if (ambit_modeller?? && ambit_modeller)>
-		<li>
+
+		<#if ambit_admin?? && ambit_admin>
+			<li>
 			<a href="${ambit_root}/algorithm" title="Descriptor calculations, model building and data processing algorithms">Algorithms</a>
 			<#include "/menu/profile/default/algorithm_menu.ftl">
-		</li>
-		<li>
+			</li>
+			<li>
 			<a href="${ambit_root}/model" title="Regression, classification, clustering, structural alerts, applicability domain, structure optimisation.">Models</a>
 			<#include "/menu/profile/default/model_menu.ftl">
-		</li>
-		</#if>
-		<#if (ambit_datasetmgr?? && ambit_datasetmgr) >		
-			<li><a href="${ambit_root}/dataset?page=0&pagesize=100" title="Chemical structures and calculated properties">Chemical structures</a></li>	
-		</#if>
-		</ul>		
-		</li>
-	<#if ambit_admin?? && ambit_admin>
-		<li>
-			<a href="${ambit_root}/admin">Admin</a>
-			<#include "/menu/profile/default/admin_menu.ftl">
-		</li>	
-	</#if>		
+			</li>
+			<li><a href="${ambit_root}/dataset?page=0&pagesize=100" title="Chemical structures and calculated properties">Chemical structures</a></li>
+			</ul>		
+			</li>
+			<li>
+				<a href="${ambit_root}/admin">Admin</a>
+				<#include "/menu/profile/default/admin_menu.ftl">
+			</li>
+		<#else>	
+			<#if (ambit_modeller?? && ambit_modeller)>
+			<li>
+				<a href="${ambit_root}/algorithm" title="Descriptor calculations, model building and data processing algorithms">Algorithms</a>
+				<#include "/menu/profile/default/algorithm_menu.ftl">
+			</li>
+			<li>
+				<a href="${ambit_root}/model" title="Regression, classification, clustering, structural alerts, applicability domain, structure optimisation.">Models</a>
+				<#include "/menu/profile/default/model_menu.ftl">
+			</li>
+			</#if>
+			
+			<#if (ambit_datasetmgr?? && ambit_datasetmgr) >		
+				<li><a href="${ambit_root}/dataset?page=0&pagesize=100" title="Chemical structures and calculated properties">Chemical structures</a></li>	
+			</#if>
+			</ul>		
+			</li>		
+		</#if>		
 </#if>
 </#if>
 
