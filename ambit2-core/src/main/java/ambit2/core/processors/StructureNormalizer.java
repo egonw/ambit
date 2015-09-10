@@ -94,7 +94,7 @@ public class StructureNormalizer extends DefaultAmbitProcessor<IStructureRecord,
 		IAtomContainer molecule = molReader.process(structure);
 		
 		if ((molecule != null) && (molecule.getProperties()!=null))
-			structure.addProperties(molecule.getProperties());
+			structure.addRecordProperties(molecule.getProperties());
 		
 		if ((molecule == null) || (molecule.getAtomCount()==0)) structure.setType(STRUC_TYPE.NA);
 		else {

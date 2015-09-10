@@ -251,7 +251,7 @@ public class DatasetRDFReporter<Q extends IQueryRetrieval<IStructureRecord>> ext
 		header = template2Header(template, true);
 
 	    boolean sort = false;
-	    for (Property p : item.getProperties())
+	    for (Property p : item.getRecordProperties())
 		if (!acceptProperty(p))
 		    continue;
 		else if (Collections.binarySearch(header, p, comp) < 0) {
@@ -285,7 +285,7 @@ public class DatasetRDFReporter<Q extends IQueryRetrieval<IStructureRecord>> ext
 	    // writer.write(String.format("/conformer/%d",item.getIdstructure()));
 
 	    for (ambit2.base.data.Property p : header) {
-		Object value = item.getProperty(p);
+		Object value = item.getRecordProperty(p);
 		if (value == null)
 		    continue;
 

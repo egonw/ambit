@@ -68,8 +68,8 @@ public class PropertyWriterTest  extends DbUnitTest {
 		for (int i=0; i < 255;i++) b.append(i % 10);	
 		for (int i=0; i < 255;i++) b.append("c");
 		for (int i=0; i < 255;i++) b.append("b");		
-		record.setProperty(Property.getInstance("Property1","Reference 1"), b.toString());
-		record.setProperty(Property.getInstance("Property2","Reference 1"), 0.99);
+		record.setRecordProperty(Property.getInstance("Property1","Reference 1"), b.toString());
+		record.setRecordProperty(Property.getInstance("Property2","Reference 1"), 0.99);
 		
         writer.setConnection(c.getConnection());
         writer.open();
@@ -81,7 +81,7 @@ public class PropertyWriterTest  extends DbUnitTest {
 		Assert.assertEquals(b.toString(),names.getValue(0,"value"));
 		Assert.assertEquals("TRUNCATED",names.getValue(0,"status"));		
 	
-		record.setProperty(Property.getInstance("Property1","Reference 1"),"Value1");
+		record.setRecordProperty(Property.getInstance("Property1","Reference 1"),"Value1");
 		
         writer.write(record);
         c.close();
@@ -132,7 +132,7 @@ public class PropertyWriterTest  extends DbUnitTest {
 				Object mol = mReader.next();
 				if (mol instanceof IAtomContainer) {
 					o.clearProperties();
-					o.addProperties(((IAtomContainer)mol).getProperties());
+					o.addRecordProperties(((IAtomContainer)mol).getProperties());
 					propertyWriter.write(o);
 				}
 			}

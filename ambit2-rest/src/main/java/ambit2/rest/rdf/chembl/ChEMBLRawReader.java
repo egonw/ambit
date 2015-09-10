@@ -199,7 +199,7 @@ public class ChEMBLRawReader implements IRawReader<IStructureRecord>{
 				default: uri = null;
 			}
 			Property p = property.getProperty(uri);
-			record.setProperty(p, value);
+			record.setRecordProperty(p, value);
 		}
 		return record;
 

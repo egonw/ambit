@@ -28,6 +28,7 @@ import org.openscience.cdk.interfaces.IBond;
 import org.openscience.cdk.interfaces.IBond.Order;
 import org.openscience.cdk.interfaces.IChemFile;
 import org.openscience.cdk.interfaces.IChemModel;
+import org.openscience.cdk.interfaces.IChemObject;
 import org.openscience.cdk.interfaces.IChemObjectBuilder;
 import org.openscience.cdk.interfaces.IChemSequence;
 import org.openscience.cdk.interfaces.IElement;
@@ -493,5 +494,15 @@ public class MoleculeTools {
 		 */
 		return AtomContainerManipulator.removeHydrogensPreserveMultiplyBonded(newMol);
 		// return newMol;
+	}
+	
+	public static void clearProperties(IChemObject chemObject) {
+		chemObject.setProperties(null);
+		/*
+		Iterator props = chemObject.getProperties().keySet().iterator();
+		while (props.hasNext()) {
+			chemObject.removeProperty(props.next());	
+		}
+		*/	
 	}
 }

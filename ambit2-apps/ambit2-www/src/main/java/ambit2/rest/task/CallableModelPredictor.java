@@ -230,7 +230,7 @@ class RDFFileWriter extends AbstractDBProcessor<IStructureRecord, IStructureReco
 	@Override
 	public IStructureRecord process(IStructureRecord target)
 			throws AmbitException {
-		for (Property p: target.getProperties())
+		for (Property p: target.getRecordProperties())
 			recordWriter.getTemplate().add(p);
 		
 		return recordWriter.process(target);

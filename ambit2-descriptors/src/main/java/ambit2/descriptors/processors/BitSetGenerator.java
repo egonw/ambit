@@ -275,7 +275,7 @@ public class BitSetGenerator extends AbstractPropertyGenerator<BitSet> {
 			
 			if ("true".equals(Preferences
 					.getProperty(Preferences.FASTSMARTS))) {
-				Object smartsdata = target.getProperty(smartsProperty);
+				Object smartsdata = target.getRecordProperty(smartsProperty);
 	
 				if (smartsdata != null) {
 					mol.setProperty(smartsProperty, smartsdata);

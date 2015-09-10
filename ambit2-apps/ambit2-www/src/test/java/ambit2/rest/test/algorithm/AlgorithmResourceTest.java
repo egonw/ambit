@@ -300,6 +300,7 @@ public class AlgorithmResourceTest extends ResourceTest {
 						//"1?feature_uris[]=http%3A%2F%2Flocalhost%3A8181%2Ffeature%2FXLogPorg.openscience.cdk.qsar.descriptors.molecular.XLogPDescriptor"));
 		
 		int count = 0;
+		ref.addQueryParameter("media","application/rdf+xml");
 		RDFPropertyIterator i = new RDFPropertyIterator(ref);
 		i.setCloseModel(true);
 		while (i.hasNext()) {

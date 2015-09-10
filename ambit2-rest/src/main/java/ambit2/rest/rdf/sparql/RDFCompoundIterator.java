@@ -58,28 +58,28 @@ public class RDFCompoundIterator extends RDFAbstractCompoundIterator<IStructureR
 	@Override
 	protected void setValue(IStructureRecord record, Property property,
 			double value) {
-		record.setProperty(property, value);
+		record.setRecordProperty(property, value);
 		
 	}
 
 	@Override
 	protected void setValue(IStructureRecord record, Property property,
 			float value) {
-		record.setProperty(property, value);
+		record.setRecordProperty(property, value);
 		
 	}
 
 	@Override
 	protected void setValue(IStructureRecord record, Property property,
 			int value) {
-		record.setProperty(property, value);
+		record.setRecordProperty(property, value);
 		
 	}
 
 	@Override
 	protected void setValue(IStructureRecord record, Property property,
 			String value) {
-		record.setProperty(property, value);
+		record.setRecordProperty(property, value);
 		
 	}
 

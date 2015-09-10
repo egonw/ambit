@@ -64,23 +64,23 @@ public class ReadChemIdentifiersByComposition extends
 				value = rs.getObject(5);
 
 				if (value == null) {
-					record.setProperty(p, Double.NaN);
+					record.setRecordProperty(p, Double.NaN);
 					p.setClazz(Number.class);
 				} else
 					try {
-						record.setProperty(p, rs.getFloat(5));
+						record.setRecordProperty(p, rs.getFloat(5));
 						p.setClazz(Number.class);
 					} catch (Exception x) { // non-numbers, because of the
 						// concat ...
-						record.setProperty(p, rs.getString(5));
+						record.setRecordProperty(p, rs.getString(5));
 						p.setClazz(String.class);
 					}
 			} else {
 				if (NaN.equals(value.toString())) {
-					record.setProperty(p, Double.NaN);
+					record.setRecordProperty(p, Double.NaN);
 					p.setClazz(Number.class);
 				} else {
-					record.setProperty(p, rs.getString(4));
+					record.setRecordProperty(p, rs.getString(4));
 					p.setClazz(String.class);
 				}
 			}
@@ -96,9 +96,9 @@ public class ReadChemIdentifiersByComposition extends
 		for (CompositionRelation r : target.getRelatedStructures())
 			if (detail.getIdchemical() == r.getSecondStructure()
 					.getIdchemical()) {
-				for (Property p : detail.getProperties()) {
+				for (Property p : detail.getRecordProperties()) {
 					r.getSecondStructure()
-							.setProperty(p, detail.getProperty(p));
+							.setRecordProperty(p, detail.getRecordProperty(p));
 				}
 				if (target.getIdsubstance() == -1) {
 
@@ -111,14 +111,14 @@ public class ReadChemIdentifiersByComposition extends
 					r.getRelation().setTypical_value(100.0);
 					r.getRelation().setTypical_unit("%");
 
-					for (Property p : detail.getProperties()) {
+					for (Property p : detail.getRecordProperties()) {
 						if (Property.opentox_Name.equals(p.getLabel())) {
-							target.setProperty(new SubstancePublicName(),
-									detail.getProperty(p));
+							target.setRecordProperty(new SubstancePublicName(),
+									detail.getRecordProperty(p));
 						} else if (Property.opentox_TradeName.equals(p
 								.getLabel())) {
-							target.setProperty(new SubstanceName(),
-									detail.getProperty(p));
+							target.setRecordProperty(new SubstanceName(),
+									detail.getRecordProperty(p));
 						}
 					}
 				}

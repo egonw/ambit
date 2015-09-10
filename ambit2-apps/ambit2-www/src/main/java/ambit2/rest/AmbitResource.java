@@ -33,7 +33,6 @@ import ambit2.rest.sparqlendpoint.SPARQLPointerResource;
 import ambit2.rest.structure.CompoundResource;
 import ambit2.rest.structure.ConformerResource;
 import ambit2.rest.structure.smirks.ReactionDepict;
-import ambit2.rest.structure.tautomers.TautomersDepict;
 
 /**
  * window.setInterval(function() {
@@ -509,12 +508,12 @@ public class AmbitResource extends FreeMarkerResource {
 		w.write(String.format("&nbsp;<a href='%s/ui'>Home</a>&nbsp;",baseReference));
 		w.write(String.format("<a href='%s/ui/_search'>Search</a>&nbsp;",baseReference));
 
-		w.write(String.format("<a href='%s/query/similarity?search=c1ccccc1Oc2ccccc2&threshold=0.9' title='Search for similar structures'>Similarity search</a> ",baseReference));
+//		w.write(String.format("<a href='%s/query/similarity?search=c1ccccc1Oc2ccccc2&threshold=0.9' title='Search for similar structures'>Similarity search</a> ",baseReference));
 		w.write(String.format("<a href='%s/query/smarts?text=\"\"' title='Substructure search by SMARTS patterns'>Substructure search</a> ",baseReference));
 		w.write("<b>Demo:</b>");
 		w.write(String.format("<a href='%s/depict?search=%s' title='Structure diagram'>Depiction</a> ",baseReference,Reference.encode("O=c2c1ccccc1c3ccccc23")));
 		w.write(String.format("<a href='%s/demo%s?search=c1ccccc1' title='SMIRKS test'>Reactions</a> ",baseReference,ReactionDepict.resource));
-		w.write(String.format("<a href='%s/demo%s?search=%s' title='Tautomer test'>Tautomers</a> ",baseReference,TautomersDepict.resource,Reference.encode("NC=1N=CN=C2N=CNC2=1")));
+//		w.write(String.format("<a href='%s/demo%s?search=%s' title='Tautomer test'>Tautomers</a> ",baseReference,TautomersDepict.resource,Reference.encode("NC=1N=CN=C2N=CNC2=1")));
 		
 		w.write(String.format("<a href='%s/ui/toxtree' >Toxtree</a> ",baseReference));
 

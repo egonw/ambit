@@ -31,10 +31,10 @@ public class BundleChemical_crud_test extends
 		query.setGroup(bundle);
 
 		StructureRecord record = new StructureRecord(10, -1, null, null);
-		record.setProperty(
+		record.setRecordProperty(
 				new Property("tag", LiteratureEntry.getBundleReference(bundle)),
 				"target");
-		record.setProperty(
+		record.setRecordProperty(
 				new Property("remarks", LiteratureEntry
 						.getBundleReference(bundle)), StringUtils.repeat("A",
 						50));
@@ -50,10 +50,10 @@ public class BundleChemical_crud_test extends
 		query.setGroup(bundle);
 
 		StructureRecord record = new StructureRecord(7, -1, null, null);
-		record.setProperty(
+		record.setRecordProperty(
 				new Property("tag", LiteratureEntry.getBundleReference(bundle)),
 				"target");
-		record.setProperty(
+		record.setRecordProperty(
 				new Property("remarks", LiteratureEntry
 						.getBundleReference(bundle)), "ABCDEF");
 		query.setObject(record);
@@ -68,10 +68,10 @@ public class BundleChemical_crud_test extends
 		query.setGroup(bundle);
 
 		StructureRecord record = new StructureRecord(29141, -1, null, null);
-		record.setProperty(
+		record.setRecordProperty(
 				new Property("tag", LiteratureEntry.getBundleReference(bundle)),
 				"target");
-		record.setProperty(
+		record.setRecordProperty(
 				new Property("remarks", LiteratureEntry
 						.getBundleReference(bundle)), "ABCDEF");
 		query.setObject(record);

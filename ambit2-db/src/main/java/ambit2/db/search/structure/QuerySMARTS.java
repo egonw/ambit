@@ -197,7 +197,7 @@ public class QuerySMARTS extends
 				if (hAdder==null) hAdder = CDKHydrogenAdder.getInstance(SilentChemObjectBuilder.getInstance());
 				boolean detectAromaticity = true;
 				if ("true".equals(Preferences.getProperty(Preferences.FASTSMARTS)) && isUsePrecalculatedAtomProperties()) {
-					Object smartsdata = object.getProperty(smartsProperty);
+					Object smartsdata = object.getRecordProperty(smartsProperty);
 
 					if (smartsdata != null) {
 						mol.setProperty(smartsProperty, smartsdata);

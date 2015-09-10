@@ -185,7 +185,7 @@ public class QueryExactStructure extends AbstractStructureQuery<String, IAtomCon
 
 				if ("true".equals(Preferences
 						.getProperty(Preferences.FASTSMARTS))) {
-					Object smartsdata = object.getProperty(smartsProperty);
+					Object smartsdata = object.getRecordProperty(smartsProperty);
 
 					if (smartsdata != null) {
 						mol.setProperty(smartsProperty, smartsdata);

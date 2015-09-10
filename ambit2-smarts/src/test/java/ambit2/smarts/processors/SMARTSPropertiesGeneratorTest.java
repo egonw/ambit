@@ -53,8 +53,8 @@ public class SMARTSPropertiesGeneratorTest {
 			
 			c = mr.process(record); //get the record anew
 			record = gen.process(record);  
-			Assert.assertNotNull(record.getProperty(gen.getProperty()));
-			c.setProperty(gen.getProperty(),record.getProperty(gen.getProperty()) );
+			Assert.assertNotNull(record.getRecordProperty(gen.getProperty()));
+			c.setProperty(gen.getProperty(),record.getRecordProperty(gen.getProperty()) );
 			Assert.assertNotNull(c.getProperty(gen.getProperty()));
 			testMatch(c);
 			
@@ -109,8 +109,8 @@ public class SMARTSPropertiesGeneratorTest {
 			//get the record anew, and set the property
 			c = mr.process(record);
 			record = gen.process(record);  
-			Assert.assertNotNull(record.getProperty(gen.getProperty()));
-			c.setProperty(gen.getProperty(),record.getProperty(gen.getProperty()) );
+			Assert.assertNotNull(record.getRecordProperty(gen.getProperty()));
+			c.setProperty(gen.getProperty(),record.getRecordProperty(gen.getProperty()) );
 			Assert.assertNotNull(c.getProperty(gen.getProperty()));
 			testMatchAromatic(c);
 

@@ -258,14 +258,14 @@ public class SubstanceDatasetResource<Q extends IQueryRetrieval<SubstanceRecord>
 							groupProperties.add(key);
 							if (val.getValue().get(
 									EffectRecord._fields.loValue.name()) != null) {
-								master.setProperty(
+								master.setRecordProperty(
 										key,
 										val.getValue()
 												.get(EffectRecord._fields.loValue
 														.name()).asInt());
 								key.setClazz(Number.class);
 							} else {
-								master.setProperty(key, val.getValue()
+								master.setRecordProperty(key, val.getValue()
 										.getTextValue());
 								key.setClazz(String.class);
 							}
@@ -327,7 +327,7 @@ public class SubstanceDatasetResource<Q extends IQueryRetrieval<SubstanceRecord>
 						SubstanceProperty key = processor.process(effect);
 						key.setIdentifier(key.createHashedIdentifier(effect
 								.getConditions()));
-						Object oldValue = master.getProperty(key);
+						Object oldValue = master.getRecordProperty(key);
 						groupProperties.add(key);
 						/*
 						 * if (isTextValue) { //textvalue if (oldValue == null)
@@ -495,12 +495,7 @@ public class SubstanceDatasetResource<Q extends IQueryRetrieval<SubstanceRecord>
 					}
 			}
 			}
-			/*
-			 * @Override protected void append2header(Writer writer,
-			 * IStructureRecord item) { if (header == null) return; for
-			 * (Property p : item.getProperties()) { if (header.indexOf(p) < 0)
-			 * header.add(p); } }
-			 */
+
 		}, media, filenamePrefix);
 	}
 
@@ -538,7 +533,7 @@ public class SubstanceDatasetResource<Q extends IQueryRetrieval<SubstanceRecord>
 			protected void append2header(Writer writer, IStructureRecord item) {
 				if (header == null)
 					return;
-				for (Property p : item.getProperties()) {
+				for (Property p : item.getRecordProperties()) {
 					if (header.indexOf(p) < 0)
 						header.add(p);
 				}

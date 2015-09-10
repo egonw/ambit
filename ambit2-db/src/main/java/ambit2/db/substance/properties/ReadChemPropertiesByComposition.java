@@ -140,23 +140,23 @@ public class ReadChemPropertiesByComposition
 				// number
 				value = rs.getObject(5);
 				if (value == null) {
-					record.setProperty(p, Double.NaN);
+					record.setRecordProperty(p, Double.NaN);
 					p.setClazz(Number.class);
 				} else
 					try {
-						record.setProperty(p, value);
+						record.setRecordProperty(p, value);
 						p.setClazz(Number.class);
 					} catch (Exception x) { // non-numbers, because of the
 						// concat ...
-						record.setProperty(p, rs.getString(5));
+						record.setRecordProperty(p, rs.getString(5));
 						p.setClazz(String.class);
 					}
 			} else {
 				if (NaN.equals(value.toString())) {
-					record.setProperty(p, Double.NaN);
+					record.setRecordProperty(p, Double.NaN);
 					p.setClazz(Number.class);
 				} else {
-					record.setProperty(p, rs.getString(4));
+					record.setRecordProperty(p, rs.getString(4));
 					p.setClazz(String.class);
 				}
 			}
@@ -187,7 +187,7 @@ public class ReadChemPropertiesByComposition
 	 */
 	public SubstanceRecord processDetail(SubstanceRecord target,
 			IStructureRecord detail) throws Exception {
-		for (Property p : detail.getProperties()) {
+		for (Property p : detail.getRecordProperties()) {
 			if (p.getName().indexOf("#explanation") > 0)
 				continue;
 			else if (p.getName().indexOf("Error") >= 0)
@@ -237,8 +237,8 @@ public class ReadChemPropertiesByComposition
 			else
 				sp.setStudyResultType(_r_flags.estimatedbycalculation);
 
-			if (detail.getProperty(p) != null) {
-				target.setProperty(sp, detail.getProperty(p));
+			if (detail.getRecordProperty(p) != null) {
+				target.setRecordProperty(sp, detail.getRecordProperty(p));
 				/*
 				 * Object value = target.getProperty(sp); if (value == null)
 				 * target.setProperty(sp, detail.getProperty(p)); else { if

@@ -137,10 +137,8 @@ public class POItest {
 			while (reader.hasNext()) {
 				Object mol = reader.next();
 				Assert.assertTrue(mol instanceof IAtomContainer);
-				//assertTrue(((Molecule) mol).getAtomCount() > 0);
-				//System.out.println(((IAtomContainer)mol).getProperties());
 				r++;
-				//System.out.println(r);
+
 			}
 			Assert.assertEquals(rows,r);
 

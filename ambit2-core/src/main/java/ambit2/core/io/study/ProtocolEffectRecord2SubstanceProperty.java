@@ -199,11 +199,11 @@ public class ProtocolEffectRecord2SubstanceProperty
 			Value value, Object oldValue) {
 		if (value != null) {
 			if (oldValue == null) {
-				master.setProperty(key, new MultiValue<Value>(value));
+				master.setRecordProperty(key, new MultiValue<Value>(value));
 			} else if (oldValue instanceof MultiValue) {
 				((MultiValue) oldValue).add(value);
 			} else {
-				master.setProperty(key, new MultiValue<Value>(value));
+				master.setRecordProperty(key, new MultiValue<Value>(value));
 			}
 			key.setClazz(MultiValue.class);
 		}

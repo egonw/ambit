@@ -31,7 +31,7 @@ public abstract class MoleculePairProcessor extends DefaultAmbitProcessor<IStruc
 		try {
 			for (int i=0; i < target.length;i++) {
 				molecules[i] = reader.process(target[i]);
-				target[i].removeProperty(smartsProperty);
+				target[i].removeRecordProperty(smartsProperty);
 				AtomContainerManipulator.percieveAtomTypesAndConfigureAtoms(molecules[i]);
 				CDKHueckelAromaticityDetector.detectAromaticity(molecules[i]);
 

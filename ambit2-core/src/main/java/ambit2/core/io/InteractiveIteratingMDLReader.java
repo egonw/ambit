@@ -50,7 +50,7 @@ public class InteractiveIteratingMDLReader extends MyIteratingMDLReader {
      */
     public IAtomContainer next() {
         Object o =  super.next();
-        if (o instanceof IAtomContainer) {
+        if (o instanceof IChemObject) {
             
             Map properties = ((IChemObject)o).getProperties();
             if (properties.size()>0) {

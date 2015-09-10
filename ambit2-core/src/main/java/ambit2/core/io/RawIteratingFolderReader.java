@@ -138,17 +138,17 @@ public class RawIteratingFolderReader extends IteratingFolderReader<IStructureRe
 	}
 	//does file name contain CAS number? 
 	protected void assignCASRN(IStructureRecord record) {
-		if (record.getProperty(casProperty)!=null)
-			record.removeProperty(casProperty);
+		if (record.getRecordProperty(casProperty)!=null)
+			record.removeRecordProperty(casProperty);
 		int dot = files[index].getName().indexOf('.');
 		if (dot >= 0) {
 			String cas = files[index].getName().substring(0,dot);
 			try {
 				cas = casTransformer.process(cas);
 				if (CASProcessor.isValidFormat(cas)) 
-					record.setProperty(casProperty, cas);
+					record.setRecordProperty(casProperty, cas);
 				else
-					record.setProperty(nameProperty, files[index].getName().substring(0,dot));
+					record.setRecordProperty(nameProperty, files[index].getName().substring(0,dot));
 			} catch (Exception x) {
 				
 			}
@@ -157,27 +157,27 @@ public class RawIteratingFolderReader extends IteratingFolderReader<IStructureRe
 	
 	protected void assignEINECS(IStructureRecord record) {
 		
-		if (record.getProperty(einecsProperty)!=null)
-			record.removeProperty(einecsProperty);
+		if (record.getRecordProperty(einecsProperty)!=null)
+			record.removeRecordProperty(einecsProperty);
 		int dot = files[index].getName().indexOf('.');
 		if (dot >= 0) {
 			String ec = files[index].getName().substring(0,dot);
 			if (EINECS.isValidFormat(ec)) 
-				record.setProperty(einecsProperty, ec);
+				record.setRecordProperty(einecsProperty, ec);
 			else 
-				record.setProperty(nameProperty, ec);
+				record.setRecordProperty(nameProperty, ec);
 		}		
 	}	
 	
 	protected void assignName(IStructureRecord record) {
 		
-		if (record.getProperty(nameProperty)!=null)
-			record.removeProperty(nameProperty);
+		if (record.getRecordProperty(nameProperty)!=null)
+			record.removeRecordProperty(nameProperty);
 		int dot = files[index].getName().indexOf('.');
 		if (dot >= 0) {
 			String ec = files[index].getName().substring(0,dot);
-			record.setProperty(nameProperty, ec);
-		} else record.setProperty(nameProperty,files[index].getName());
+			record.setRecordProperty(nameProperty, ec);
+		} else record.setRecordProperty(nameProperty,files[index].getName());
 	}		
 	protected IRawReader<IStructureRecord> getItemReader(int index) throws Exception {
 		String name = files[index].getName().toLowerCase();

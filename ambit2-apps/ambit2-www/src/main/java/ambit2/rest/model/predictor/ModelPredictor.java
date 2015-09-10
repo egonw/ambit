@@ -265,7 +265,7 @@ public abstract class ModelPredictor<Predictor,NativeTypeItem> extends AbstractD
 		Iterator<Property> predicted = model.getPredicted().getProperties(true);
 		int count = 0;
 		while (predicted.hasNext()) {
-			record.setProperty(predicted.next(),value);
+			record.setRecordProperty(predicted.next(),value);
 			count++;
 		}
 		if (count==0) throw new AmbitException("No property to assign results!!!");

@@ -3,6 +3,7 @@ package ambit2.namestructure;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.util.Iterator;
 
 import net.idea.modbcum.i.exceptions.AmbitException;
 import net.idea.modbcum.p.DefaultAmbitProcessor;
@@ -100,7 +101,7 @@ public class Name2StructureProcessor extends
 
 			if (cml != null) {
 				IAtomContainer mol = MoleculeTools.readCMLMolecule(cml);
-				
+				MoleculeTools.clearProperties(mol);
 				mol.setProperty(
 						Property.getInstance("Name",
 								Property.opentox_IupacName,

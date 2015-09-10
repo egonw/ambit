@@ -73,7 +73,7 @@ public class AtomEnvironmentGeneratorTest {
 			IStructureRecord record = reader.nextRecord();
 			record = gen.process(record);
 			AtomEnvironmentList ae = (AtomEnvironmentList) record
-					.getProperty(gen.getProperty());
+					.getRecordProperty(gen.getProperty());
 			System.out.println();
 			System.out.println(ae);
 
@@ -290,7 +290,7 @@ public class AtomEnvironmentGeneratorTest {
 					writer.write('"');
 					writer.write(",");
 				}
-				writer.write(",Activity,Set");
+				writer.write("Activity,Set");
 				writer.write('\n');
 				header = true;
 				mmcols = value.getNames().length;
@@ -318,7 +318,7 @@ public class AtomEnvironmentGeneratorTest {
 				try {
 					double activity = Double.parseDouble(activityValue
 							.toString());
-					writer.write(activity == 1.0 ? "Active" :(activity == 0)?"Inactive":activityValue.toString());
+					writer.write(activity == 1.0 ? "Positive" :(activity == 0)?"Negative":activityValue.toString());
 				} catch (Exception x) {
 					writer.write(activityValue.toString());
 				}

@@ -79,9 +79,9 @@ public class ChemBLTest extends ResourceTest {
 			IStructureRecord record = reader.nextRecord();
 			
 			System.out.println(record);
-			for (Property key : record.getProperties()) {
+			for (Property key : record.getRecordProperties()) {
 				System.out.println(String.format("%s\t%s\t%s\t%s\t%s\t%s",
-						record.getProperty(key),
+						record.getRecordProperty(key),
 						key.getName(),key.getLabel(),key.getTitle(),key.getUnits(),key.getUrl()
 						));	
 			}

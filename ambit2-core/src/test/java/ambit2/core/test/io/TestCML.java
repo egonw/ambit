@@ -148,7 +148,7 @@ public class TestCML {
 	    Iterator keys = atom.getProperties().keySet().iterator();
 	    while (keys.hasNext()) {
 	        Object key = keys.next();
-	        logger.info(atom.getID() + " " + key.toString()+" = "+ atom.getProperties().get(key));
+	        logger.info(atom.getID() + " " + key.toString()+" = "+ atom.getProperty(key));
 	    }
 	}
 	

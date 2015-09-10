@@ -18,12 +18,7 @@ public class EurasBCFReaderTest  {
 		int c = 0;
 		while (reader.hasNext()) {
 			IAtomContainer m = (IAtomContainer)reader.next();
-			/*
-			if (m==null) continue;
-			System.out.println(c+"\t"+
-					m.getProperties()
-							);
-							*/
+	
 			c++;
 		}
 		reader.close();

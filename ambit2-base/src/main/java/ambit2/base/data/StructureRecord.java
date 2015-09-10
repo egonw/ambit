@@ -178,12 +178,12 @@ public class StructureRecord implements IStructureRecord {
 		this.properties = properties;
 	}
 	*/
-	public Object getProperty(Property key) {
+	public Object getRecordProperty(Property key) {
 		if (properties != null)
 			return properties.get(key);
 		else return null;
 	}
-	public void setProperty(Property key,Object value) {
+	public void setRecordProperty(Property key,Object value) {
 		if (key == null) return;
 		if (properties == null) properties = createProperties();
 		if (value == null) properties.remove(key);
@@ -194,7 +194,7 @@ public class StructureRecord implements IStructureRecord {
 		return new Hashtable<Property, Object>();
 		//return new TreeMap<Property, Object>();
 	}
-	public Iterable<Property> getProperties() {
+	public Iterable<Property> getRecordProperties() {
 		if (properties==null) properties = createProperties();
 		return properties.keySet();
 	}
@@ -227,7 +227,7 @@ public class StructureRecord implements IStructureRecord {
 		if (properties==null) return 0;
 		return properties.size();
 	}
-	public Object removeProperty(Property key) {
+	public Object removeRecordProperty(Property key) {
 		if (properties!= null)
 			return properties.remove(key);
 		else return null;
@@ -238,14 +238,14 @@ public class StructureRecord implements IStructureRecord {
 			properties.clear();
 		
 	}
-	public void addProperties(Map newProperties) {
+	public void addRecordProperties(Map newProperties) {
 		Iterator keys = newProperties.keySet().iterator();
 		while (keys.hasNext()) {
 			Object key = keys.next();
 			if (key instanceof Property)
-				setProperty((Property)key,newProperties.get(key));
+				setRecordProperty((Property)key,newProperties.get(key));
 			else
-				setProperty(Property.getInstance(key.toString(),getReference()),newProperties.get(key));
+				setRecordProperty(Property.getInstance(key.toString(),getReference()),newProperties.get(key));
 		}
 	}
 	public ILiteratureEntry getReference() {
@@ -264,8 +264,8 @@ public class StructureRecord implements IStructureRecord {
 		record.setIdstructure(getIdstructure());
 		record.setSmiles(getSmiles());
 		record.setInchi(getInchi());
-		for (Property p : getProperties()) 
-			record.setProperty(p,getProperty(p));
+		for (Property p : getRecordProperties()) 
+			record.setRecordProperty(p,getRecordProperty(p));
 		return record;
 	}	
 	public boolean isSelected() {

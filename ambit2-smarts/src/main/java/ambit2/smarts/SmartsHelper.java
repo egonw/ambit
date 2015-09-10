@@ -654,11 +654,11 @@ public class SmartsHelper {
 					|| keys[i].toString().toString()
 							.equals(CMLUtilities.RingData2))
 				sb.append(keys[i].toString() + " = "
-						+ toString((int[]) atom.getProperties().get(keys[i]))
+						+ toString((int[]) atom.getProperty(keys[i]))
 						+ "\n");
 			else
 				sb.append(keys[i].toString() + " = "
-						+ atom.getProperties().get(keys[i]) + "\n");
+						+ atom.getProperty(keys[i]) + "\n");
 		}
 		return (sb.toString());
 	}

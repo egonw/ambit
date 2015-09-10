@@ -68,7 +68,7 @@ public class InchiKey extends DefaultAmbitProcessor<IAtomContainer,String> imple
 			} catch (Exception x) {}
 		Iterator<Object> keys = molecule.getProperties().keySet().iterator();
 		while (keys.hasNext()) {
-			Object value = molecule.getProperties().get(keys.next());
+			Object value = molecule.getProperty(keys.next());
 			if (value.toString().startsWith("InChI=")) 
 				return value.toString();
 		}

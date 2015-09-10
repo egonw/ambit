@@ -74,13 +74,13 @@ public class BundleDatasetResource<Q extends ReadSubstancesByBundle> extends
 							java.sql.ResultSet rs) throws AmbitException {
 						ambit2.base.data.SubstanceRecord record = super
 								.getObject(rs);
-						record.setProperty(new SubstancePublicName(),
+						record.setRecordProperty(new SubstancePublicName(),
 								record.getPublicName());
-						record.setProperty(new SubstanceName(),
+						record.setRecordProperty(new SubstanceName(),
 								record.getSubstanceName());
-						record.setProperty(new SubstanceUUID(),
+						record.setRecordProperty(new SubstanceUUID(),
 								record.getSubstanceUUID());
-						record.setProperty(new SubstanceOwner(),
+						record.setRecordProperty(new SubstanceOwner(),
 								record.getOwnerName());
 						return record;
 					}
@@ -99,13 +99,13 @@ public class BundleDatasetResource<Q extends ReadSubstancesByBundle> extends
 							throws AmbitException {
 						ambit2.base.data.SubstanceRecord record = super
 								.getObject(rs);
-						record.setProperty(new SubstancePublicName(),
+						record.setRecordProperty(new SubstancePublicName(),
 								record.getPublicName());
-						record.setProperty(new SubstanceName(),
+						record.setRecordProperty(new SubstanceName(),
 								record.getSubstanceName());
-						record.setProperty(new SubstanceUUID(),
+						record.setRecordProperty(new SubstanceUUID(),
 								record.getSubstanceUUID());
-						record.setProperty(new SubstanceOwner(),
+						record.setRecordProperty(new SubstanceOwner(),
 								record.getOwnerName());
 						return record;
 					}

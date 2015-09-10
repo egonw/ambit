@@ -92,8 +92,8 @@ public class TestStudyExportFormatting {
 		Value value1 = ProtocolEffectRecord2SubstanceProperty.processValue(
 				detail, istextvalue);
 		ProtocolEffectRecord2SubstanceProperty.addValues(master, key, value1,
-				master.getProperty(key));
-		return f.format(key, master.getProperty(key));
+				master.getRecordProperty(key));
+		return f.format(key, master.getRecordProperty(key));
 	}
 
 	@Test
