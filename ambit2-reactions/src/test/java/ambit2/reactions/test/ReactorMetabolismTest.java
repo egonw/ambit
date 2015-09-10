@@ -48,6 +48,7 @@ public class ReactorMetabolismTest extends TestCase
 		
 		ReactorStrategy strategy = new ReactorStrategy(new File(resource.getFile()));  //strategy is in the same file
 		
+		strategy.maxNumOfNodes = 20000;
 		strategy.FlagStoreFailedNodes = true;
 		strategy.FlagStoreSuccessNodes = true;
 		strategy.maxNumOfSuccessNodes = 0;  //if 0 then the reactor will stop after the first success node
@@ -72,6 +73,7 @@ public class ReactorMetabolismTest extends TestCase
 	{	
 		IAtomContainer mol = SmartsHelper.getMoleculeFromSmiles(smiles, true);
 		ReactorResult result = reactor.react(mol);
+		System.out.println(smiles + "  nodes = " + result.numReactorNodes);
 		return (result.numSuccessNodes > 0);
 	}
 	
@@ -80,8 +82,25 @@ public class ReactorMetabolismTest extends TestCase
 	{
 		String smiles = "CO";
 		assertEquals("metabolize " + smiles, true, metabolize(smiles));
+		
 		smiles = "CCO";
+		assertEquals("metabolize " + smiles, true, metabolize(smiles));
+		
+		smiles = "NCCO";
 		assertEquals("metabolize " + smiles, false, metabolize(smiles));
+		
+		smiles = "[H]C(O)(CO)COP(=O)(O)O";
+		assertEquals("metabolize " + smiles, true, metabolize(smiles));
+		
+		//smiles = "[H]C1(N)(C([H])(O)OC([H])(COP(=O)(O)O)C([H])(O)C1([H])(O))";
+		//assertEquals("metabolize " + smiles, true, metabolize(smiles));
+		
+		
+		
+		//smiles = "[H]C1(O)(C([H])(O)C(O)(CO)OC1([H])(COP(=O)(O)O))";
+		//smiles = "C2(O)(C(O)C(CO)OC(OC1(CO)(OC(CO)C(O)C1(O)))C2(O))";
+		//smiles = "C2(O)(OC(CO)C(OC1(OC(CO)C(O)C(O)C1(O)))C(O)C2(O))";
+		
 	}
 	
 	
