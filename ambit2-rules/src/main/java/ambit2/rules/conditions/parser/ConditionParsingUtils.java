@@ -42,7 +42,6 @@ public class ConditionParsingUtils
 			}	
 			else
 			{	
-				pos++;
 				break;
 			}	
 		}		
@@ -50,9 +49,13 @@ public class ConditionParsingUtils
 				
 		//Omit empty spaces
 		while (pos < n)
+		{	
 			if (s.charAt(pos) == ' ')
 				pos++;
-			
+			else
+				break;
+		}	
+
 		if (pos >= n)
 			throw new Exception("Incorrect token " + token);
 				
@@ -62,19 +65,29 @@ public class ConditionParsingUtils
 			pos++;
 		
 		while (pos < n)
+		{	
 			if (Character.isLetterOrDigit(s.charAt(pos)) || s.charAt(pos)== '_')
 				pos++;
+			else
+				break;
+		}	
+		
+		String descrName = s.substring(pos0, pos);
+		dvc.setDescriptorName(descrName);
 		
 		//Omit empty spaces
 		while (pos < n)
+		{	
 			if (s.charAt(pos) == ' ')
 				pos++;
+			else
+				break;
+		}	
 		
 		if (pos >= n)
 			throw new Exception("Incorrect token " + token);
 		
-		String descrName = s.substring(pos0, pos);
-		dvc.setDescriptorName(descrName);
+		
 		
 		//Handling relation		
 		Relation relation = null;
@@ -138,9 +151,13 @@ public class ConditionParsingUtils
 		
 		//Omit empty spaces
 		while (pos < n)
+		{	
 			if (s.charAt(pos) == ' ')
 				pos++;
-
+			else
+				break;
+		}
+		
 		if (relation == null)
 			throw new Exception("Incorrect token " + token);
 		

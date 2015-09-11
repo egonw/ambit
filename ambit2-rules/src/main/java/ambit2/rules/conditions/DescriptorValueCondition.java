@@ -25,6 +25,7 @@ public class DescriptorValueCondition implements IDescriptorValueCondition
 		
 		if (solver == null)
 			return false;
+		
 		Object res = solver.calculateDescriptor(descrName, target);
 		if (res instanceof Double)
 			return isTrue((Double)res);
@@ -81,5 +82,9 @@ public class DescriptorValueCondition implements IDescriptorValueCondition
 	@Override
 	public String getDescriptorName() {
 		return descrName;
+	}
+	
+	public String toString(){
+		return "" + descrName + " " + value.getRelation().getRelationString()+ " " + value.getValue();
 	}
 }
