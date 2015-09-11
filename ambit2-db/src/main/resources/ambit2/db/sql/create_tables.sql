@@ -491,7 +491,7 @@ CREATE TABLE `structure` (
   `idstructure` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `idchemical` int(11) unsigned NOT NULL,
   `structure` blob NOT NULL,
-  `format` enum('SDF','CML','MOL','INC','NANO','PDB') COLLATE utf8_bin NOT NULL DEFAULT 'SDF',
+  `format` enum('SDF','CML','MOL','INC','NANO','PDB','CIF') COLLATE utf8_bin NOT NULL DEFAULT 'SDF',
   `updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `user_name` varchar(16) COLLATE utf8_bin DEFAULT NULL,
   `type_structure` enum('NA','MARKUSH','SMILES','2D no H','2D with H','3D no H','3D with H','optimized','experimental','NANO') COLLATE utf8_bin NOT NULL DEFAULT 'NA',
