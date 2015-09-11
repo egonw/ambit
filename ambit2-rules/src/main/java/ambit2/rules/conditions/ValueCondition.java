@@ -41,4 +41,9 @@ public class ValueCondition implements IValueCondition
 	public void setValue(Value value) {
 		this.value = value;
 	}
+
+	@Override
+	public boolean isNegated() {
+		return false;
+	}
 }
