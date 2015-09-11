@@ -20,9 +20,12 @@ import org.openscience.cdk.inchi.InChIGeneratorFactory;
 import org.openscience.cdk.inchi.InChIToStructure;
 import org.openscience.cdk.interfaces.IAtomContainer;
 import org.openscience.cdk.interfaces.IBond;
+import org.openscience.cdk.silent.AtomContainer;
 import org.openscience.cdk.silent.SilentChemObjectBuilder;
 import org.openscience.cdk.smiles.FixBondOrdersTool;
 import org.openscience.cdk.smiles.SmilesGenerator;
+import org.openscience.cdk.tools.CDKHydrogenAdder;
+import org.openscience.cdk.tools.manipulator.AtomContainerManipulator;
 import org.restlet.Client;
 import org.restlet.Context;
 import org.restlet.Request;
@@ -91,6 +94,7 @@ public abstract class StructureQueryResource<Q extends IQueryRetrieval<IStructur
 	protected boolean includeMol = false;
 	protected String[] folders;
 	protected SubstanceEndpointsBundle[] bundles;
+	protected CDKHydrogenAdder hadder = null;
 
 	public boolean isIncludeMol() {
 		return includeMol;
@@ -536,14 +540,12 @@ public abstract class StructureQueryResource<Q extends IQueryRetrieval<IStructur
 				query_smiles = form.getFirstValue(QueryResource.search_param);
 			try {
 				IAtomContainer ac = MoleculeTools.readMolfile(query_smiles);
-				for (IBond b : ac.bonds())
-					if (b.getFlag(CDKConstants.ISAROMATIC)) {
-						FixBondOrdersTool fbt = new FixBondOrdersTool();
-						ac = fbt.kekuliseAromaticRings(ac);
-						break;
-					}
-				SmilesGenerator g = new SmilesGenerator();
-				return g.createSMILES(ac);
+				AtomContainerManipulator.percieveAtomTypesAndConfigureAtoms(ac);
+				if (hadder == null) {
+					hadder = CDKHydrogenAdder.getInstance(SilentChemObjectBuilder.getInstance());
+				}
+				hadder.addImplicitHydrogens(ac);
+				return SmilesGenerator.generic().create(ac);
 			} catch (Exception x) {
 				throw new ResourceException(Status.CLIENT_ERROR_BAD_REQUEST,
 						x.getMessage(), x);
