@@ -35,7 +35,6 @@ public class ConditionExpression implements ICondition
 				if (res)
 					return true;
 			}
-			
 			return true;
 		}
 	}
@@ -44,6 +43,12 @@ public class ConditionExpression implements ICondition
 	public boolean isNegated() {
 		return false;
 	}
+	
+	@Override
+	public void setIsNegated(boolean isNeg) {
+		// Nothing is done. Currently ConditionExpression is not negated
+	}
+
 
 	public ArrayList<ICondition> getConditions() {
 		return conditions;
@@ -65,5 +70,6 @@ public class ConditionExpression implements ICondition
 		this.FlagANDOperation = isANDOperation;
 	}
 
+	
 	
 }

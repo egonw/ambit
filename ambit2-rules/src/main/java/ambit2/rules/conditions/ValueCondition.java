@@ -5,9 +5,10 @@ import ambit2.rules.conditions.value.Value;
 
 public class ValueCondition implements IValueCondition
 {
-	private Value value = null;
+	private IValue value = null;
+	private boolean FlagNegated = false;
 	
-	public ValueCondition (Value value)
+	public ValueCondition (IValue value)
 	{
 		setValue(value);
 	}
@@ -15,8 +16,9 @@ public class ValueCondition implements IValueCondition
 	@Override
 	public boolean isTrue(Object target) {
 		if (target instanceof Double)
-			return isTrue((Double) target);
-		//TODO some other cases Integer, ...
+			return isTrue((Double) target);		
+		if (target instanceof Integer)
+			return isTrue(((Integer) target).doubleValue());
 		return false;
 	}
 
@@ -24,7 +26,11 @@ public class ValueCondition implements IValueCondition
 	public boolean isTrue(Double target) {
 		if (value == null)
 			return false;
-		return value.getRelation().check(value.getValue(), target);
+		
+		if (this.isNegated())
+			return !(value.getRelation().check(value.getValue(), target));
+		else
+			return value.getRelation().check(value.getValue(), target);
 	}
 
 	@Override
@@ -34,16 +40,16 @@ public class ValueCondition implements IValueCondition
 
 	@Override
 	public void setValue(IValue value) {
-		if (value instanceof Value)
-			this.value = (Value)value;
-	}
-	
-	public void setValue(Value value) {
-		this.value = value;
+			this.value = value;
 	}
 
 	@Override
 	public boolean isNegated() {
-		return false;
+		return FlagNegated;
+	}
+
+	@Override
+	public void setIsNegated(boolean isNeg) {
+		FlagNegated = isNeg;	
 	}
 }

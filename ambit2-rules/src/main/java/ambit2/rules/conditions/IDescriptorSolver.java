@@ -6,5 +6,5 @@ public interface IDescriptorSolver
 {
 	public List<String> getDescriptorList();
 	public boolean isDescriptorSupported(String descrName);
-	public Object calculateDescriptor(Object target);
+	public Object calculateDescriptor(String descrName, Object target);
 }
