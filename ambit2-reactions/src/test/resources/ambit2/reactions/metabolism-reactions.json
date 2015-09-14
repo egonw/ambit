@@ -5,7 +5,8 @@
 			"NAME" : "Aldehyde_ketone_reduction",
 			"CLASS" : "reduction",
 			"SMIRKS" : "[#6:1](=[O:2])[#6,H:5]>>[#6:1]([#6,H:5])[O:2][H]",
-			"USE" : true
+			"USE" : true,
+			"USE_CONDITIONS" : ["REACTION_APPLICATIONS_PER_REACTANT <= 3"]
 		},
 		{
 			"NAME" : "Thiolysis",

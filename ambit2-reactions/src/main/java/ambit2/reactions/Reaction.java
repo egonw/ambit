@@ -7,6 +7,9 @@ import org.codehaus.jackson.JsonNode;
 import org.openscience.cdk.interfaces.IAtom;
 import org.openscience.cdk.interfaces.IAtomContainer;
 
+import ambit2.rules.conditions.DescriptorValueCondition;
+import ambit2.rules.conditions.ICondition;
+import ambit2.rules.conditions.parser.ConditionParsingUtils;
 import ambit2.rules.json.JSONParsingUtils;
 import ambit2.smarts.SMIRKSManager;
 import ambit2.smarts.SMIRKSReaction;
@@ -21,6 +24,7 @@ public class Reaction
 	protected String name = null;
 	protected String reactionClass = null;
 	protected SMIRKSReaction smirksReaction = null;
+	protected List<ICondition> conditions = null;
 	
 	
 	public int getId() {
@@ -67,6 +71,30 @@ public class Reaction
 		this.reactionClass = reactionClass;
 	}
 	
+	public List<ICondition> getConditions() {
+		return conditions;
+	}
+
+	public void setConditions(List<ICondition> conditions) {
+		this.conditions = conditions;
+	}
+	
+	public boolean checkConditionsForTarget(Object target)
+	{
+		if (conditions == null)
+			return true;
+		if (conditions.isEmpty())
+			return true;
+		
+		//Each condition should be true in order to return true result
+		for (ICondition condition: conditions)
+			if (!condition.isTrue(target))
+				return false;
+		
+		return true;
+	}
+	
+
 	public void configure(SMIRKSManager smrkMan) throws Exception
 	{
 		smirksReaction = smrkMan.parse(smirks);
@@ -86,7 +114,35 @@ public class Reaction
 		reaction.smirks = JSONParsingUtils.extractStringKeyword(node, "SMIRKS", true);
 		reaction.reactionClass = JSONParsingUtils.extractStringKeyword(node, "CLASS", false);
 		
+		Object obj[] = JSONParsingUtils.extractArrayKeyword(node, "USE_CONDITIONS", false);
+		if (obj != null)
+		{	
+			List<ICondition> conditions = new ArrayList<ICondition>();
+			for (int i = 0; i < obj.length; i++)
+			{
+				if (obj[i] == null)
+					continue;
+				
+				if (obj[i] instanceof String)
+				{
+					 ICondition condition = getConditionFromString((String) obj[i]);
+					 conditions.add(condition);
+				}
+				else
+					throw new Exception("Incorrect USE_CONDITIONS["+(i+1)+"]. It is not a string! " + obj[i] );
+			}
+			
+			reaction.setConditions(conditions);
+		}	
+		
+		
 		return reaction;
+	}
+	
+	public static ICondition getConditionFromString(String condStr) throws Exception
+	{
+		DescriptorValueCondition dvc= ConditionParsingUtils.getDescriptorValueConditionFromToken(condStr);
+		return dvc;
 	}
 	
 	public List<List<IAtom>> findReactionInstances(IAtomContainer target, SMIRKSManager smrkMan)

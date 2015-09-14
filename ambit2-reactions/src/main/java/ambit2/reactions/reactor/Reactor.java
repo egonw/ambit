@@ -23,6 +23,8 @@ import org.openscience.cdk.silent.SilentChemObjectBuilder;
 import ambit2.base.data.StructureRecord;
 import ambit2.reactions.Reaction;
 import ambit2.reactions.ReactionDataBase;
+import ambit2.rules.conditions.DescriptorValueCondition;
+import ambit2.rules.conditions.ICondition;
 import ambit2.smarts.SMIRKSManager;
 import ambit2.smarts.SmartsHelper;
 
@@ -39,7 +41,9 @@ public class Reactor
 	protected TreeSet<String> nodeHashCodes = new TreeSet<String>();
 	protected InChIGeneratorFactory igf = null;
 	List<INCHI_OPTION> igf_options = null;
+	protected ReactorDescriptorSolver descriptoSolver = new ReactorDescriptorSolver();
 	
+
 	//Status variables
 	protected ReactorResult reactorResult = null;
 	protected boolean FlagReactRecursively = false;
@@ -62,6 +66,7 @@ public class Reactor
 		igf = InChIGeneratorFactory.getInstance();
 	}
 	
+	
 	public SMIRKSManager getSMIRKSManager() {
 		return smrkMan;
 	}
@@ -80,6 +85,7 @@ public class Reactor
 
 	public void setReactionDataBase(ReactionDataBase reactionDataBase) {
 		this.reactionDataBase = reactionDataBase;
+		setDescriptoSolverForReactDB();
 	}
 	
 	public ReactorStrategy getStrategy() {
@@ -90,6 +96,23 @@ public class Reactor
 		this.strategy = strategy;
 	}
 	
+	public ReactorDescriptorSolver getDescriptoSolver() {
+		return descriptoSolver;
+	}
+	
+	protected void setDescriptoSolverForReactDB()
+	{	
+		for (Reaction reaction: reactionDataBase.reactions)
+		{	
+			if (reaction.getConditions() != null)
+				for (ICondition cond : reaction.getConditions())
+				{
+					//System.out.println("---- seting solver for " + cond.toString());
+					if (cond instanceof DescriptorValueCondition)
+						((DescriptorValueCondition)cond).setDescriptorSolver(descriptoSolver);
+				}	
+		}	
+	}
 	
 	public ReactorResult react(IAtomContainer target) throws Exception
 	{	
@@ -172,9 +195,20 @@ public class Reactor
 	{	
 		int numOfReactionInstances = 0;
 		for (int i = 0; i < reactionDataBase.reactions.size(); i++)
-		{
+		{	
 			Reaction reaction = reactionDataBase.reactions.get(i);
 			List<List<IAtom>> instances = reaction.findReactionInstances(reagent, smrkMan);
+			
+			//Check reaction conditions
+			if (reaction.getConditions() != null)
+			{	
+				ReactorInfoPack ri = new ReactorInfoPack();
+				ri.reactor = this;
+				ri.reaction = reaction;
+				ri.reagent = reagent;
+				if (!reaction.checkConditionsForTarget(ri))
+					continue;
+			}
 			
 			numOfReactionInstances += instances.size();
 			
