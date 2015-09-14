@@ -369,7 +369,7 @@ public class DBSubstanceImport {
 
 			if ((driver != null) && (driver.contains("mysql")))
 				return new MySQLSingleConnection(context,
-						"config/ambit.properties");
+						configFile);
 			else
 				throw new AmbitException("Driver not supported");
 		} catch (Exception x) {
