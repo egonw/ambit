@@ -56,7 +56,8 @@ public class SubstanceCSVReporter<Q extends IQueryRetrieval<SubstanceRecord>>
 			if (item.getPublicName() != null)
 				writer.write(JSONUtils.jsonQuote(item.getPublicName()));
 			writer.write(comma);
-			writer.write(JSONUtils.jsonQuote(item.getReferenceSubstanceUUID()));
+			if (item.getReferenceSubstanceUUID()!=null)
+				writer.write(JSONUtils.jsonQuote(item.getReferenceSubstanceUUID()));
 			writer.write(comma);
 			writer.write(JSONUtils.jsonQuote(item.getOwnerName()));
 			writer.write(comma);
