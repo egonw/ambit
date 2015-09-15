@@ -40,6 +40,7 @@
 			  	 <option value="regexp">Name (regexp)</option>
 				  <option value="uuid">UUID</option>
 				  <option value="">External identifier</option>
+				  <option value="substancetype">Substance type</option>
 				  <option value="CompTox">CompTox</option>
 				  <option value="guideline">Protocol / Guideline</option>
 				  <option value="DOI">DOI</option>

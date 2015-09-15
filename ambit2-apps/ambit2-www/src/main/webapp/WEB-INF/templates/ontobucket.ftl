@@ -27,16 +27,22 @@ $(document)
 		jQuery("#breadCrumb").jBreadCrumb();
 		jQuery("#welcome").html("");		
 		
-		$("#_searchdiv").html("<form class='remove-bottom' action='${ambit_root}/ontobucket'><input type='radio' name='type' id='type_all' value='all' title='All'>All <input type='radio' name='type' id='type_endpoint' value='endpoint' title='Endpoint'>Endpoint <input type='radio' name='type' id='type_protocol' value='protocol' title='Protocol'>Protocol <input name='search' class='search' value='' id='search'> <input type='submit' value='Search'></form>");
+		$("#_searchdiv").html("<form class='remove-bottom' action='${ambit_root}/ontobucket'><input type='radio' name='type' id='type_all' value='all' title='All'>All <input type='radio' name='type' id='type_endpoint' value='endpoint' title='Endpoint'>Endpoint <input type='radio' name='type' id='type_protocol' checked value='protocol' title='Protocol'>Protocol <input type='radio' name='type' id='type_substancetype' value='substancetype' title='NM type'>NM type <input name='search' class='search' value='' id='search'> <input type='submit' value='Search'></form>");
 		var purl = $.url();
 		$('.search').attr('value',purl.param('search')===undefined?'':purl.param('search'));
 		
-		var typeToSelect = purl.param('type')===undefined?'':purl.param('type');
+		var typeToSelect = purl.param('type')===undefined?'all':purl.param('type');
 	
         $("#selecttype option").each(function (a, b) {
 	          if ($(this).val() == typeToSelect ) $(this).attr("selected", "selected");
 	    });
         $("#type_"+typeToSelect).prop("checked", true);
+        
+        var qe = purl.param('qe')===undefined?'true':purl.param('qe');
+    	
+        $("#qe option").each(function (a, b) {
+	          if ($(this).val() == typeToSelect ) $(this).attr("selected", "selected");
+	    });
         
 		loadHelp("${ambit_root}","ontobucket");
 		downloadForm("${ambit_request}");
@@ -71,6 +77,7 @@ $(document)
 				  	 <option value="endpoint">Endpoint</option>
 					 <option value="hash">Conditions</option>
 					 <option value="protocol">Protocol</option>
+					 <option value="substancetype">Substance type</option>
 					 <option value="reference">Reference</option>
 					 <option value="target">Target</option>
 					 <option value="all">All</option>

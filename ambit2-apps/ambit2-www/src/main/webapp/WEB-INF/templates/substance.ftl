@@ -18,7 +18,7 @@
         <#if menu_profile?? && menu_profile=='enanomapper'>		        
         	jQuery("#breadCrumb ul").append('<li><a href="${ambit_root}/substance" title="Nanomaterials">Search nanomaterials by identifiers</a></li>');
         	loadHelp("${ambit_root}","nanomaterial");
-    		$("#_searchdiv").html("<form class='remove-bottom' action='${ambit_root}/substance'><input type='radio' name='type' id='type_name' value='name' title='Name (starting with a string)'>Name <input type='radio' name='type' id='type_' value=''  title='Experiment reference, e.g. DOI'>External identifier <input type='radio' name='type' id='type_citation' checked value='citation'>Experiment reference <input name='search' class='search' value='' id='search'> <input type='submit' value='Search'></form>");
+    		$("#_searchdiv").html("<form class='remove-bottom' action='${ambit_root}/substance'><input type='radio' name='type' id='type_name' value='name' title='Name (starting with a string)'>Name <input type='radio' name='type' id='type_' value=''  title='External identifier of NM, e.g. NM-111'>Identifier <input type='radio' name='type' id='type_citation' title='Experiment reference, e.g. DOI' checked value='citation'>Reference <input type='radio' name='type' id='type_substancetype' checked value='substancetype'>NM type <input name='search' class='search' value='' id='search'> <input type='submit' value='Search'></form>");
     		$("#header_substance").text("Nanomaterials");
 		<#else>
     		<#if menu_profile?? && menu_profile=='lri'>
