@@ -46,7 +46,8 @@ public class HelpResource extends CatalogResource<String>  {
 		ra,
 		ontobucket,
 		nanomaterial,
-		bundle
+		bundle,
+		endpoint_search
 	}
 	public HelpResource() {
 		super();

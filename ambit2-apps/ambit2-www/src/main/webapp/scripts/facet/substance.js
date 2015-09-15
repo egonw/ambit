@@ -108,6 +108,11 @@ var facet = {
 				var substanceQuery =  this.root + '/substance?' + jQuery.param(params);
 				this.substanceComponent.querySubstance(substanceQuery);
 				$("#hits").show();
+				
+				$.each(_ambit.downloads,function(index,value) {
+					var durl = substanceQuery +  ((substanceQuery.indexOf("?")<0)?"?":"&") + "media="+ encodeURIComponent(value.mime);
+					$('#download_results #'+value.id).attr('href',durl);
+				});
 			}	
 			if (event!=null) event.preventDefault();
 		},

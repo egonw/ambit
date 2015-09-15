@@ -19,6 +19,7 @@
 
 <script type='text/javascript'>
 $(document).ready(function() {
+	$( "#tabs" ).tabs();
 	facet.defineStudySearchFacets("${ambit_root}",
 				"${ambit_root}/query/study?topcategory=P-CHEM&media=application/json",
 				"#facet_pchem");
@@ -31,7 +32,7 @@ $(document).ready(function() {
 	facet.defineStudySearchFacets("${ambit_root}",
 			"${ambit_root}/query/study?topcategory=ENV%20FATE&media=application/json",
 			"#facet_envfate");	
-
+	loadHelp("${ambit_root}","endpoint_search");
 	$( "#accordion" ).accordion( {
 		heightStyle: "content"
 	});	
@@ -78,7 +79,8 @@ $(document).ready(function() {
 <#include "/banner_crumbs.ftl">
 
 <form action='${ambit_root}/substance' id='fsearchForm' name='fsearchForm' method='GET' autocomplete='off' >
-<div class="four columns" id="sidebar" style="padding:0 2px 2px 2px 0;margin-right:0;" >
+<div class="four columns" style="padding:0 2px 2px 2px 0;margin-right:0;" >
+<div  id="sidebar" >
 	<input type='button' class='remove-bottom' value='Update results' onClick='facet.searchStudy();'>
 	<div id="accordion" style="padding-top:0;padding-left:1px;padding-right:1px;padding-bottom:2px;margin:0;font-size:80%">
 		<h3 id='facet_tox_hdr' >Tox</h3>
@@ -105,11 +107,34 @@ $(document).ready(function() {
 		</div>
 		<input type='button' class='remove-bottom'  value='Update results' onClick='facet.searchStudy();'>
 		
-</form>			
-			
+</div>	
+<br/>
+<div id='download' class='row' style='background: #F2F0E6;margin: 3px; padding: 0.4em; font-size: 1em; font-style:bold;'>
+<a href='#' id='json' target=_blank><img src='${ambit_root}/images/json64.png' alt='json' title='Download as JSON'></a>
+<a href='#' id='csv' target=_blank><img src='${ambit_root}/images/csv64.png' alt='CSV' title='Download as CSV'></a>
 </div>
- 		
-		<div class="twelve columns remove-bottom" style="padding:0;" >
+</div>
+</form>		
+
+<div id="tabs" class="twelve columns remove-bottom"  style="padding:0;">
+<ul>
+<li><a href="#tabs_substance" id="header_substance">Hit list</a></li>
+<li><a href="#download_results">Download</a></li>
+<li><a href="#tabs_help">Help</a></li>
+</ul>
+	<div id='tabs_help'>
+		<div class='row half-bottom chelp' style='padding:0;margin:0;' id='pagehelp'></div>
+		<div class='row remove-bottom chelp' style='padding:0;margin:0;font-weight:bold;' id='keytitle'>		
+		</div>
+		<div class='row half-bottom chelp' style='padding:0;margin:0;' id='keycontent'>		
+		</div>	
+	</div>
+	<div id='download_results' >  <!-- tabs_download -->
+	<a href='#' id='json' target=_blank><img src='${ambit_root}/images/json64.png' alt='json' title='Download as JSON'></a>
+	<a href='#' id='csv' target=_blank><img src='${ambit_root}/images/csv64.png' alt='CSV' title='Download as CSV'></a>
+	</div>
+	
+		<div id="tabs_substance" style="padding:0;" >
 
  		
 		<!-- Page Content
@@ -138,10 +163,12 @@ $(document).ready(function() {
 
 		
 		</div> 
+		</div>
+
 		
-<div class='row add-bottom' style="height:140px;">&nbsp;</div>
 </div>
 
+<div class='row add-bottom' style="height:140px;">&nbsp;</div>
 <#include "/footer.ftl" >
 </div> <!-- container -->
 </body>
