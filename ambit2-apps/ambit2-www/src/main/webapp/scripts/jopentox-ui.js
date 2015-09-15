@@ -2040,7 +2040,7 @@ function defineBundlesTable_lri(root,url,deleteVisible,copyVisible) {
           '<option value="50">50</option>' +
           '<option value="100">100</option>' +
           '<option value="-1">all</option>' +
-          '</select> assessments.'	            
+          '</select> entries.'	            
     },	
     "aoColumnDefs": [
      	  			{ "sTitle": "Title", 
