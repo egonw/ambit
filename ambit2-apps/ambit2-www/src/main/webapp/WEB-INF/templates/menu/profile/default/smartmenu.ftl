@@ -1,10 +1,11 @@
 <ul id='smartmenu' class="sm sm-mint">
 <li>
-	<a href="${ambit_root}/ui/_search" title="Chemical structure search">Search</a>
+	<a href="#" title="Find chemical substances">Search</a>
 	<ul>
-		<li ><a href="${ambit_root}/substance?page=0&pagesize=100" title="search for  substances with identifiers (fragment)">Search substances</a></li>
+		<li ><a href="${ambit_root}/substance?type=name&search=glutaraldehyde&page=0&pagesize=20" title="Search for substances by name (starting with string)">Search substances by name</a></li>
+		<li ><a href="${ambit_root}/substance?type=regexp&search=aldehyde&page=0&pagesize=20" title="Search for substances by identifiers (regular expression)">Search substances by name (regexp)</a></li>
 		<li><a href="${ambit_root}/query/study" title="Search substances by experimental data">Search substances by endpoint data</a></li>
-		<li><a href="${ambit_root}/ui/_search" title="Chemical structure search">Search structures and associated data</a></li>		
+		<li><a href="${ambit_root}/ui/_search?search=phenol" title="Chemical structure search">Search structures and associated data</a></li>		
 	</ul>
 </li>
 <li>
