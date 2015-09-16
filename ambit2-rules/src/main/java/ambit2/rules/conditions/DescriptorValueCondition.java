@@ -37,6 +37,7 @@ public class DescriptorValueCondition implements IDescriptorValueCondition
 	public boolean isTrue(Double target) {
 		if (value == null)
 			return false;
+		//System.out.println("isTrue: target" + target + "  " + value.getRelation().getRelationString() + " "+value.getValue());
 		
 		if (this.isNegated())
 			return !(value.getRelation().check(value.getValue(), target));

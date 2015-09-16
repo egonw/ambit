@@ -48,6 +48,8 @@ public class ConditionsTests extends TestCase
 		checkValueCondition(3, ">", 1, true);
 		checkValueCondition(3, "<", 1, false);
 		checkValueCondition(3, "<=", 15, true);
+		checkValueCondition(15, "<=", 15, true);
+		checkValueCondition(15, ">=", 15, true);
 		checkValueCondition(3, "=", 3, true);
 		checkValueCondition(3, "!=", 3, false);
 	}
@@ -63,6 +65,9 @@ public class ConditionsTests extends TestCase
 		checkDescriptorValueCondition("d1 > 10.0", solver0, true);
 		checkDescriptorValueCondition("d1 < 10.0", solver0, false);
 		checkDescriptorValueCondition("my_descr <= 35.0", solver0, false);
+		checkDescriptorValueCondition("my_descr <= 50.0", solver0, true);
+		checkDescriptorValueCondition("my_descr >= 35.0", solver0, true);		
+		checkDescriptorValueCondition("my_descr >= 50.0", solver0, true);
 		checkDescriptorValueCondition("my_descr == 50.0", solver0, true);
 		checkDescriptorValueCondition("my_descr != 15.0", solver0, true);
 		checkDescriptorValueCondition("!!tt2 != 123", solver0, true);

@@ -23,7 +23,6 @@ public class ConditionParsingUtils
 		
 		String s = token.trim();
 		
-		
 		if (s.isEmpty())
 			throw new Exception("Empty token");
 		
@@ -91,8 +90,9 @@ public class ConditionParsingUtils
 		
 		//Handling relation		
 		Relation relation = null;
+		char c = s.charAt(pos); 
 		
-		switch (s.charAt(pos))
+		switch (c)
 		{		
 		case '=':
 			pos++;
@@ -102,11 +102,11 @@ public class ConditionParsingUtils
 				{	
 					relation = Relation.EQUALS;
 					pos++;
-				}	
+				}
+				else
+					relation = Relation.EQUALS;
 			}
-			else
-				relation = Relation.EQUALS;
-		break;
+			break;
 		
 		case '!':
 			pos++;
@@ -116,17 +116,24 @@ public class ConditionParsingUtils
 					relation = Relation.DIFFERENT;
 					pos++;
 				}	
-			//This is incorrect relation;
+			//This is an incorrect relation;
 			break;
 		
 		case '>':
 			pos++;
 			if (pos < n)
+			{	
 				if (s.charAt(pos) == '=' )
 				{	
 					relation = Relation.GREATER_THAN_OR_EQUALS;
-				}	
-			relation = Relation.GREATER_THAN;
+					pos++;
+				}
+				else
+					relation = Relation.GREATER_THAN;
+					
+			}
+			else
+				relation = Relation.GREATER_THAN;
 			break;
 
 		case '<':
@@ -143,9 +150,12 @@ public class ConditionParsingUtils
 					{	
 						relation = Relation.DIFFERENT;
 						pos++;
-					}	
-			}	
-			relation = Relation.LESS_THAN;
+					}
+					else
+						relation = Relation.LESS_THAN;
+			}
+			else
+				relation = Relation.LESS_THAN;
 			break;
 		}
 		
