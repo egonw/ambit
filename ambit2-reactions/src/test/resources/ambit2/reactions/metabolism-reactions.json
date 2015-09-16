@@ -6,127 +6,147 @@
 			"CLASS" : "reduction",
 			"SMIRKS" : "[#6:1](=[O:2])[#6,H:5]>>[#6:1]([#6,H:5])[O:2][H]",
 			"USE" : true,
-			"USE_CONDITIONS" : ["REACTION_APPLICATIONS_PER_REACTANT <= 3"]
+			"USE_CONDITIONS" : ["REACTION_APPLICATIONS_PER_REACTANT < 3"]
 		},
 		{
 			"NAME" : "Thiolysis",
 			"CLASS" : "fatty_acid_pathway",
 			"SMIRKS" : "[C:1](=[O:2])[C:3][C:4](=[O:5])>>[C:1](=[O:2])[S].[S][C:3][C:4](=[O:5])",
-			"USE" : true
+			"USE" : true,
+			"USE_CONDITIONS" : ["REACTION_APPLICATIONS_PER_REACTANT < 3"]
 		},
 		{
 			"NAME" : "Dehydrogenation",
 			"CLASS" : "fatty_acid_pathway",
 			"SMIRKS" : "[*:1][C:2][C:3][C:5](=[OX1])[O:4][H]>>[*:1][C:2]=[C:3][C:5](=[OX1])[O:4][H]",
-			"USE" : true
+			"USE" : true,
+			"USE_CONDITIONS" : ["REACTION_APPLICATIONS_PER_REACTANT < 3"]
 		},
 		{
 			"NAME" : "Hydrolysis of disaccharides",
 			"CLASS" : "hydrolysis",
 			"SMIRKS" : "[O;R:1][C;R:2][O:3][C;R:4][C:5]>>[O;R:1][C;R:2][O:3][H].[C:4;R]([O][H])[C:5]",
-			"USE" : true
+			"USE" : true,
+			"USE_CONDITIONS" : ["REACTION_APPLICATIONS_PER_REACTANT < 3"]
 		},
 		{
 			"NAME" : "Phosphorylation",
 			"CLASS" : "Glycolysis",
 			"SMIRKS" : "[CX4H2:1][OX2:2][H]>>[CX4H2:1][OX2H0:2][P]([O][H])([O][H])=[OX1]",
-			"USE" : true
+			"USE" : true,
+			"USE_CONDITIONS" : ["REACTION_APPLICATIONS_PER_REACTANT < 3"]
 		},
 		{
 			"NAME" : "Dephosphorylation",
 			"CLASS" : "Glycolysis",
 			"SMIRKS" : "[CX4H2:1][OX2H0:2][P]([O][H])([O][H])=[OX1]>>[CX4H2:1][OX2:2][H]",
-			"USE" : true
+			"USE" : true,
+			"USE_CONDITIONS" : ["REACTION_APPLICATIONS_PER_REACTANT < 3"]
 		},
 		{
 			"NAME" : "Dehydrogenation",
 			"CLASS" : "PentosePathway",
 			"SMIRKS" : "[*:1][C:2]([H])([O:3][H])[C:4]>>[*:1][CH0:2](=[OH0:3])[C:4]",
-			"USE" : false
+			"USE" : false,
+			"USE_CONDITIONS" : ["REACTION_APPLICATIONS_PER_REACTANT < 3"]
 		},
 		{
 			"NAME" : "Aldose-ketose izomerization",
 			"CLASS" : "Glycolysis",
 			"SMIRKS" : "[C:1](=[O:2])[C:3]([H:6])([O:4][H:5])>>[C:1]([H:6])([O:2][H:5])[C:3](=[O:4])",
-			"USE" : false
+			"USE" : false,
+			"USE_CONDITIONS" : ["REACTION_APPLICATIONS_PER_REACTANT < 3"]
 		},
 		{
 			"NAME" : "Substrate-level phosphorylation",
 			"CLASS" : "Krebs",
 			"SMIRKS" : "[#6:1][OX2H0:2][P]([O][H])([O][H])=[OX1]>>[#6:1][O:2][H]",
-			"USE" : false
+			"USE" : false,
+			"USE_CONDITIONS" : ["REACTION_APPLICATIONS_PER_REACTANT < 3"]
 		},
 		{
 			"NAME" : "Decarboxylation",
 			"CLASS" : "Krebs",
 			"SMIRKS" : "[*:1][C:2][C:3](=[OH0:4])[O:5][H]>>[*:1][C:2].[CH0:3](=[OH0:4])=[OH0:5]",
-			"USE" : true
+			"USE" : true,
+			"USE_CONDITIONS" : ["REACTION_APPLICATIONS_PER_REACTANT < 3"]
 		},
 		{
 			"NAME" : "Hydration",
 			"CLASS" : "Krebs",
 			"SMIRKS" : "[C:1]=[C:2]>>[C:1]([O])[C:2]",
-			"USE" : false
+			"USE" : false,
+			"USE_CONDITIONS" : ["REACTION_APPLICATIONS_PER_REACTANT < 3"]
 		},
 		{
 			"NAME" : "Dehydration",
 			"CLASS" : "Krebs",
 			"SMIRKS" : "[*:1][C:2]([O])[C:3]>>[*:1][C:2]=[C:3]",
-			"USE" : false
+			"USE" : false,
+			"USE_CONDITIONS" : ["REACTION_APPLICATIONS_PER_REACTANT < 3"]
 		},
 		{
 			"NAME" : "Aliphatic hydroxylation",
 			"CLASS" : "phase1",
 			"SMIRKS" : "[C;X4:1]([!O:3])([!O:4])([!O:5])[H:2]>>[C:1]([!O:3])([!O:4])([!O:5])[O][H:2]",
-			"USE" : false
+			"USE" : false,
+			"USE_CONDITIONS" : ["REACTION_APPLICATIONS_PER_REACTANT < 3"]
 		},		
 		{
 			"NAME" : "Aromatic hydroxylation",
 			"CLASS" : "phase1",
 			"SMIRKS" : "[c:1][H:2]>>[c:1][O][H:2]",
-			"USE" : true
+			"USE" : true,
+			"USE_CONDITIONS" : ["REACTION_APPLICATIONS_PER_REACTANT < 3"]
 		},
 		{
 			"NAME" : "O-dealkylation",
 			"CLASS" : "phase1",
 			"SMIRKS" : "[O:1][C:2]([H])>>[O:1][H].[C:2]=[O]",
-			"USE" : true
+			"USE" : true,
+			"USE_CONDITIONS" : ["REACTION_APPLICATIONS_PER_REACTANT < 3"]
 		},
 		{
 			"NAME" : "Aldehyde oxidation",
 			"CLASS" : "phase1",
 			"SMIRKS" : "[H][C:1]=[O:2]>>[C:1](O[H])=[O:2]",
-			"USE" : false
+			"USE" : false,
+			"USE_CONDITIONS" : ["REACTION_APPLICATIONS_PER_REACTANT < 3"]
 		},
 		{
 			"NAME" : "Alcohol oxidation",
 			"CLASS" : "phase1",
 			"SMIRKS" : "[C:1]([H])[O:2][H]>>[C:1]=[O:2]",
-			"USE" : false
+			"USE" : false,
+			"USE_CONDITIONS" : ["REACTION_APPLICATIONS_PER_REACTANT < 3"]
 		},
 		{
 			"NAME" : "Dioxolane demethylation",
 			"CLASS" : "phase1",
 			"SMIRKS" : "[C:3]([#8:1])[#8:2]>>[#8:1].[#8:2].[C:3]=[O]",
-			"USE" : false
+			"USE" : false,
+			"USE_CONDITIONS" : ["REACTION_APPLICATIONS_PER_REACTANT < 3"]
 		},
 		{
 			"NAME" : "Epoxidation",
 			"CLASS" : "phase1",
 			"SMIRKS" : "[C:1]=[C:2]>>[C:1]1[C:2][O]1",
-			"USE" : false
+			"USE" : false,
+			"USE_CONDITIONS" : ["REACTION_APPLICATIONS_PER_REACTANT < 3"]
 		},
 		{
 			"NAME" : "Ester hydrolysis",
 			"CLASS" : "phase1.reduction",
 			"SMIRKS" : "[#6:1][CX3:2](=[OX1:3])[OX2H0:4][#6:5]>>[#6:1][CX3:2](=[OX1:3])[OH].[#6:5][OX2H0:4]",
-			"USE" : false
+			"USE" : false,
+			"USE_CONDITIONS" : ["REACTION_APPLICATIONS_PER_REACTANT < 3"]
 		},
 		{
 			"NAME" : "Epoxide  hydrolysis",
 			"CLASS" : "phase1.reduction",
 			"SMIRKS" : "[C:1]([*:2])1[C:3]([*:4])[O:5]1>>([*:2])[C:1]([O])[C:3]([*:4])[O:5]",
-			"USE" : false
+			"USE" : false,
+			"USE_CONDITIONS" : ["REACTION_APPLICATIONS_PER_REACTANT < 3"]
 		}
 	],
 	

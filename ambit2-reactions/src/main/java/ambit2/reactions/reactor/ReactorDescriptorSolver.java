@@ -1,13 +1,19 @@
 package ambit2.reactions.reactor;
 
+import java.util.logging.Logger;
+
+import org.openscience.cdk.tools.LoggingTool;
+
 import ambit2.rules.conditions.AbstractDescriptorSolver;
 
 public class ReactorDescriptorSolver extends AbstractDescriptorSolver
 {
+	private static Logger logger;
 	protected ReactorInfoPack rInfo = null;
 	
 	public ReactorDescriptorSolver()
 	{
+		logger = Logger.getLogger("ReactorDescriptorSolver");
 		setup();
 	}
 	
@@ -27,9 +33,11 @@ public class ReactorDescriptorSolver extends AbstractDescriptorSolver
 		else
 			return null;
 		
+		
 		if (descrName.equals("REACTION_APPLICATIONS_PER_REACTANT"))
 			return get_REACTION_APPLICATIONS_PER_REACTANT();
-				
+		
+		logger.info("Uknown descriptor: " + descrName);
 		return null;
 	}
 	
@@ -47,8 +55,11 @@ public class ReactorDescriptorSolver extends AbstractDescriptorSolver
 		int reagent_rids[] = (int[]) rids;
 		int n = reagent_rids.length;
 		for (int i = 0; i < n; i++)
-			if (reagent_rids[i] == rInfo.reaction.getId());
+			if (reagent_rids[i] == rInfo.reaction.getId())
 				res = res + 1;
+				
+		//logger.info("REACTION_APPLICATIONS_PER_REACTANT = " + res);
+				
 		return res;
 	}
 	

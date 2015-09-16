@@ -48,7 +48,7 @@ public class ReactorMetabolismTest extends TestCase
 		
 		ReactorStrategy strategy = new ReactorStrategy(new File(resource.getFile()));  //strategy is in the same file
 		
-		strategy.maxNumOfNodes = 20000;
+		strategy.maxNumOfNodes = 140000;
 		strategy.FlagStoreFailedNodes = true;
 		strategy.FlagStoreSuccessNodes = true;
 		strategy.maxNumOfSuccessNodes = 0;  //if 0 then the reactor will stop after the first success node
@@ -59,6 +59,7 @@ public class ReactorMetabolismTest extends TestCase
 		strategy.FlagLogReactionPath = false;
 		strategy.FlagLogNameInReactionPath = false;
 		strategy.FlagLogExplicitHToImplicit = true;
+		strategy.FlagLogNumberOfProcessedNodes = true;
 		
 		reactor.setStrategy(strategy);
 		
@@ -80,6 +81,7 @@ public class ReactorMetabolismTest extends TestCase
 	
 	public void testMetabolism01() throws Exception
 	{
+		
 		String smiles = "CO";
 		assertEquals("metabolize " + smiles, true, metabolize(smiles));
 		
@@ -89,17 +91,42 @@ public class ReactorMetabolismTest extends TestCase
 		smiles = "NCCO";
 		assertEquals("metabolize " + smiles, false, metabolize(smiles));
 		
+		//GLYCEROL-3P
 		smiles = "[H]C(O)(CO)COP(=O)(O)O";
 		assertEquals("metabolize " + smiles, true, metabolize(smiles));
 		
-		//smiles = "[H]C1(N)(C([H])(O)OC([H])(COP(=O)(O)O)C([H])(O)C1([H])(O))";
+		//SUCROSE (105039 nodes)
+		//smiles = "C2(O)(C(O)C(CO)OC(OC1(CO)(OC(CO)C(O)C1(O)))C2(O))";
+		//assertEquals("metabolize " + smiles, true, metabolize(smiles));
+				
+		//MALTOSE  (24959 nodes)
+		//smiles = "C2(O)(C(O)OC(CO)C(OC1(OC(CO)C(O)C(O)C1(O)))C2(O))";
 		//assertEquals("metabolize " + smiles, true, metabolize(smiles));
 		
+		//TREHALOSE (26495 nodes)
+		//smiles = "C2(O)(C(O)C(CO)OC(OC1(OC(CO)C(O)C(O)C1(O)))C2(O))";
+		//assertEquals("metabolize " + smiles, true, metabolize(smiles));
 		
+		//LACTOSE (6592 nodes)
+		smiles = "C2(O)(OC(CO)C(OC1(OC(CO)C(O)C(O)C1(O)))C(O)C2(O))";
+		assertEquals("metabolize " + smiles, true, metabolize(smiles));
 		
-		//smiles = "[H]C1(O)(C([H])(O)C(O)(CO)OC1([H])(COP(=O)(O)O))";
-		//smiles = "C2(O)(C(O)C(CO)OC(OC1(CO)(OC(CO)C(O)C1(O)))C2(O))";
-		//smiles = "C2(O)(OC(CO)C(OC1(OC(CO)C(O)C(O)C1(O)))C(O)C2(O))";
+		//Adenosine phosphate (5465 nodes)
+		smiles = "NC3N=CN=C1C=3(N=CN1C2OC(COP(O)(O)=O)C(O)C2(O))";
+		assertEquals("metabolize " + smiles, true, metabolize(smiles));
+		
+		//Deoxyadenosine monophosphate (2982 nodes)
+		smiles = "NC3=NC=NC2=C3(N=CN2(C1CC(O)C(COP(O)(O)=O)O1))";
+		assertEquals("metabolize " + smiles, true, metabolize(smiles));
+		
+		//Guanosine monophosphate (5317 nodes)
+		smiles = "NC1NC(=O)C=2N=CN(C=2(N=1))C3OC(COP(O)(O)=O)C(O)C3(O)";
+		assertEquals("metabolize " + smiles, true, metabolize(smiles));
+		
+		//D-GLUCOSAMINE-6-P (2005 nodes)
+		smiles = "[H]C1(N)(C([H])(O)OC([H])(COP(=O)(O)O)C([H])(O)C1([H])(O))";
+		assertEquals("metabolize " + smiles, true, metabolize(smiles));
+		
 		
 	}
 	

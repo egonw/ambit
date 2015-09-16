@@ -165,9 +165,18 @@ public class Reactor
 		
 		if (strategy.FlagLogMainReactionFlow)
 			logger.info("Reactor stack = " + reactorNodes.size() + " nodes"
-					+"\nCurrent status: " + reactorResult.getStatusInfo()
-					+"\nProcessing " + node.toString(this));
-		
+				+"\nCurrent status: " + reactorResult.getStatusInfo()
+				+"\nProcessing " + node.toString(this));
+			else		
+				if (strategy.FlagLogNumberOfProcessedNodes)
+				{	
+					if (reactorResult.numReactorNodes > reactorResult.logStep*strategy.NodeLogingFrequency)
+					{	
+						logger.info("Reactor processed nodes: " + reactorResult.numReactorNodes);
+						reactorResult.logStep++;
+					}		
+				}		
+
 		//Result is updated on node processing (not on node creating/pushing in the stack)
 		updateResult(node, state);
 		
@@ -200,15 +209,16 @@ public class Reactor
 			List<List<IAtom>> instances = reaction.findReactionInstances(reagent, smrkMan);
 			
 			//Check reaction conditions
-			if (reaction.getConditions() != null)
-			{	
-				ReactorInfoPack ri = new ReactorInfoPack();
-				ri.reactor = this;
-				ri.reaction = reaction;
-				ri.reagent = reagent;
-				if (!reaction.checkConditionsForTarget(ri))
-					continue;
-			}
+			if (strategy.FlagCheckReactionConditions)
+				if (reaction.getConditions() != null)
+				{	
+					ReactorInfoPack ri = new ReactorInfoPack();
+					ri.reactor = this;
+					ri.reaction = reaction;
+					ri.reagent = reagent;
+					if (!reaction.checkConditionsForTarget(ri))
+						continue;
+				}
 			
 			numOfReactionInstances += instances.size();
 			

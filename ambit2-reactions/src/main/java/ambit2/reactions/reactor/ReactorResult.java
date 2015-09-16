@@ -14,6 +14,8 @@ public class ReactorResult
 	public int numReactorNodes = 0;
 	public int curMaxLevel = 0;
 	
+	public int logStep = 1;
+	
 	
 	public String getStatusInfo()
 	{

@@ -113,7 +113,7 @@ public class ReactionTestUtils
 			System.out.println(ts.get(i));
 	}
 	
-	
+			
 	public static void testReactor(String smiles, String reactionDBFile) throws Exception
 	{
 		System.out.println("Setting reactor and reaction database...");

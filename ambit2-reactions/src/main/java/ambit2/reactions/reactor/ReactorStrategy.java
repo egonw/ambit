@@ -28,7 +28,7 @@ public class ReactorStrategy
 	public int maxNumOfFailedNodes = -1;
 	public int maxNumOfSuccessNodes = -1;
 	protected boolean FlagCalcProductInchiKey = true;  //Typically this flag should be true
-	
+	public boolean FlagCheckReactionConditions = true;
 	
 	//Tracing flags
 	public boolean FlagStoreSuccessNodes = false;
@@ -58,6 +58,8 @@ public class ReactorStrategy
 	public boolean FlagLogReactionPath = false;
 	public boolean FlagLogNameInReactionPath = false;
 	public boolean FlagLogExplicitHToImplicit = false;
+	public boolean FlagLogNumberOfProcessedNodes = false;
+	public int NodeLogingFrequency = 1000;
 	
 	public ReactorStrategy(){
 	}
